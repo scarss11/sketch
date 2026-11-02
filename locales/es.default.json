@@ -1,0 +1,84 @@
+{
+  "general": {
+    "page": "Página {{ page }}",
+    "continue_shopping": "Seguir comprando",
+    "search": {
+      "title": "Buscar",
+      "label": "¿Qué estás buscando?",
+      "submit": "Buscar",
+      "results_count": { "one": "{{ count }} resultado para “{{ terms }}”", "other": "{{ count }} resultados para “{{ terms }}”" },
+      "no_results": "No encontramos resultados para “{{ terms }}”. Prueba con otra palabra."
+    },
+    "pagination": { "label": "Paginación", "previous": "Página anterior", "next": "Página siguiente" }
+  },
+  "accessibility": { "skip_to_content": "Ir al contenido" },
+  "sections": {
+    "announcement": { "label": "Anuncio" },
+    "header": { "menu": "Abrir menú", "close_menu": "Cerrar menú", "nav_label": "Menú principal" },
+    "featured_collection": { "view_all": "Ver todo" },
+    "collection": { "empty": "Aún no hay productos en esta colección." },
+    "collection_list": { "title": "Colecciones" }
+  },
+  "products": {
+    "product": {
+      "sold_out": "Agotado",
+      "save_percent": "Ahorra {{ percent }}%",
+      "sale_price": "Precio de oferta",
+      "regular_price": "Precio normal",
+      "from": "Desde",
+      "quantity": "Cantidad",
+      "decrease": "Restar uno",
+      "increase": "Sumar uno",
+      "add_to_cart": "Agregar al carrito",
+      "unavailable": "No disponible",
+      "taxes_included": "Impuestos incluidos. El envío se calcula al pagar."
+    }
+  },
+  "templates": {
+    "cart": {
+      "title": "Carrito",
+      "product": "Producto",
+      "total": "Total",
+      "remove": "Quitar",
+      "subtotal": "Subtotal",
+      "taxes_shipping": "Impuestos y envío se calculan al pagar.",
+      "update": "Actualizar carrito",
+      "checkout": "Pagar",
+      "empty": "Tu carrito está vacío."
+    },
+    "contact": {
+      "success": "Gracias por escribirnos. Te responderemos lo antes posible.",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "message": "Mensaje",
+      "send": "Enviar mensaje"
+    },
+    "404": { "title": "No encontramos esta página", "subtext": "Puede que el enlace haya cambiado. Explora nuestra colección." }
+  },
+  "customer": {
+    "account": { "title": "Mi cuenta", "logout": "Cerrar sesión", "orders": "Pedidos", "no_orders": "Aún no has hecho pedidos.", "details": "Datos de la cuenta" },
+    "login": { "title": "Iniciar sesión", "email": "Correo electrónico", "password": "Contraseña", "submit": "Iniciar sesión", "forgot": "¿Olvidaste tu contraseña?", "guest": "Continuar como invitado" },
+    "recover": { "title": "Restablecer contraseña", "success": "Te enviamos un correo con un enlace para cambiar tu contraseña.", "submit": "Enviar enlace" },
+    "register": { "title": "Crear cuenta", "first_name": "Nombre", "last_name": "Apellido", "submit": "Crear cuenta" },
+    "order": { "number": "Pedido", "date": "Fecha", "title": "Pedido {{ name }}", "billing": "Dirección de facturación", "shipping": "Dirección de envío" },
+    "addresses": {
+      "view": { "one": "Ver dirección ({{ count }})", "other": "Ver direcciones ({{ count }})" },
+      "title": "Direcciones",
+      "default": "Predeterminada",
+      "delete": "Eliminar dirección",
+      "add": "Agregar dirección",
+      "address1": "Dirección",
+      "city": "Ciudad",
+      "country": "País",
+      "zip": "Código postal",
+      "set_default": "Usar como dirección predeterminada",
+      "save": "Guardar dirección"
+    },
+    "activate": { "title": "Activar cuenta", "submit": "Activar cuenta" },
+    "reset": { "title": "Nueva contraseña", "confirm": "Confirmar contraseña", "submit": "Guardar contraseña" }
+  },
+  "onboarding": { "product_title": "Nombre del producto" },
+  "newsletter": { "label": "Correo electrónico", "button": "Suscribirme", "success": "¡Gracias por suscribirte!" },
+  "blogs": { "article": { "back": "Volver a {{ title }}" } }
+}

@@ -1,0 +1,84 @@
+{
+  "general": {
+    "page": "Page {{ page }}",
+    "continue_shopping": "Continue shopping",
+    "search": {
+      "title": "Search",
+      "label": "What are you looking for?",
+      "submit": "Search",
+      "results_count": { "one": "{{ count }} result for “{{ terms }}”", "other": "{{ count }} results for “{{ terms }}”" },
+      "no_results": "No results found for “{{ terms }}”. Try another word."
+    },
+    "pagination": { "label": "Pagination", "previous": "Previous page", "next": "Next page" }
+  },
+  "accessibility": { "skip_to_content": "Skip to content" },
+  "sections": {
+    "announcement": { "label": "Announcement" },
+    "header": { "menu": "Open menu", "close_menu": "Close menu", "nav_label": "Main menu" },
+    "featured_collection": { "view_all": "View all" },
+    "collection": { "empty": "There are no products in this collection yet." },
+    "collection_list": { "title": "Collections" }
+  },
+  "products": {
+    "product": {
+      "sold_out": "Sold out",
+      "save_percent": "Save {{ percent }}%",
+      "sale_price": "Sale price",
+      "regular_price": "Regular price",
+      "from": "From",
+      "quantity": "Quantity",
+      "decrease": "Decrease by one",
+      "increase": "Increase by one",
+      "add_to_cart": "Add to cart",
+      "unavailable": "Unavailable",
+      "taxes_included": "Taxes included. Shipping calculated at checkout."
+    }
+  },
+  "templates": {
+    "cart": {
+      "title": "Cart",
+      "product": "Product",
+      "total": "Total",
+      "remove": "Remove",
+      "subtotal": "Subtotal",
+      "taxes_shipping": "Taxes and shipping calculated at checkout.",
+      "update": "Update cart",
+      "checkout": "Check out",
+      "empty": "Your cart is empty."
+    },
+    "contact": {
+      "success": "Thanks for reaching out. We'll get back to you as soon as possible.",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "send": "Send message"
+    },
+    "404": { "title": "We couldn't find this page", "subtext": "The link may have changed. Explore our collection." }
+  },
+  "customer": {
+    "account": { "title": "Account", "logout": "Log out", "orders": "Orders", "no_orders": "You haven't placed any orders yet.", "details": "Account details" },
+    "login": { "title": "Log in", "email": "Email", "password": "Password", "submit": "Sign in", "forgot": "Forgot your password?", "guest": "Continue as guest" },
+    "recover": { "title": "Reset your password", "success": "We've sent you an email with a link to update your password.", "submit": "Send link" },
+    "register": { "title": "Create account", "first_name": "First name", "last_name": "Last name", "submit": "Create account" },
+    "order": { "number": "Order", "date": "Date", "title": "Order {{ name }}", "billing": "Billing address", "shipping": "Shipping address" },
+    "addresses": {
+      "view": { "one": "View address ({{ count }})", "other": "View addresses ({{ count }})" },
+      "title": "Addresses",
+      "default": "Default",
+      "delete": "Delete address",
+      "add": "Add address",
+      "address1": "Address",
+      "city": "City",
+      "country": "Country",
+      "zip": "Postal code",
+      "set_default": "Set as default address",
+      "save": "Save address"
+    },
+    "activate": { "title": "Activate account", "submit": "Activate account" },
+    "reset": { "title": "New password", "confirm": "Confirm password", "submit": "Save password" }
+  },
+  "onboarding": { "product_title": "Product name" },
+  "newsletter": { "label": "Email", "button": "Subscribe", "success": "Thanks for subscribing!" },
+  "blogs": { "article": { "back": "Back to {{ title }}" } }
+}

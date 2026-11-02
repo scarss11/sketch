@@ -1,0 +1,44 @@
+<section class="section--tight" style="border-bottom: 1px solid var(--color-border)">
+  <div class="page-width" style="text-align:center">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="eyebrow" style="font-family:var(--font-body);font-weight:600">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ul class="logo-list" role="list" style="list-style:none;padding:0">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 300 | image_tag: height: 40, alt: block.settings.image.alt | default: block.settings.name }}
+          {%- else -%}
+            <span class="logo-list__placeholder" style="display:block">{{ 'logo' | placeholder_svg_tag }}</span>
+          {%- endif -%}
+          {%- if block.settings.link != blank -%}</a>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lista de logos",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Nos han mencionado en" }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "text", "id": "name", "label": "Nombre (texto alternativo)" },
+        { "type": "url", "id": "link", "label": "Enlace" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    { "name": "Lista de logos", "blocks": [ { "type": "logo" }, { "type": "logo" }, { "type": "logo" }, { "type": "logo" }, { "type": "logo" } ] }
+  ]
+}
+{% endschema %}

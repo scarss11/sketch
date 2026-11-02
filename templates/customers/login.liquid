@@ -1,0 +1,26 @@
+<section class="section"><div class="page-width customer">
+  <h1 class="h2">{{ 'customer.login.title' | t }}</h1>
+  {%- form 'customer_login' -%}
+    {%- if form.errors -%}<p class="form-message form-message--error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="field"><label for="LoginEmail">{{ 'customer.login.email' | t }}</label><input id="LoginEmail" type="email" name="customer[email]" autocomplete="email" required></div>
+      <div class="field"><label for="LoginPassword">{{ 'customer.login.password' | t }}</label><input id="LoginPassword" type="password" name="customer[password]" autocomplete="current-password" required></div>
+      <button type="submit" class="button">{{ 'customer.login.submit' | t }}</button>
+      <a href="#recover">{{ 'customer.login.forgot' | t }}</a>
+      <a href="{{ routes.account_register_url }}">{{ 'customer.register.title' | t }}</a>
+    </div>
+  {%- endform -%}
+  <div id="recover">
+    <h2 class="h3">{{ 'customer.recover.title' | t }}</h2>
+    {%- form 'recover_customer_password' -%}
+      {%- if form.posted_successfully? -%}<p class="form-message" role="status">{{ 'customer.recover.success' | t }}</p>{%- endif -%}
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px">
+        <div class="field"><label for="RecoverEmail">{{ 'customer.login.email' | t }}</label><input id="RecoverEmail" type="email" name="email" autocomplete="email" required></div>
+        <button type="submit" class="button button--secondary">{{ 'customer.recover.submit' | t }}</button>
+      </div>
+    {%- endform -%}
+  </div>
+  {%- if shop.checkout.guest_login -%}
+    {%- form 'guest_login' -%}<button type="submit" class="button button--secondary">{{ 'customer.login.guest' | t }}</button>{%- endform -%}
+  {%- endif -%}
+</div></section>

@@ -1,0 +1,6 @@
+# Archivos que NO se suben a Shopify
+.vscode/
+README.md
+hagane.code-workspace
+.gitignore
+.theme-check.yml

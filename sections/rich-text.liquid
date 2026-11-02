@@ -1,0 +1,26 @@
+<section class="section">
+  <div class="page-width">
+    <div class="rich-text">
+      {%- if section.settings.show_icon -%}<span style="color:var(--color-accent)">{% render 'icon', icon: 'shield' %}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="h2">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="rte">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="button button--secondary" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Texto enriquecido",
+  "settings": [
+    { "type": "checkbox", "id": "show_icon", "label": "Mostrar ícono", "default": true },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Nuestra promesa" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Una selección cuidada, hecha por los mejores artesanos, para que cada cocinero disfrute más su cocina.</p>" },
+    { "type": "text", "id": "button_label", "label": "Texto del botón" },
+    { "type": "url", "id": "button_link", "label": "Enlace del botón" }
+  ],
+  "presets": [{ "name": "Texto enriquecido" }]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Shopify: vista previa en vivo (theme dev)",
+      "type": "shell",
+      "command": "shopify theme dev --store ${input:store}",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Shopify: revisar errores (theme check)",
+      "type": "shell",
+      "command": "shopify theme check",
+      "problemMatcher": []
+    },
+    {
+      "label": "Shopify: subir como tema nuevo sin publicar",
+      "type": "shell",
+      "command": "shopify theme push --unpublished --store ${input:store}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Shopify: descargar cambios hechos en el editor de Shopify",
+      "type": "shell",
+      "command": "shopify theme pull --store ${input:store}",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "store",
+      "type": "promptString",
+      "description": "Dirección de tu tienda (ej: mitienda.myshopify.com)"
+    }
+  ]
+}

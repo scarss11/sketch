@@ -1,0 +1,3 @@
+# Configuración de Theme Check (revisión de errores del tema)
+root: .
+extends: :recommended

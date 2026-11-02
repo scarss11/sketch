@@ -1,0 +1,29 @@
+<section class="section"><div class="page-width">
+  <h1 class="h2">{{ 'customer.account.title' | t }}</h1>
+  <p><a href="{{ routes.account_logout_url }}">{{ 'customer.account.logout' | t }}</a></p>
+  <div style="display:grid;gap:48px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:32px">
+    <div>
+      <h2 class="h3" style="margin-bottom:16px">{{ 'customer.account.orders' | t }}</h2>
+      {%- paginate customer.orders by 20 -%}
+        {%- if customer.orders.size > 0 -%}
+          <table class="cart-table">
+            <thead><tr><th scope="col">{{ 'customer.order.number' | t }}</th><th scope="col">{{ 'customer.order.date' | t }}</th><th scope="col">{{ 'templates.cart.total' | t }}</th></tr></thead>
+            <tbody>
+              {%- for order in customer.orders -%}
+                <tr><td><a href="{{ order.customer_url }}">{{ order.name }}</a></td><td>{{ order.created_at | time_tag: format: 'date' }}</td><td>{{ order.total_price | money_with_currency }}</td></tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        {%- else -%}
+          <p>{{ 'customer.account.no_orders' | t }}</p>
+        {%- endif -%}
+        {% render 'pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    </div>
+    <div>
+      <h2 class="h3" style="margin-bottom:16px">{{ 'customer.account.details' | t }}</h2>
+      {{ customer.default_address | format_address }}
+      <p><a href="{{ routes.account_addresses_url }}">{{ 'customer.addresses.view' | t: count: customer.addresses_count }}</a></p>
+    </div>
+  </div>
+</div></section>

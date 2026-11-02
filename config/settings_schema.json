@@ -1,0 +1,38 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Hagane",
+    "theme_version": "1.0.0",
+    "theme_author": "Plantilla personalizada",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      { "type": "color", "id": "color_background", "label": "Fondo", "default": "#F3F1EC" },
+      { "type": "color", "id": "color_surface", "label": "Fondo secundario (tarjetas, colección)", "default": "#FFFFFF" },
+      { "type": "color", "id": "color_text", "label": "Texto y botones", "default": "#141414" },
+      { "type": "color", "id": "color_muted", "label": "Texto secundario", "default": "#55595D" },
+      { "type": "color", "id": "color_accent", "label": "Acento", "default": "#A8834A" },
+      { "type": "color", "id": "color_border", "label": "Bordes", "default": "#DCD8D0" },
+      { "type": "color", "id": "color_dark", "label": "Secciones oscuras (fondo)", "default": "#1C1B19" },
+      { "type": "color", "id": "color_dark_text", "label": "Secciones oscuras (texto)", "default": "#F3F1EC" }
+    ]
+  },
+  {
+    "name": "Tipografía",
+    "settings": [
+      { "type": "font_picker", "id": "type_heading_font", "label": "Títulos", "default": "playfair_display_n4" },
+      { "type": "font_picker", "id": "type_body_font", "label": "Texto", "default": "inter_n4" }
+    ]
+  },
+  {
+    "name": "Diseño",
+    "settings": [
+      { "type": "range", "id": "page_width", "label": "Ancho máximo de página", "min": 1000, "max": 1600, "step": 40, "unit": "px", "default": 1280 },
+      { "type": "range", "id": "button_radius", "label": "Redondeo de botones", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 0 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+    ]
+  }
+]

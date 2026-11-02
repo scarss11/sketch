@@ -1,0 +1,9 @@
+{
+  "type": "header",
+  "name": "Grupo de encabezado",
+  "sections": {
+    "announcement": { "type": "announcement-bar", "settings": { "text": "Oferta por tiempo limitado · Hasta 50% de descuento" } },
+    "header": { "type": "header", "settings": { "menu": "main-menu", "sticky": true, "show_language_selector": true, "logo_width": 140 } }
+  },
+  "order": ["announcement", "header"]
+}

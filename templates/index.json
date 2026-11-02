@@ -1,0 +1,90 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Cuchillos de cocina profesionales",
+        "heading": "Cortes precisos, sin esfuerzo",
+        "button_label": "Comprar ahora",
+        "button_link": "shopify://collections/all",
+        "align": "left",
+        "height": 640,
+        "overlay": 35
+      }
+    },
+    "logos": {
+      "type": "logo-list",
+      "blocks": {
+        "logo-1": { "type": "logo", "settings": {} },
+        "logo-2": { "type": "logo", "settings": {} },
+        "logo-3": { "type": "logo", "settings": {} },
+        "logo-4": { "type": "logo", "settings": {} },
+        "logo-5": { "type": "logo", "settings": {} }
+      },
+      "block_order": ["logo-1", "logo-2", "logo-3", "logo-4", "logo-5"],
+      "settings": { "heading": "Nos han mencionado en" }
+    },
+    "feature-1": {
+      "type": "image-with-text",
+      "blocks": {
+        "num": { "type": "eyebrow", "settings": { "text": "01" } },
+        "title": { "type": "heading", "settings": { "heading": "Filo de navaja" } },
+        "body": { "type": "text", "settings": { "text": "<p>Hojas de acero alto en carbono que entran en cualquier ingrediente con control y rapidez. El cuchillo trabaja por ti, no al revés.</p>" } }
+      },
+      "block_order": ["num", "title", "body"],
+      "settings": { "layout": "left", "scheme": "light", "compact_top": false }
+    },
+    "feature-2": {
+      "type": "image-with-text",
+      "blocks": {
+        "num": { "type": "eyebrow", "settings": { "text": "02" } },
+        "title": { "type": "heading", "settings": { "heading": "Belleza en cada pieza" } },
+        "body": { "type": "text", "settings": { "text": "<p>Rendimiento primero, pero sin renunciar a la forma: cada diseño tiene un patrón propio que lo hace inconfundible en tu cocina.</p>" } }
+      },
+      "block_order": ["num", "title", "body"],
+      "settings": { "layout": "right", "scheme": "light", "compact_top": true }
+    },
+    "feature-3": {
+      "type": "image-with-text",
+      "blocks": {
+        "num": { "type": "eyebrow", "settings": { "text": "03" } },
+        "title": { "type": "heading", "settings": { "heading": "Filo que perdura" } },
+        "body": { "type": "text", "settings": { "text": "<p>Templado pensado para mantener el corte durante meses de uso diario. Más tiempo cocinando, menos tiempo afilando.</p>" } }
+      },
+      "block_order": ["num", "title", "body"],
+      "settings": { "layout": "left", "scheme": "light", "compact_top": true }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Colección destacada",
+        "heading": "",
+        "limit": 8,
+        "columns": 4,
+        "layout": "slider",
+        "scheme": "surface",
+        "show_view_all": true
+      }
+    },
+    "craft": {
+      "type": "image-with-text",
+      "blocks": {
+        "eyebrow": { "type": "eyebrow", "settings": { "text": "Nuestro oficio" } },
+        "title": { "type": "heading", "settings": { "heading": "Forjado capa por capa" } },
+        "body": { "type": "text", "settings": { "text": "<p>Nuestros maestros cuchilleros trabajan con un objetivo: filo extremo y durabilidad. Inspirados en técnicas tradicionales de forja, unen varias capas de acero a alta temperatura para lograr hojas que cortan con suavidad y duran toda la vida.</p>" } },
+        "button": { "type": "button", "settings": { "label": "Comprar ahora", "link": "shopify://collections/all", "secondary": true } }
+      },
+      "block_order": ["eyebrow", "title", "body", "button"],
+      "settings": { "layout": "left", "scheme": "dark", "compact_top": false }
+    },
+    "promise": {
+      "type": "rich-text",
+      "settings": {
+        "show_icon": true,
+        "heading": "Nuestra promesa",
+        "text": "<p>Una selección cuidada, hecha por los mejores artesanos, para que cada cocinero disfrute más su cocina. Piezas únicas y de alta calidad.</p>"
+      }
+    }
+  },
+  "order": ["hero", "logos", "feature-1", "feature-2", "feature-3", "featured", "craft", "promise"]
+}

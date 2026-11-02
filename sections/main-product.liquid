@@ -1,0 +1,85 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<section class="section">
+  <div class="page-width product">
+    <div class="product__gallery">
+      {%- for media in product.media limit: 7 -%}
+        {%- if media.media_type == 'image' -%}
+          {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200, 1400', alt: media.alt | default: product.title }}
+        {%- else -%}
+          {{ media | media_tag: image_size: '1400x' }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag }}
+      {%- endfor -%}
+    </div>
+
+    <div class="product__info">
+      {%- if section.settings.show_vendor -%}<p class="eyebrow">{{ product.vendor | escape }}</p>{%- endif -%}
+      <h1 class="h2">{{ product.title | escape }}</h1>
+
+      <div class="price product__price">
+        <span class="price__sale" data-product-price>{{ current_variant.price | money }}</span>
+        <s class="price__compare" data-product-compare{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{{ current_variant.compare_at_price | money }}</s>
+      </div>
+      {%- if cart.taxes_included -%}<p class="form-message" style="color:var(--color-muted)">{{ 'products.product.taxes_included' | t }}</p>{%- endif -%}
+
+      {%- form 'product', product, data-product-form: '', data-money-format: shop.money_format -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <fieldset class="variant-picker" data-option-position="{{ option.position }}">
+                <legend>{{ option.name | escape }}</legend>
+                <div class="variant-picker__options">
+                  {%- for value in option.values -%}
+                    <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index }}" name="{{ option.name | escape }}" value="{{ value | escape }}" data-option-index="{{ forloop.index0 }}"{% if option.selected_value == value %} checked{% endif %}>
+                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index }}">{{ value | escape }}</label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="field">
+            <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+            <div class="quantity">
+              <button type="button" data-qty="minus" aria-label="{{ 'products.product.decrease' | t }}">−</button>
+              <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+              <button type="button" data-qty="plus" aria-label="{{ 'products.product.increase' | t }}">+</button>
+            </div>
+          </div>
+
+          <div class="product__buttons">
+            <button type="submit" name="add" class="button"
+              data-add="{{ 'products.product.add_to_cart' | t }}"
+              data-soldout="{{ 'products.product.sold_out' | t }}"
+              data-unavailable="{{ 'products.product.unavailable' | t }}"
+              {% unless current_variant.available %}disabled{% endunless %}>
+              {%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+            </button>
+            {%- if section.settings.show_dynamic_checkout -%}{{ form | payment_button }}{%- endif -%}
+          </div>
+        </div>
+        <script type="application/json" data-variants>
+          [{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price }},"compare_at_price":{{ v.compare_at_price | default: 0 }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+        </script>
+      {%- endform -%}
+
+      <div class="rte" style="color:var(--color-muted)">{{ product.description }}</div>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Producto",
+  "settings": [
+    { "type": "checkbox", "id": "show_vendor", "label": "Mostrar marca/proveedor", "default": false },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Mostrar botón de compra rápida", "default": true }
+  ]
+}
+{% endschema %}

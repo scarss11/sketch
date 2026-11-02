@@ -1,0 +1,5 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": {},
+  "extensions": { "recommendations": ["Shopify.theme-check-vscode"] }
+}

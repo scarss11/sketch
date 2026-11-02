@@ -1,0 +1,21 @@
+{%- if section.settings.text != blank -%}
+  <div class="announcement" role="region" aria-label="{{ 'sections.announcement.label' | t }}">
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}">{{ section.settings.text | escape }}</a>
+    {%- else -%}
+      {{ section.settings.text | escape }}
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barra de anuncio",
+  "class": "section-announcement",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Texto", "default": "Oferta por tiempo limitado · Hasta 50% de descuento" },
+    { "type": "url", "id": "link", "label": "Enlace" }
+  ],
+  "presets": [{ "name": "Barra de anuncio" }]
+}
+{% endschema %}

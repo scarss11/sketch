@@ -1,0 +1,44 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .hero { --hero-height: {{ section.settings.height }}px; --overlay: {{ section.settings.overlay | divided_by: 100.0 }}; }
+  @media (max-width: 749px) { #shopify-section-{{ section.id }} .hero { --hero-height: {{ section.settings.height | times: 0.75 | round }}px; } }
+{%- endstyle -%}
+
+<section class="hero" aria-labelledby="Hero-{{ section.id }}">
+  <div class="hero__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 3000 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000, 3000', alt: section.settings.image.alt | default: '' }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+  <div class="page-width hero__content{% if section.settings.align == 'center' %} hero__content--center{% endif %}">
+    {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- liquid
+      assign tag = 'h2'
+      if request.page_type == 'index' and section.index == 1
+        assign tag = 'h1'
+      endif
+    -%}
+    <{{ tag }} id="Hero-{{ section.id }}" class="h1">{{ section.settings.heading | escape }}</{{ tag }}>
+    {%- if section.settings.button_label != blank -%}
+      <a class="button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero (imagen principal)",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagen" },
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Cuchillos de cocina profesionales" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Cortes precisos, sin esfuerzo" },
+    { "type": "text", "id": "button_label", "label": "Texto del botón", "default": "Comprar ahora" },
+    { "type": "url", "id": "button_link", "label": "Enlace del botón" },
+    { "type": "select", "id": "align", "label": "Alineación", "default": "left", "options": [ { "value": "left", "label": "Izquierda" }, { "value": "center", "label": "Centro" } ] },
+    { "type": "range", "id": "height", "label": "Altura", "min": 400, "max": 900, "step": 20, "unit": "px", "default": 640 },
+    { "type": "range", "id": "overlay", "label": "Oscurecer imagen", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 35 }
+  ],
+  "presets": [{ "name": "Hero (imagen principal)" }]
+}
+{% endschema %}

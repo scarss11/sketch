@@ -1,0 +1,67 @@
+<footer class="footer">
+  <div class="page-width footer__top">
+    <div class="footer__block">
+      <span class="footer__heading" style="letter-spacing:.2em;text-transform:uppercase">{{ shop.name }}</span>
+      {%- if section.settings.about != blank -%}<div class="rte" style="font-size:14px;opacity:.85">{{ section.settings.about }}</div>{%- endif -%}
+    </div>
+
+    {%- if section.settings.menu != blank -%}
+      <nav class="footer__block" aria-label="{{ section.settings.menu.title | escape }}">
+        <h2 class="footer__heading" style="font-size:18px">{{ section.settings.menu.title | escape }}</h2>
+        <ul>
+          {%- for link in section.settings.menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    {%- if section.settings.show_newsletter -%}
+      <div class="footer__block footer__block--newsletter">
+        <h2 class="footer__heading">{{ section.settings.newsletter_heading | escape }}</h2>
+        {%- if section.settings.newsletter_text != blank -%}<p style="margin:0;font-size:15px;opacity:.85">{{ section.settings.newsletter_text | escape }}</p>{%- endif -%}
+        {%- form 'customer', id: 'FooterNewsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-row">
+            <div class="field">
+              <label for="NewsletterEmail-{{ section.id }}">{{ 'newsletter.label' | t }}</label>
+              <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required{% if form.errors %} aria-invalid="true" aria-describedby="NewsletterError-{{ section.id }}"{% endif %}>
+            </div>
+            <button type="submit" class="button" style="align-self:flex-end">{{ 'newsletter.button' | t }}</button>
+          </div>
+          {%- if form.errors -%}
+            <p id="NewsletterError-{{ section.id }}" class="form-message form-message--error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+          {%- elsif form.posted_successfully? -%}
+            <p class="form-message" role="status">{{ 'newsletter.success' | t }}</p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="page-width footer__bottom">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }} · {{ powered_by_link }}</span>
+    {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+      <ul class="payment-icons" role="list">
+        {%- for type in shop.enabled_payment_types -%}
+          <li>{{ type | payment_type_svg_tag }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pie de página",
+  "class": "section-footer",
+  "settings": [
+    { "type": "richtext", "id": "about", "label": "Texto sobre la marca", "default": "<p>Cuchillos de cocina artesanales para chefs y cocineros en casa.</p>" },
+    { "type": "link_list", "id": "menu", "label": "Menú", "default": "footer" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Mostrar boletín", "default": true },
+    { "type": "text", "id": "newsletter_heading", "label": "Título del boletín", "default": "Boletín" },
+    { "type": "text", "id": "newsletter_text", "label": "Texto del boletín", "default": "Suscríbete para recibir novedades, ofertas exclusivas y más." },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar medios de pago", "default": true }
+  ]
+}
+{% endschema %}

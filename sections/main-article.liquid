@@ -1,0 +1,17 @@
+<article class="section">
+  <div class="page-width">
+    <div class="page-content">
+      <p class="eyebrow">{{ article.published_at | time_tag: format: 'date' }}</p>
+      <h1 class="h2" style="margin:12px 0 32px">{{ article.title | escape }}</h1>
+      {%- if article.image -%}
+        <div style="margin-bottom:32px">{{ article.image | image_url: width: 1600 | image_tag: alt: article.image.alt | default: article.title }}</div>
+      {%- endif -%}
+      <div class="rte">{{ article.content }}</div>
+      <p style="margin-top:48px"><a href="{{ blog.url }}">← {{ 'blogs.article.back' | t: title: blog.title }}</a></p>
+    </div>
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Artículo", "settings": [] }
+{% endschema %}

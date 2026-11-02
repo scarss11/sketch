@@ -1,0 +1,26 @@
+<section class="section">
+  <div class="page-width">
+    <h1 class="h2" style="margin-bottom:40px">{{ blog.title | escape }}</h1>
+    {%- paginate blog.articles by 9 -%}
+      <ul class="blog-grid" role="list">
+        {%- for article in blog.articles -%}
+          <li>
+            <a class="article-card" href="{{ article.url }}">
+              {%- if article.image -%}
+                {{ article.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: article.image.alt | default: article.title }}
+              {%- endif -%}
+              <p class="eyebrow">{{ article.published_at | time_tag: format: 'date' }}</p>
+              <h2 class="h3">{{ article.title | escape }}</h2>
+              {%- if article.excerpt != blank -%}<div class="rte" style="color:var(--color-muted)">{{ article.excerpt | strip_html | truncatewords: 30 }}</div>{%- endif -%}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}
