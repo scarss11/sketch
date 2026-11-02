@@ -4,3 +4,6 @@ README.md
 hagane.code-workspace
 .gitignore
 .theme-check.yml
+index.html
+.nojekyll
+preview/
