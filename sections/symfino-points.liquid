@@ -1,0 +1,36 @@
+<section class="sf-band sf-band--surface">
+  <div class="sf-wrap">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="sf-heading sf-center">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ul class="sf-points" style="margin-top:28px;list-style:none;padding:0" role="list">
+      {%- for block in section.blocks -%}
+        <li class="sf-card" {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Puntos Symfino",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Peace of mind made simple" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Punto",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Camera-free" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Privacy-respecting monitoring without cameras." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Puntos Symfino" }]
+}
+{% endschema %}

@@ -1,0 +1,84 @@
+<section class="section sf-view">
+  <div class="page-width sf-view__inner">
+    {%- case section.settings.layout -%}
+      {%- when 'how' -%}
+        <p class="eyebrow">How it works</p>
+        <h1 class="h2">From the room to a phone alert.</h1>
+        <img src="{{ 'symfino-how.jpg' | asset_url }}" alt="How Symfino One monitors the room, identifies a potential fall, and sends a phone alert.">
+        <h2>Monitors the room</h2>
+        <p>60GHz mmWave radar monitors movement in the covered room.</p>
+        <h2>Identifies a potential fall</h2>
+        <p>The system can identify movement patterns consistent with a potential fall.</p>
+        <h2>Sends a phone alert</h2>
+        <p>Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</p>
+        <a class="button" href="{{ routes.all_products_collection_url }}">Shop Symfino One</a>
+
+      {%- when 'care' -%}
+        <p class="eyebrow">Care</p>
+        <h1 class="h2">Designed for real homes.</h1>
+        <img src="{{ 'symfino-fit.jpg' | asset_url }}" alt="Symfino compatibility, Wi-Fi, and warranty.">
+        <p>60GHz mmWave radar. Camera-free. No wearable. Tuya / Smart Life compatible.</p>
+        <h2>Compatibility</h2>
+        <p>2.4GHz Wi-Fi required for remote alerts. Designed primarily for one person in the covered room.</p>
+        <p>It senses movement. It doesn't watch people. Symfino One uses 60GHz mmWave radar to monitor movement in the installed room without capturing images. No camera footage is recorded.</p>
+        <h2>Shipping &amp; delivery</h2>
+        <p>U.S. supplier shipping estimate: approximately 8 days; actual delivery varies.</p>
+        <h2>Returns</h2>
+        <p>See the store's current return policy for applicable terms.</p>
+        <h2>Warranty</h2>
+        <p>The device includes a 1-year limited hardware warranty.</p>
+        <p class="sf-view__note">Important: False or missed alerts are possible due to factors including positioning, obstructions, room conditions, pets, multiple people, or slow and unusual falls. Symfino One is not a medical device or a substitute for emergency assistance.</p>
+
+      {%- when 'faq' -%}
+        <p class="eyebrow">Questions</p>
+        <h1 class="h2">Frequently asked questions</h1>
+        <div class="sf-view__faq">
+          <details open><summary>Does Symfino One use a camera?</summary><p>No. It uses 60GHz mmWave radar and does not capture images.</p></details>
+          <details><summary>Does anyone need to wear anything?</summary><p>No wearable is required.</p></details>
+          <details><summary>How do alerts work?</summary><p>Remote alerts can be sent through Tuya or Smart Life when 2.4GHz Wi-Fi and internet are available.</p></details>
+          <details><summary>Can alerts be missed or incorrect?</summary><p>Yes. False or missed alerts are possible due to positioning, obstructions, room conditions, pets, multiple people, or slow and unusual falls.</p></details>
+          <details><summary>Is Symfino One a medical device?</summary><p>No. It is not a medical device or a substitute for emergency assistance.</p></details>
+          <details><summary>Who is the monitoring designed for?</summary><p>It is intended primarily for one person in the covered room.</p></details>
+          <details><summary>Is there a subscription?</summary><p>No mandatory subscription is specified for the standard device. Optional third-party/Smart Life features may have additional costs.</p></details>
+          <details><summary>What are the shipping and warranty details?</summary><p>U.S. supplier shipping is estimated at approximately 8 days; actual delivery varies. The device includes a 1-year limited hardware warranty. See the store's current return policy for applicable terms.</p></details>
+        </div>
+    {%- endcase -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .sf-view__inner { max-width: 760px; }
+  .sf-view .eyebrow { color: var(--color-accent); }
+  .sf-view h1 { margin: 8px 0 28px; text-align: center; }
+  .sf-view h2 { margin: 28px 0 8px; font-size: 22px; letter-spacing: .04em; text-transform: uppercase; }
+  .sf-view p { color: var(--color-muted); margin: 0 0 12px; }
+  .sf-view img { width: 100%; border-radius: 32px; margin-bottom: 24px; }
+  .sf-view .button { margin-top: 12px; }
+  .sf-view__note { font-weight: 600; }
+  .sf-view__faq { border-top: 1px solid var(--color-border); }
+  .sf-view__faq details { border-bottom: 1px solid var(--color-border); }
+  .sf-view__faq summary { cursor: pointer; padding: 16px 0; font-weight: 700; color: var(--color-text); }
+  .sf-view__faq p { padding-bottom: 8px; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vista Symfino",
+  "tag": "section",
+  "class": "section-symfino-view",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Vista",
+      "default": "how",
+      "options": [
+        { "value": "how", "label": "How it works" },
+        { "value": "care", "label": "Care" },
+        { "value": "faq", "label": "FAQ" }
+      ]
+    }
+  ]
+}
+{% endschema %}

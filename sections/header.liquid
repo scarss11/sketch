@@ -1,50 +1,61 @@
 <header class="header" data-header{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}>
+  {%- liquid
+    assign how_url = pages['how-it-works'].url | default: '/pages/how-it-works'
+    assign care_url = pages['care'].url | default: '/pages/care'
+    assign faq_url = pages['faq'].url | default: '/pages/faq'
+    assign contact_url = pages['contact'].url | default: '/pages/contact'
+  -%}
   <div class="page-width header__inner">
-    <div class="header__left">
-      <button type="button" class="icon-button header__menu-toggle" data-menu-toggle aria-controls="HeaderNav" aria-expanded="false"
-        aria-label="{{ 'sections.header.menu' | t }}"
-        data-label-open="{{ 'sections.header.menu' | t }}"
-        data-label-close="{{ 'sections.header.close_menu' | t }}">
-        <span class="header__icon-open">{% render 'icon', icon: 'menu' %}</span>
-        <span class="header__icon-close">{% render 'icon', icon: 'close' %}</span>
-      </button>
-    </div>
+    <button type="button" class="icon-button header__menu-toggle" data-menu-toggle aria-controls="HeaderNav" aria-expanded="false"
+      aria-label="{{ 'sections.header.menu' | t }}"
+      data-label-open="{{ 'sections.header.menu' | t }}"
+      data-label-close="{{ 'sections.header.close_menu' | t }}">
+      <span class="header__icon-open">{% render 'icon', icon: 'menu' %}</span>
+      <span class="header__icon-close">{% render 'icon', icon: 'close' %}</span>
+    </button>
 
     <a href="{{ routes.root_url }}" class="header__logo">
       {%- if section.settings.logo != blank -%}
         {%- assign logo_h = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round -%}
         {{ section.settings.logo | image_url: width: 400 | image_tag: width: section.settings.logo_width, height: logo_h, alt: shop.name, loading: 'eager' }}
       {%- else -%}
-        {{ shop.name }}
+        Symf<span class="header__logo-mark">i</span>no
       {%- endif -%}
     </a>
 
     <div class="header__icons">
-      <a href="{{ routes.search_url }}" class="icon-button" aria-label="{{ 'general.search.title' | t }}">{% render 'icon', icon: 'search' %}</a>
-      {%- if shop.customer_accounts_enabled -%}
-        <a href="{{ routes.account_url }}" class="icon-button" aria-label="{{ 'customer.account.title' | t }}">{% render 'icon', icon: 'account' %}</a>
-      {%- endif -%}
-      <a href="{{ routes.cart_url }}" class="icon-button" aria-label="{{ 'templates.cart.title' | t }} ({{ cart.item_count }})">
-        {% render 'icon', icon: 'cart' %}
-        {%- if cart.item_count > 0 -%}<span class="cart-count" aria-hidden="true">{{ cart.item_count }}</span>{%- endif -%}
+      <a class="header__textlink header__desktop-only" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">Account</a>
+      <a class="header__tool" href="{{ routes.search_url }}" aria-label="{{ 'general.search.title' | t }}">
+        {% render 'icon', icon: 'search' %}
+        <span class="header__desktop-only">Search</span>
       </a>
-
-      {%- if section.settings.show_language_selector and localization.available_languages.size > 1 -%}
-        {%- form 'localization', class: 'localization-form', id: 'HeaderLocalization' -%}
-          <input type="hidden" name="return_to" value="{{ request.path }}">
-          {%- for language in localization.available_languages -%}
-            <button type="submit" name="locale_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}" aria-label="{{ language.endonym_name | capitalize }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %}>{{ language.iso_code | slice: 0, 2 }}</button>
-          {%- endfor -%}
-        {%- endform -%}
-      {%- endif -%}
+      <a class="header__tool" href="{{ routes.cart_url }}" aria-label="{{ 'templates.cart.title' | t }} ({{ cart.item_count }})">
+        {% render 'icon', icon: 'cart' %}
+        <span class="header__desktop-only">Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</span>
+        {%- if cart.item_count > 0 -%}<span class="cart-count header__mobile-only">{{ cart.item_count }}</span>{%- endif -%}
+      </a>
     </div>
   </div>
 
+  <nav class="header__links page-width" aria-label="{{ 'sections.header.nav_label' | t }}">
+    <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>Home</a>
+    <a href="{{ routes.all_products_collection_url }}"{% if request.page_type == 'collection' or request.page_type == 'product' %} aria-current="page"{% endif %}>Shop</a>
+    <a href="{{ how_url }}"{% if page.handle == 'how-it-works' %} aria-current="page"{% endif %}>How it works</a>
+    <a href="{{ care_url }}"{% if page.handle == 'care' %} aria-current="page"{% endif %}>Care</a>
+    <a href="{{ faq_url }}"{% if page.handle == 'faq' %} aria-current="page"{% endif %}>FAQ</a>
+    <a href="{{ contact_url }}"{% if page.handle == 'contact' %} aria-current="page"{% endif %}>Contact</a>
+  </nav>
+
   <nav id="HeaderNav" class="header__nav" aria-label="{{ 'sections.header.nav_label' | t }}">
     <ul class="page-width">
-      {%- for link in section.settings.menu.links -%}
-        <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
-      {%- endfor -%}
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
+        <li><a href="{{ how_url }}">How it works</a></li>
+        <li><a href="{{ care_url }}">Care</a></li>
+        <li><a href="{{ faq_url }}">FAQ</a></li>
+        <li><a href="{{ contact_url }}">Contact</a></li>
+        <li><a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">Account</a></li>
+        <li><a href="{{ routes.cart_url }}">Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</a></li>
     </ul>
   </nav>
 </header>

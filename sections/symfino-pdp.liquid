@@ -1,0 +1,80 @@
+<section class="sf-pdp">
+  <div class="page-width sf-pdp__split">
+    <img src="{{ 'symfino-how.jpg' | asset_url }}" alt="How Symfino One monitors the room, identifies a potential fall, and sends a phone alert.">
+    <div>
+      <p class="sf-kicker">How it works</p>
+      <h2>From the room to a phone alert.</h2>
+      <ol>
+        <li><strong>Monitors the room.</strong> 60GHz mmWave radar monitors movement in the covered room.</li>
+        <li><strong>Identifies a potential fall.</strong> The system can identify movement patterns consistent with a potential fall.</li>
+        <li><strong>Sends a phone alert.</strong> Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</li>
+      </ol>
+      <a class="button" href="#ProductBuy">Add to cart</a>
+    </div>
+  </div>
+
+  <div class="sf-pdp__benefits">
+    <div class="page-width sf-pdp__three">
+      <article>
+        <img src="{{ 'symfino-care.jpg' | asset_url }}" alt="Care without compromise.">
+        <h2>No camera in the room</h2>
+        <p>It senses movement. It doesn't watch people. No images or video.</p>
+      </article>
+      <article>
+        <img src="{{ 'symfino-peace.jpg' | asset_url }}" alt="Nothing to wear.">
+        <h2>Nothing to wear</h2>
+        <p>No wearable is required.</p>
+      </article>
+      <article>
+        <img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt="Preserves privacy and dignity.">
+        <h2>Preserves privacy and dignity</h2>
+        <p>Symfino One gives families a discreet way to stay informed while helping preserve independence, privacy, and dignity.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="sf-pdp__fit">
+    <div class="page-width sf-pdp__split">
+      <div>
+        <p class="sf-kicker">Compatibility</p>
+        <h2>Designed for real homes.</h2>
+        <p>60GHz mmWave radar. Camera-free. No wearable. Tuya / Smart Life compatible.</p>
+        <p>2.4GHz Wi-Fi required for remote alerts. Designed primarily for one person in the covered room.</p>
+        <p class="sf-note">Important: False or missed alerts are possible due to factors including positioning, obstructions, room conditions, pets, multiple people, or slow and unusual falls. Symfino One is not a medical device or a substitute for emergency assistance.</p>
+      </div>
+      <img src="{{ 'symfino-fit.jpg' | asset_url }}" alt="Compatibility, Wi-Fi, and warranty.">
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .sf-pdp { padding-bottom: 24px; }
+  .sf-kicker { margin: 0 0 8px; color: var(--color-accent); font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .sf-pdp h2 { margin: 0 0 12px; letter-spacing: -.03em; }
+  .sf-pdp p, .sf-pdp li { color: var(--color-muted); }
+  .sf-pdp__split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-top: 56px; padding-bottom: 56px; }
+  .sf-pdp img { width: 100%; border-radius: 32px; }
+  .sf-pdp ol { margin: 0 0 20px; padding-left: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .sf-pdp__benefits { background: var(--color-surface); padding: 56px 0; }
+  .sf-pdp__three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .sf-pdp__three h2 { font-size: 22px; }
+  .sf-note { font-weight: 600; }
+  .sf-pdp__fit { background: var(--color-dark); color: var(--color-dark-text); }
+  .sf-pdp__fit p, .sf-pdp__fit li { color: var(--color-dark-text); }
+  .sf-pdp__fit h2 { color: #fff; }
+  .sf-pdp__fit .button { background: #fff; color: var(--color-text); border-color: #fff; }
+  @media (max-width: 800px) {
+    .sf-pdp__split, .sf-pdp__three { grid-template-columns: 1fr; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Historia del producto",
+  "tag": "section",
+  "class": "section-symfino-pdp",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [],
+  "presets": [{ "name": "Historia del producto" }]
+}
+{% endschema %}

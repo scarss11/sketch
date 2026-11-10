@@ -1,6 +1,22 @@
 {
   "sections": {
-    "main": { "type": "main-product", "settings": {} }
+    "main": { "type": "main-product", "settings": {} },
+    "story": { "type": "symfino-pdp", "settings": {} },
+    "reviews": { "type": "symfino-reviews", "blocks": {}, "block_order": [] },
+    "faq": {
+      "type": "symfino-faq",
+      "blocks": {
+        "q1": { "type": "question", "settings": { "question": "Does Symfino One use a camera?", "answer": "<p>No. It uses 60GHz mmWave radar and does not capture images.</p>" } },
+        "q2": { "type": "question", "settings": { "question": "Does anyone need to wear anything?", "answer": "<p>No wearable is required.</p>" } },
+        "q3": { "type": "question", "settings": { "question": "How do alerts work?", "answer": "<p>Remote alerts can be sent through Tuya or Smart Life when 2.4GHz Wi-Fi and internet are available.</p>" } },
+        "q4": { "type": "question", "settings": { "question": "Can alerts be missed or incorrect?", "answer": "<p>Yes. False or missed alerts are possible due to positioning, obstructions, room conditions, pets, multiple people, or slow and unusual falls.</p>" } },
+        "q5": { "type": "question", "settings": { "question": "Is Symfino One a medical device?", "answer": "<p>No. It is not a medical device or a substitute for emergency assistance.</p>" } },
+        "q6": { "type": "question", "settings": { "question": "Who is the monitoring designed for?", "answer": "<p>It is intended primarily for one person in the covered room.</p>" } },
+        "q7": { "type": "question", "settings": { "question": "Is there a subscription?", "answer": "<p>No mandatory subscription is specified for the standard device. Optional third-party/Smart Life features may have additional costs.</p>" } },
+        "q8": { "type": "question", "settings": { "question": "What are the shipping and warranty details?", "answer": "<p>U.S. supplier shipping is estimated at approximately 8 days; actual delivery varies. The device includes a 1-year limited hardware warranty. See the store's current return policy for applicable terms.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"]
+    }
   },
-  "order": ["main"]
+  "order": ["main", "story", "reviews", "faq"]
 }

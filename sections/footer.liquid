@@ -1,20 +1,33 @@
 <footer class="footer">
   <div class="page-width footer__top">
     <div class="footer__block">
-      <span class="footer__heading" style="letter-spacing:.2em;text-transform:uppercase">{{ shop.name }}</span>
+      <span class="footer__heading">Our promise</span>
       {%- if section.settings.about != blank -%}<div class="rte" style="font-size:14px;opacity:.85">{{ section.settings.about }}</div>{%- endif -%}
     </div>
 
-    {%- if section.settings.menu != blank -%}
-      <nav class="footer__block" aria-label="{{ section.settings.menu.title | escape }}">
-        <h2 class="footer__heading" style="font-size:18px">{{ section.settings.menu.title | escape }}</h2>
-        <ul>
+    <nav class="footer__block" aria-label="Footer">
+      <h2 class="footer__heading">Footer menu</h2>
+      <ul>
+        {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
           {%- for link in section.settings.menu.links -%}
             <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
           {%- endfor -%}
-        </ul>
-      </nav>
-    {%- endif -%}
+        {%- else -%}
+          {%- liquid
+            assign how_url = pages['how-it-works'].url | default: '/pages/how-it-works'
+            assign care_url = pages['care'].url | default: '/pages/care'
+            assign faq_url = pages['faq'].url | default: '/pages/faq'
+            assign contact_url = pages['contact'].url | default: '/pages/contact'
+          -%}
+          <li><a href="{{ routes.root_url }}">Home</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
+          <li><a href="{{ how_url }}">How it works</a></li>
+          <li><a href="{{ care_url }}">Care</a></li>
+          <li><a href="{{ faq_url }}">FAQ</a></li>
+          <li><a href="{{ contact_url }}">Contact</a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
 
     {%- if section.settings.show_newsletter -%}
       <div class="footer__block footer__block--newsletter">
@@ -40,7 +53,7 @@
   </div>
 
   <div class="page-width footer__bottom">
-    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }} · {{ powered_by_link }}</span>
+    <span>&copy; {{ 'now' | date: '%Y' }} <a href="{{ routes.root_url }}">{{ settings.brand_name | default: shop.name | escape }}</a> · {{ powered_by_link }}</span>
     {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
       <ul class="payment-icons" role="list">
         {%- for type in shop.enabled_payment_types -%}
@@ -56,11 +69,11 @@
   "name": "Pie de página",
   "class": "section-footer",
   "settings": [
-    { "type": "richtext", "id": "about", "label": "Texto sobre la marca", "default": "<p>Cuchillos de cocina artesanales para chefs y cocineros en casa.</p>" },
+    { "type": "richtext", "id": "about", "label": "Texto sobre la marca", "default": "<p>Privacy-first fall monitoring without cameras or wearables. Not a medical device and not for emergency response.</p>" },
     { "type": "link_list", "id": "menu", "label": "Menú", "default": "footer" },
     { "type": "checkbox", "id": "show_newsletter", "label": "Mostrar boletín", "default": true },
-    { "type": "text", "id": "newsletter_heading", "label": "Título del boletín", "default": "Boletín" },
-    { "type": "text", "id": "newsletter_text", "label": "Texto del boletín", "default": "Suscríbete para recibir novedades, ofertas exclusivas y más." },
+    { "type": "text", "id": "newsletter_heading", "label": "Título del boletín", "default": "Newsletter" },
+    { "type": "text", "id": "newsletter_text", "label": "Texto del boletín", "default": "Product news for your family. Wi-Fi is required for remote alerts." },
     { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar medios de pago", "default": true }
   ]
 }

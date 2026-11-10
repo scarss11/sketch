@@ -5,5 +5,7 @@ hagane.code-workspace
 .gitignore
 .theme-check.yml
 index.html
+*.html
+_*.py
 .nojekyll
 preview/

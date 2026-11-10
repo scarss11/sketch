@@ -17,8 +17,12 @@
       setMenu(toggle, toggle.getAttribute('aria-expanded') !== 'true');
       return;
     }
-    // Cerrar al hacer clic fuera del encabezado
+    var navLink = e.target.closest('.header__nav a');
     var openToggle = document.querySelector('[data-menu-toggle][aria-expanded="true"]');
+    if (navLink && openToggle) {
+      setMenu(openToggle, false);
+      return;
+    }
     if (openToggle && !e.target.closest('[data-header]')) setMenu(openToggle, false);
   });
 
@@ -116,6 +120,43 @@
       var url = new URL(window.location.href);
       url.searchParams.set('variant', match.id);
       window.history.replaceState({}, '', url.toString());
+    });
+  });
+
+  document.querySelectorAll('[data-gallery]').forEach(function (gallery) {
+    var panels = gallery.querySelectorAll('[data-gallery-panel]');
+    gallery.querySelectorAll('[data-gallery-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        var id = thumb.getAttribute('data-gallery-thumb');
+        panels.forEach(function (panel) {
+          panel.classList.toggle('is-active', panel.getAttribute('data-gallery-panel') === id);
+        });
+        gallery.querySelectorAll('[data-gallery-thumb]').forEach(function (item) {
+          item.classList.toggle('is-active', item === thumb);
+        });
+      });
+    });
+  });
+
+  if (document.body.classList.contains('template-index')) {
+    var section = document.querySelector('.section-header');
+    if (section) {
+      var onScroll = function () {
+        section.classList.toggle('is-solid', window.scrollY > 70);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+  }
+
+  document.querySelectorAll('[data-slider]').forEach(function (slider) {
+    var track = slider.querySelector('[data-slider-track]');
+    if (!track) return;
+    slider.querySelectorAll('[data-slider-dir]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var amount = track.clientWidth * 0.8;
+        track.scrollBy({ left: button.getAttribute('data-slider-dir') === 'next' ? amount : -amount, behavior: 'smooth' });
+      });
     });
   });
 })();

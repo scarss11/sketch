@@ -1,8 +1,12 @@
 <section class="section">
   <div class="page-width">
     <div class="page-content">
-      <h1 class="h2">{{ page.title | escape }}</h1>
-      {%- if page.content != blank -%}<div class="rte" style="margin-bottom:32px">{{ page.content }}</div>{%- endif -%}
+      <h1 class="h2" style="text-align:center">{{ page.title | default: 'Contact' | escape }}</h1>
+      {%- if page.content != blank -%}
+        <div class="rte" style="margin-bottom:32px">{{ page.content }}</div>
+      {%- else -%}
+        <p style="color:var(--color-muted);margin:0 0 32px">Questions about orders, shipping, returns, or Symfino One.</p>
+      {%- endif -%}
       {%- form 'contact', id: 'ContactForm' -%}
         {%- if form.posted_successfully? -%}
           <p class="form-message" role="status">{{ 'templates.contact.success' | t }}</p>

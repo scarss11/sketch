@@ -1,19 +1,34 @@
 {
-  "current": "Default",
+  "current": {
+    "brand_name": "Symfino",
+    "color_background": "#F6F3EE",
+    "color_surface": "#FFFFFF",
+    "color_text": "#1B2A4A",
+    "color_muted": "#5D6B7C",
+    "color_accent": "#1C9A8B",
+    "color_border": "#E7E1D8",
+    "color_dark": "#1B2A4A",
+    "color_dark_text": "#F6F3EE",
+    "type_heading_font": "manrope_n7",
+    "type_body_font": "manrope_n4",
+    "page_width": 1280,
+    "button_radius": 8
+  },
   "presets": {
     "Default": {
-      "color_background": "#F3F1EC",
+      "brand_name": "Symfino",
+      "color_background": "#F6F3EE",
       "color_surface": "#FFFFFF",
-      "color_text": "#141414",
-      "color_muted": "#55595D",
-      "color_accent": "#A8834A",
-      "color_border": "#DCD8D0",
-      "color_dark": "#1C1B19",
-      "color_dark_text": "#F3F1EC",
-      "type_heading_font": "playfair_display_n4",
-      "type_body_font": "inter_n4",
+      "color_text": "#1B2A4A",
+      "color_muted": "#5D6B7C",
+      "color_accent": "#1C9A8B",
+      "color_border": "#E7E1D8",
+      "color_dark": "#1B2A4A",
+      "color_dark_text": "#F6F3EE",
+      "type_heading_font": "manrope_n7",
+      "type_body_font": "manrope_n4",
       "page_width": 1280,
-      "button_radius": 0
+      "button_radius": 8
     }
   }
 }

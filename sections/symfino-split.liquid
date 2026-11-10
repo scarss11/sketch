@@ -1,0 +1,66 @@
+<section class="sf-band{% if section.settings.scheme == 'surface' %} sf-band--surface{% elsif section.settings.scheme == 'dark' %} sf-band--dark{% endif %}"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor | escape }}"{% endif %}>
+  <div class="sf-wrap sf-split{% if section.settings.layout == 'right' %} sf-split--reverse{% endif %}">
+    <div class="sf-panel">
+      <img
+        src="{{ section.settings.image_name | asset_url }}"
+        alt="{{ section.settings.image_alt | escape }}"
+        width="1200"
+        height="1200"
+        loading="lazy">
+    </div>
+    <div>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sf-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 class="sf-heading">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}
+        <div class="sf-rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="sf-grid" style="grid-template-columns:1fr;margin-top:20px">
+          {%- for block in section.blocks -%}
+            <article class="sf-card" {{ block.shopify_attributes }}>
+              <h3>{{ block.settings.title | escape }}</h3>
+              <p>{{ block.settings.text | escape }}</p>
+            </article>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Imagen y texto Symfino",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Ancla" },
+    { "type": "text", "id": "eyebrow", "label": "Texto superior" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Quiet protection for independent living." },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Privacy-first fall monitoring without cameras or wearables.</p>" },
+    { "type": "text", "id": "image_name", "label": "Archivo de imagen en assets", "default": "symfino-lifestyle.jpg" },
+    { "type": "text", "id": "image_alt", "label": "Texto alternativo" },
+    { "type": "select", "id": "layout", "label": "Posición de la imagen", "default": "left", "options": [
+      { "value": "left", "label": "Izquierda" },
+      { "value": "right", "label": "Derecha" }
+    ] },
+    { "type": "select", "id": "scheme", "label": "Fondo", "default": "light", "options": [
+      { "value": "light", "label": "Claro" },
+      { "value": "surface", "label": "Blanco" },
+      { "value": "dark", "label": "Oscuro" }
+    ] }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Tarjeta",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título" },
+        { "type": "textarea", "id": "text", "label": "Texto" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Imagen y texto Symfino" }]
+}
+{% endschema %}

@@ -1,0 +1,208 @@
+<section class="sf-band{% if section.settings.tone == 'surface' %} sf-band--surface{% endif %}"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor | escape }}"{% endif %}>
+  {%- case section.settings.layout -%}
+    {%- when 'hero' -%}
+      <div class="sf-wrap sf-hero">
+        <div class="sf-panel">
+          <img src="{{ 'symfino-product.jpg' | asset_url }}" alt="Symfino One. Camera-free fall monitoring. Private. Wearable-free. Reassuring." width="1200" height="1200">
+        </div>
+        <div>
+          <p class="sf-eyebrow">Meet Symfino One</p>
+          <h1 class="sf-title">Fall monitoring without the camera.</h1>
+          <p class="sf-lede">Symfino One uses 60GHz mmWave radar to monitor movement in the room without recording images or requiring anything to be worn.</p>
+          <a class="sf-button" href="#how">Explore Symfino One</a>
+        </div>
+      </div>
+
+    {%- when 'benefits' -%}
+      <div class="sf-wrap">
+        <h2 class="sf-heading">Care without compromise</h2>
+        <p class="sf-intro">The smarter way to stay informed.</p>
+        <div class="sf-grid-3">
+          <article class="sf-card"><h3>No camera in the room</h3></article>
+          <article class="sf-card"><h3>Nothing to wear</h3></article>
+          <article class="sf-card"><h3>Preserves privacy and dignity</h3></article>
+        </div>
+        <div class="sf-panel sf-gap">
+          <img src="{{ 'symfino-care.jpg' | asset_url }}" alt="Care without compromise: no camera in the room, nothing to wear, and privacy preserved." width="1200" height="1200" loading="lazy">
+        </div>
+      </div>
+
+    {%- when 'support' -%}
+      <div class="sf-wrap sf-split">
+        <div>
+          <p class="sf-eyebrow">Support that fits real life</p>
+          <h2 class="sf-heading">She's living independently. You're still connected.</h2>
+          <p class="sf-lede">Symfino One gives families a discreet way to stay informed while helping preserve independence, privacy, and dignity.</p>
+          <a class="sf-button" href="#product">Discover Symfino One</a>
+        </div>
+        <div class="sf-panel">
+          <img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt="Quiet protection at home with Symfino One." width="1200" height="1200" loading="lazy">
+        </div>
+      </div>
+
+    {%- when 'senses' -%}
+      <div class="sf-wrap">
+        <h2 class="sf-heading">It senses movement. It doesn't watch people.</h2>
+        <p class="sf-intro">Symfino One uses 60GHz mmWave radar to monitor movement in the installed room without capturing images. No camera footage is recorded.</p>
+        <ul class="sf-points">
+          <li>No images or video</li>
+          <li>Built for privacy</li>
+          <li>Designed primarily for one-person room monitoring</li>
+        </ul>
+        <div class="sf-panel sf-gap">
+          <img src="{{ 'symfino-peace.jpg' | asset_url }}" alt="Symfino One on a table. Camera-free, no wearable required, and phone alerts." width="1200" height="1200" loading="lazy">
+        </div>
+      </div>
+
+    {%- when 'how' -%}
+      <div class="sf-wrap">
+        <h2 class="sf-heading">How it works</h2>
+        <div class="sf-grid-3">
+          <article class="sf-card">
+            <p class="sf-num">01</p>
+            <h3>Monitors the room</h3>
+            <p>60GHz mmWave radar monitors movement in the covered room.</p>
+          </article>
+          <article class="sf-card">
+            <p class="sf-num">02</p>
+            <h3>Identifies a potential fall</h3>
+            <p>The system can identify movement patterns consistent with a potential fall.</p>
+          </article>
+          <article class="sf-card">
+            <p class="sf-num">03</p>
+            <h3>Sends a phone alert</h3>
+            <p>Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</p>
+          </article>
+        </div>
+        <div class="sf-panel sf-gap">
+          <img src="{{ 'symfino-how.jpg' | asset_url }}" alt="How Symfino One monitors the room, identifies a potential fall, and sends a phone alert." width="1200" height="1200" loading="lazy">
+        </div>
+      </div>
+
+    {%- when 'homes' -%}
+      <div class="sf-wrap sf-copy">
+        <h2 class="sf-heading">Designed for real homes.</h2>
+        <p class="sf-intro">60GHz mmWave radar. Camera-free. No wearable. Tuya / Smart Life compatible.</p>
+        <p>2.4GHz Wi-Fi required for remote alerts. Designed primarily for one person in the covered room.</p>
+        <p>U.S. supplier shipping estimate: approximately 8 days; actual delivery varies. 1-year limited hardware warranty.</p>
+        <p class="sf-note">Important: False or missed alerts are possible due to factors including positioning, obstructions, room conditions, pets, multiple people, or slow and unusual falls. Symfino One is not a medical device or a substitute for emergency assistance.</p>
+        <div class="sf-panel sf-gap">
+          <img src="{{ 'symfino-fit.jpg' | asset_url }}" alt="Symfino compatibility: Tuya and Smart Life, 2.4GHz Wi-Fi, one person per room, and a 1-year limited hardware warranty." width="1200" height="1200" loading="lazy">
+        </div>
+      </div>
+
+    {%- when 'faq' -%}
+      <div class="sf-wrap sf-copy">
+        <h2 class="sf-heading">Frequently asked questions</h2>
+        <div class="sf-faq">
+          <article>
+            <h3>Does Symfino One use a camera?</h3>
+            <p>No. It uses 60GHz mmWave radar and does not capture images.</p>
+          </article>
+          <article>
+            <h3>Does anyone need to wear anything?</h3>
+            <p>No wearable is required.</p>
+          </article>
+          <article>
+            <h3>How do alerts work?</h3>
+            <p>Remote alerts can be sent through Tuya or Smart Life when 2.4GHz Wi-Fi and internet are available.</p>
+          </article>
+          <article>
+            <h3>Can alerts be missed or incorrect?</h3>
+            <p>Yes. False or missed alerts are possible due to positioning, obstructions, room conditions, pets, multiple people, or slow and unusual falls.</p>
+          </article>
+          <article>
+            <h3>Is Symfino One a medical device?</h3>
+            <p>No. It is not a medical device or a substitute for emergency assistance.</p>
+          </article>
+          <article>
+            <h3>Who is the monitoring designed for?</h3>
+            <p>It is intended primarily for one person in the covered room.</p>
+          </article>
+          <article>
+            <h3>Is there a subscription?</h3>
+            <p>No mandatory subscription is specified for the standard device. Optional third-party/Smart Life features may have additional costs.</p>
+          </article>
+          <article>
+            <h3>What are the shipping and warranty details?</h3>
+            <p>U.S. supplier shipping is estimated at approximately 8 days; actual delivery varies. The device includes a 1-year limited hardware warranty. See the store's current return policy for applicable terms.</p>
+          </article>
+        </div>
+      </div>
+  {%- endcase -%}
+</section>
+
+{% stylesheet %}
+  .sf-band { padding: 72px 0; color: var(--color-text); font-family: var(--font-body); }
+  .sf-band--surface { background: var(--color-surface); }
+  .sf-wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+  .sf-hero, .sf-split { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 36px; align-items: center; }
+  .sf-split { grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr); }
+  .sf-eyebrow { margin: 0 0 10px; color: var(--color-accent); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; }
+  .sf-title, .sf-heading { margin: 0; font-family: var(--font-heading); font-weight: 800; letter-spacing: -.04em; line-height: 1.05; }
+  .sf-title { font-size: clamp(40px, 6vw, 64px); }
+  .sf-heading { margin-bottom: 8px; font-size: clamp(28px, 4vw, 40px); }
+  .sf-lede, .sf-intro, .sf-copy p, .sf-faq p { color: var(--color-muted); }
+  .sf-lede { margin: 18px 0 0; font-size: clamp(18px, 2vw, 22px); max-width: 36ch; }
+  .sf-intro { margin: 0 0 22px; font-size: 18px; max-width: 52ch; }
+  .sf-copy p { margin: 0 0 14px; max-width: 62ch; }
+  .sf-points, .sf-grid-3 { display: grid; gap: 16px; }
+  .sf-points { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 8px 0 0; padding: 0; list-style: none; }
+  .sf-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sf-points li, .sf-card, .sf-faq article { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 22px; }
+  .sf-band--surface .sf-points li, .sf-band--surface .sf-card, .sf-band--surface .sf-faq article { background: var(--color-bg); }
+  .sf-points li, .sf-card { padding: 22px; }
+  .sf-card h3, .sf-faq h3 { margin: 0 0 6px; font-size: 20px; letter-spacing: -.03em; }
+  .sf-card p, .sf-faq p { margin: 0; }
+  .sf-num { margin: 0 0 12px; color: var(--color-accent); font-weight: 800; letter-spacing: .08em; }
+  .sf-note { font-size: 15px; font-weight: 600; }
+  .sf-gap { margin-top: 28px; }
+  .sf-panel { background: var(--color-surface); border-radius: 28px; overflow: hidden; box-shadow: 0 18px 50px rgba(27, 42, 74, .08); }
+  .sf-panel img { width: 100%; height: auto; }
+  .sf-button { display: inline-flex; align-items: center; margin-top: 22px; min-height: 48px; padding: 0 22px; border-radius: 8px; background: var(--color-text); color: var(--color-bg); font-weight: 700; text-decoration: none; }
+  .sf-button:hover { color: var(--color-bg); opacity: .85; }
+  .sf-faq { display: grid; gap: 12px; }
+  .sf-faq article { padding: 18px 20px; }
+  @media (max-width: 860px) {
+    .sf-band { padding: 48px 0; }
+    .sf-hero, .sf-split, .sf-points, .sf-grid-3 { grid-template-columns: 1fr; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Apartado Symfino",
+  "tag": "div",
+  "class": "section-symfino",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Apartado",
+      "default": "hero",
+      "options": [
+        { "value": "hero", "label": "Meet Symfino One" },
+        { "value": "benefits", "label": "Care without compromise" },
+        { "value": "support", "label": "Living independently" },
+        { "value": "senses", "label": "It senses movement" },
+        { "value": "how", "label": "How it works" },
+        { "value": "homes", "label": "Designed for real homes" },
+        { "value": "faq", "label": "FAQ" }
+      ]
+    },
+    { "type": "text", "id": "anchor", "label": "Ancla del menú" },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Fondo",
+      "default": "light",
+      "options": [
+        { "value": "light", "label": "Crema" },
+        { "value": "surface", "label": "Blanco" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Apartado Symfino" }]
+}
+{% endschema %}

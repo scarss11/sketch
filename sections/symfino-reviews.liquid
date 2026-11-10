@@ -1,0 +1,59 @@
+<section class="section sf-reviews" id="reviews">
+  <div class="page-width">
+    <p class="eyebrow">Reviews</p>
+    <h2 class="h2">What families say</h2>
+    {%- if section.blocks.size > 0 -%}
+      <div class="sf-reviews__grid">
+        {%- for block in section.blocks -%}
+          <article {{ block.shopify_attributes }}>
+            <p class="sf-reviews__stars" aria-label="{{ block.settings.rating }} out of 5">
+              {%- for i in (1..5) -%}{% if i <= block.settings.rating %}★{% else %}☆{% endif %}{%- endfor -%}
+            </p>
+            <p>{{ block.settings.quote | escape }}</p>
+            <p class="sf-reviews__author">{{ block.settings.author | escape }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="sf-reviews__empty">
+        <p class="sf-reviews__stars" aria-hidden="true">☆☆☆☆☆</p>
+        <p>Reviews from verified orders will appear here once Symfino One is available.</p>
+      </div>
+    {%- endif -%}
+    <p class="sf-reviews__cta"><a class="button" href="{% if request.page_type == 'product' %}#ProductBuy{% else %}{{ routes.root_url }}#shop{% endif %}">Shop Symfino One</a></p>
+  </div>
+</section>
+
+{% stylesheet %}
+  .sf-reviews .eyebrow { color: var(--color-accent); }
+  .sf-reviews__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+  .sf-reviews__grid article, .sf-reviews__empty {
+    background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 20px; padding: 24px;
+  }
+  .sf-reviews__empty { margin-top: 28px; max-width: 640px; }
+  .sf-reviews__stars { margin: 0 0 10px; color: var(--color-accent); letter-spacing: .12em; }
+  .sf-reviews__author { margin: 14px 0 0; font-weight: 700; }
+  .sf-reviews__cta { margin: 28px 0 0; }
+  @media (max-width: 800px) { .sf-reviews__grid { grid-template-columns: 1fr; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Reseñas Symfino",
+  "tag": "section",
+  "class": "section-symfino-reviews",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Reseña",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "author", "label": "Nombre" },
+        { "type": "textarea", "id": "quote", "label": "Reseña" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reseñas Symfino" }]
+}
+{% endschema %}

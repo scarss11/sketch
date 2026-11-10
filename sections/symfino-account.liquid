@@ -1,0 +1,66 @@
+<section class="section sf-account" id="account">
+  <div class="page-width">
+    <div class="account-card">
+      <p class="eyebrow">Account</p>
+
+      {%- if customer -%}
+        <h2 class="h3">{{ customer.first_name | default: customer.email | escape }}</h2>
+        <p style="color:var(--color-muted);margin:0">Your orders and details are saved in this Shopify account.</p>
+        <a class="button" href="{{ routes.account_url }}">{{ 'customer.account.title' | t }}</a>
+        <a class="button button--secondary" href="{{ routes.account_logout_url }}">{{ 'customer.account.logout' | t }}</a>
+      {%- else -%}
+        <h2 class="h3">{{ 'customer.login.title' | t }}</h2>
+        {%- form 'customer_login' -%}
+          {%- if form.errors -%}<p class="form-message form-message--error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <div class="account-fields">
+            <div class="field">
+              <label for="AccountEmail">{{ 'customer.login.email' | t }}</label>
+              <input id="AccountEmail" type="email" name="customer[email]" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="AccountPassword">{{ 'customer.login.password' | t }}</label>
+              <input id="AccountPassword" type="password" name="customer[password]" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="button">{{ 'customer.login.submit' | t }}</button>
+            <a href="{{ routes.account_login_url }}#recover">{{ 'customer.login.forgot' | t }}</a>
+          </div>
+        {%- endform -%}
+
+        <h2 class="h3" id="register">{{ 'customer.register.title' | t }}</h2>
+        {%- form 'create_customer' -%}
+          {%- if form.errors -%}<p class="form-message form-message--error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <div class="account-fields">
+            <div class="field">
+              <label for="AccountFirst">{{ 'customer.register.first_name' | t }}</label>
+              <input id="AccountFirst" type="text" name="customer[first_name]" autocomplete="given-name">
+            </div>
+            <div class="field">
+              <label for="AccountLast">{{ 'customer.register.last_name' | t }}</label>
+              <input id="AccountLast" type="text" name="customer[last_name]" autocomplete="family-name">
+            </div>
+            <div class="field">
+              <label for="AccountRegEmail">{{ 'customer.login.email' | t }}</label>
+              <input id="AccountRegEmail" type="email" name="customer[email]" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="AccountRegPassword">{{ 'customer.login.password' | t }}</label>
+              <input id="AccountRegPassword" type="password" name="customer[password]" autocomplete="new-password" required>
+            </div>
+            <button type="submit" class="button">{{ 'customer.register.submit' | t }}</button>
+          </div>
+        {%- endform -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuenta Symfino",
+  "tag": "section",
+  "class": "section-symfino-account",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [],
+  "presets": [{ "name": "Cuenta Symfino" }]
+}
+{% endschema %}

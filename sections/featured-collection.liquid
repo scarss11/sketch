@@ -1,4 +1,5 @@
 {%- assign collection = section.settings.collection -%}
+{%- if collection != blank and collection.products_count > 0 -%}
 <section class="section{% if section.settings.scheme == 'surface' %} scheme-surface{% endif %}" style="border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)">
   <div class="page-width">
     <div class="section-heading">
@@ -12,18 +13,13 @@
     </div>
 
     <ul class="product-grid{% if section.settings.layout == 'slider' %} product-grid--slider{% endif %}" role="list" style="--cols: {{ section.settings.columns }}; --cols-mobile: 2">
-      {%- if collection != blank and collection.products_count > 0 -%}
-        {%- for product in collection.products limit: section.settings.limit -%}
-          <li>{% render 'product-card', product: product %}</li>
-        {%- endfor -%}
-      {%- else -%}
-        {%- for i in (1..section.settings.columns) -%}
-          <li>{% render 'product-card', index: i %}</li>
-        {%- endfor -%}
-      {%- endif -%}
+      {%- for product in collection.products limit: section.settings.limit -%}
+        <li>{% render 'product-card', product: product %}</li>
+      {%- endfor -%}
     </ul>
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

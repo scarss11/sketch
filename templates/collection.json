@@ -1,6 +1,6 @@
 {
   "sections": {
-    "main": { "type": "main-collection", "settings": {} }
+    "main": { "type": "main-collection", "settings": { "heading": "Shop", "per_page": 1, "columns": 4 } }
   },
   "order": ["main"]
 }

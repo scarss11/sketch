@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": { "type": "symfino-view", "settings": { "layout": "faq" } }
+  },
+  "order": ["main"]
+}

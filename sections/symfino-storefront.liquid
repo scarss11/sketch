@@ -1,0 +1,133 @@
+{%- liquid
+  assign how_url = pages['how-it-works'].url | default: '/pages/how-it-works'
+  assign care_url = pages['care'].url | default: '/pages/care'
+  assign faq_url = pages['faq'].url | default: '/pages/faq'
+-%}
+<section class="sf-home">
+  <div class="sf-hero">
+    <img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt="Quiet protection at home with Symfino One.">
+    <div class="sf-hero__content page-width">
+      <p>Meet Symfino One</p>
+      <h1>Fall monitoring without the camera.</h1>
+    </div>
+    <a class="sf-hero__next" href="#benefits" aria-label="Next section">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+  </div>
+
+  <div class="sf-strip" id="benefits">
+    <div class="page-width">
+      <p class="sf-kicker">Care without compromise</p>
+      <p class="sf-intro">The smarter way to stay informed.</p>
+      <div class="sf-strip__grid">
+        <article>
+          <img src="{{ 'symfino-care.jpg' | asset_url }}" alt="No camera in the room.">
+          <h2>No camera in the room</h2>
+          <p>It senses movement. It doesn't watch people. No images or video.</p>
+        </article>
+        <article>
+          <img src="{{ 'symfino-peace.jpg' | asset_url }}" alt="Nothing to wear.">
+          <h2>Nothing to wear</h2>
+          <p>No wearable is required.</p>
+        </article>
+        <article>
+          <img src="{{ 'symfino-product.jpg' | asset_url }}" alt="Preserves privacy and dignity.">
+          <h2>Preserves privacy and dignity</h2>
+          <p>Built for privacy. Designed primarily for one-person room monitoring.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-split page-width">
+    <img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt="Quiet protection at home with Symfino One.">
+    <div>
+      <p class="sf-kicker">Support that fits real life</p>
+      <h2>She's living independently. You're still connected.</h2>
+      <p>Symfino One gives families a discreet way to stay informed while helping preserve independence, privacy, and dignity.</p>
+      <a class="button" href="{{ how_url }}">How it works</a>
+    </div>
+  </div>
+
+  <div class="sf-how">
+    <div class="page-width">
+      <p class="sf-kicker">How it works</p>
+      <div class="sf-strip__grid">
+        <article><h2>01 · Monitors the room</h2><p>60GHz mmWave radar monitors movement in the covered room.</p></article>
+        <article><h2>02 · Identifies a potential fall</h2><p>The system can identify movement patterns consistent with a potential fall.</p></article>
+        <article><h2>03 · Sends a phone alert</h2><p>Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</p></article>
+      </div>
+      <p class="sf-center"><a class="button" href="{{ how_url }}">Read how it works</a></p>
+    </div>
+  </div>
+
+  <div class="sf-shop page-width">
+    <p class="sf-kicker">Shop</p>
+    <a class="sf-product" href="{{ routes.all_products_collection_url }}">
+      <img src="{{ 'symfino-product.jpg' | asset_url }}" alt="Symfino One">
+      <h2>Symfino One</h2>
+      <p>Fall monitoring without the camera.</p>
+    </a>
+    <p class="sf-center"><a class="button" href="{{ routes.all_products_collection_url }}">Shop Symfino One</a></p>
+  </div>
+
+  <div class="sf-fit">
+    <div class="page-width sf-split">
+      <img src="{{ 'symfino-fit.jpg' | asset_url }}" alt="Compatibility, Wi-Fi, and warranty.">
+      <div>
+        <p class="sf-kicker">Designed for real homes.</p>
+        <h2>60GHz mmWave radar. Camera-free. No wearable.</h2>
+        <p>2.4GHz Wi-Fi required for remote alerts. Designed primarily for one person in the covered room. Tuya / Smart Life compatible.</p>
+        <p>U.S. supplier shipping estimate: approximately 8 days; actual delivery varies. 1-year limited hardware warranty.</p>
+        <a class="button" href="{{ care_url }}">Care &amp; compatibility</a>
+        <a class="button button--secondary" href="{{ faq_url }}">Questions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .sf-home { color: var(--color-text); }
+  .sf-hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; background: var(--color-dark); color: var(--color-dark-text); overflow: hidden; }
+  .sf-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+  .sf-hero::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 200px; pointer-events: none; background: linear-gradient(to bottom, rgba(8,14,28,.62), rgba(8,14,28,0)); box-shadow: inset 0 36px 42px rgba(0,0,0,.4); }
+  .sf-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(16,24,40,.55) 0%, rgba(16,24,40,0) 38%); }
+  .sf-hero__content { position: relative; z-index: 1; padding-bottom: 64px; }
+  .sf-hero__content p { margin: 0 0 14px; letter-spacing: .28em; text-transform: uppercase; font-size: 12px; font-weight: 600; }
+  .sf-hero h1 { margin: 0; max-width: 18ch; color: #fff; font-size: clamp(28px, 4vw, 52px); line-height: 1.15; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  .sf-hero__lede { letter-spacing: 0; text-transform: none; font-size: 18px; max-width: 42ch; }
+  .sf-hero .button { margin-top: 8px; background: #fff; color: var(--color-text); border-color: #fff; }
+  .sf-hero__next { position: absolute; z-index: 1; left: 50%; bottom: 18px; transform: translateX(-50%); width: 46px; height: 46px; border-radius: 50%; background: #fff; color: var(--color-text); display: flex; align-items: center; justify-content: center; }
+  .sf-kicker { margin: 0 0 8px; color: var(--color-accent); font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; text-align: center; }
+  .sf-intro { margin: 0 0 28px; text-align: center; color: var(--color-muted); }
+  .sf-strip { background: var(--color-surface); padding: 112px 0; }
+  .sf-strip__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+  .sf-strip h2, .sf-split h2, .sf-shop h2 { margin: 12px 0 8px; font-size: 22px; letter-spacing: -.03em; text-transform: none; text-align: center; }
+  .sf-strip p, .sf-split p, .sf-shop p { margin: 0; color: var(--color-muted); text-align: center; }
+  .sf-strip img, .sf-split img, .sf-product img { width: 100%; border-radius: 32px; }
+  .sf-strip img { aspect-ratio: 1; object-fit: cover; }
+  .sf-split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding-top: 112px; padding-bottom: 112px; }
+  .sf-split .sf-kicker, .sf-split h2, .sf-split p { text-align: left; }
+  .sf-split .button { margin: 16px 8px 0 0; }
+  .sf-how { background: var(--color-bg); padding-bottom: 112px; }
+  .sf-center { text-align: center; margin-top: 28px; }
+  .sf-shop { padding-bottom: 48px; }
+  .sf-product { display: block; max-width: 420px; margin: 0 auto; text-decoration: none; color: inherit; }
+  .sf-fit { background: var(--color-surface); }
+  @media (max-width: 800px) {
+    .sf-strip__grid, .sf-split { grid-template-columns: 1fr; }
+    .sf-hero { min-height: 78vh; }
+    .sf-hero > img { height: 170%; top: auto; bottom: 0; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Inicio Symfino",
+  "tag": "section",
+  "class": "section-symfino-storefront",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [],
+  "presets": [{ "name": "Inicio Symfino" }]
+}
+{% endschema %}

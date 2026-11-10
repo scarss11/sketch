@@ -42,14 +42,14 @@
           <p style="margin:0;color:var(--color-muted);font-size:14px">{{ 'templates.cart.taxes_shipping' | t }}</p>
           <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end">
             <button type="submit" name="update" class="button button--secondary">{{ 'templates.cart.update' | t }}</button>
-            <button type="submit" name="checkout" class="button">{{ 'templates.cart.checkout' | t }}</button>
+            <button type="submit" name="checkout" class="button">Checkout</button>
           </div>
         </div>
       </form>
     {%- else -%}
       <div class="empty-state">
         <p>{{ 'templates.cart.empty' | t }}</p>
-        <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
+        <a class="button" href="{{ routes.all_products_collection_url }}">Shop</a>
       </div>
     {%- endif -%}
   </div>

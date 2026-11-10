@@ -1,0 +1,45 @@
+<section class="section sf-faq" id="faq">
+  <div class="page-width sf-faq__wrap">
+    <p class="eyebrow">Questions</p>
+    <h2 class="h2">Frequently asked questions</h2>
+    <div class="sf-faq__list">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question | escape }}</summary>
+          <div class="rte">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+    <p class="sf-faq__cta"><a class="button" href="{% if request.page_type == 'product' %}#ProductBuy{% else %}{{ routes.root_url }}#shop{% endif %}">Explore Symfino One</a></p>
+  </div>
+</section>
+
+{% stylesheet %}
+  .sf-faq .eyebrow { color: var(--color-accent); }
+  .sf-faq__wrap { max-width: 800px; }
+  .sf-faq__list { margin-top: 12px; border-top: 1px solid var(--color-border); }
+  .sf-faq details { border-bottom: 1px solid var(--color-border); }
+  .sf-faq summary { cursor: pointer; padding: 18px 0; font-weight: 700; }
+  .sf-faq .rte { color: var(--color-muted); padding-bottom: 16px; }
+  .sf-faq__cta { margin: 28px 0 0; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Preguntas Symfino",
+  "tag": "section",
+  "class": "section-symfino-faq",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Pregunta",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Pregunta", "default": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Respuesta", "default": "<p>Answer</p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Preguntas Symfino" }]
+}
+{% endschema %}

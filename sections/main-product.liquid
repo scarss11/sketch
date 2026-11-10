@@ -1,16 +1,59 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
-<section class="section">
+<section class="section" id="ProductBuy">
   <div class="page-width product">
-    <div class="product__gallery">
-      {%- for media in product.media limit: 7 -%}
-        {%- if media.media_type == 'image' -%}
-          {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200, 1400', alt: media.alt | default: product.title }}
-        {%- else -%}
-          {{ media | media_tag: image_size: '1400x' }}
+    <div class="product-gallery" data-gallery>
+      <div class="product-gallery__stage">
+        {%- if section.settings.video != blank -%}
+          <div class="product-gallery__panel is-active" data-gallery-panel="video">
+            {{ section.settings.video | video_tag: controls: true, image_size: '1200x' }}
+          </div>
         {%- endif -%}
-      {%- else -%}
-        {{ 'product-1' | placeholder_svg_tag }}
-      {%- endfor -%}
+        {%- if product.media.size > 0 -%}
+          {%- for media in product.media -%}
+            <div class="product-gallery__panel{% if section.settings.video == blank and forloop.first %} is-active{% endif %}" data-gallery-panel="media-{{ media.id }}">
+              {%- if media.media_type == 'image' -%}
+                {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200, 1400', alt: media.alt | default: product.title }}
+              {%- else -%}
+                {{ media | media_tag: image_size: '1400x' }}
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- elsif section.settings.video == blank -%}
+          <div class="product-gallery__panel is-active" data-gallery-panel="stock-product">
+            <img src="{{ 'symfino-product.jpg' | asset_url }}" alt="Symfino One">
+          </div>
+          <div class="product-gallery__panel" data-gallery-panel="stock-life">
+            <img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt="Symfino One at home">
+          </div>
+          <div class="product-gallery__panel" data-gallery-panel="stock-care">
+            <img src="{{ 'symfino-care.jpg' | asset_url }}" alt="Care without compromise">
+          </div>
+          <div class="product-gallery__panel" data-gallery-panel="stock-peace">
+            <img src="{{ 'symfino-peace.jpg' | asset_url }}" alt="Peace of mind">
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="product-gallery__thumbs">
+        {%- if section.settings.video != blank -%}
+          <button type="button" class="is-active" data-gallery-thumb="video" aria-label="Product video">Video</button>
+        {%- endif -%}
+        {%- if product.media.size > 0 -%}
+          {%- for media in product.media -%}
+            <button type="button" data-gallery-thumb="media-{{ media.id }}"{% if section.settings.video == blank and forloop.first %} class="is-active"{% endif %} aria-label="{{ product.title | escape }} {{ forloop.index }}">
+              {%- if media.preview_image -%}
+                {{ media.preview_image | image_url: width: 180 | image_tag: alt: '' }}
+              {%- else -%}
+                <span>{{ forloop.index }}</span>
+              {%- endif -%}
+            </button>
+          {%- endfor -%}
+        {%- elsif section.settings.video == blank -%}
+          <button type="button" class="is-active" data-gallery-thumb="stock-product"><img src="{{ 'symfino-product.jpg' | asset_url }}" alt=""></button>
+          <button type="button" data-gallery-thumb="stock-life"><img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt=""></button>
+          <button type="button" data-gallery-thumb="stock-care"><img src="{{ 'symfino-care.jpg' | asset_url }}" alt=""></button>
+          <button type="button" data-gallery-thumb="stock-peace"><img src="{{ 'symfino-peace.jpg' | asset_url }}" alt=""></button>
+        {%- endif -%}
+      </div>
     </div>
 
     <div class="product__info">
@@ -25,6 +68,7 @@
 
       {%- form 'product', product, data-product-form: '', data-money-format: shop.money_format -%}
         <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
         <div style="display:flex;flex-direction:column;gap:20px">
           {%- unless product.has_only_default_variant -%}
             {%- for option in product.options_with_values -%}
@@ -65,6 +109,21 @@
         </script>
       {%- endform -%}
 
+      <div class="product__details">
+        <details>
+          <summary>{{ section.settings.shipping_heading | escape }}</summary>
+          <div class="rte">{{ section.settings.shipping_text }}</div>
+        </details>
+        <details>
+          <summary>{{ section.settings.returns_heading | escape }}</summary>
+          <div class="rte">{{ section.settings.returns_text }}</div>
+        </details>
+        <details>
+          <summary>{{ section.settings.warranty_heading | escape }}</summary>
+          <div class="rte">{{ section.settings.warranty_text }}</div>
+        </details>
+      </div>
+
       <div class="rte" style="color:var(--color-muted)">{{ product.description }}</div>
     </div>
   </div>
@@ -79,7 +138,14 @@
   "name": "Producto",
   "settings": [
     { "type": "checkbox", "id": "show_vendor", "label": "Mostrar marca/proveedor", "default": false },
-    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Mostrar botón de compra rápida", "default": true }
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Mostrar botón de compra rápida", "default": true },
+    { "type": "video", "id": "video", "label": "Video del producto" },
+    { "type": "text", "id": "shipping_heading", "label": "Título de envío", "default": "Shipping & delivery" },
+    { "type": "richtext", "id": "shipping_text", "label": "Texto de envío", "default": "<p>U.S. supplier shipping estimate: approximately 8 days. Actual delivery varies. 2.4GHz Wi-Fi is required for remote alerts.</p>" },
+    { "type": "text", "id": "returns_heading", "label": "Título de devoluciones", "default": "Returns" },
+    { "type": "richtext", "id": "returns_text", "label": "Texto de devoluciones", "default": "<p>See the store's current return policy for applicable terms.</p>" },
+    { "type": "text", "id": "warranty_heading", "label": "Título de garantía", "default": "Warranty" },
+    { "type": "richtext", "id": "warranty_text", "label": "Texto de garantía", "default": "<p>The device includes a 1-year limited hardware warranty. Symfino One is not a medical device.</p>" }
   ]
 }
 {% endschema %}

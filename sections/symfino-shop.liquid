@@ -1,0 +1,116 @@
+{%- assign shop_product = section.settings.product -%}
+<section class="section sf-shop" id="shop">
+  <div class="page-width product">
+    <div class="product__gallery">
+      {%- if shop_product != blank and shop_product.media.size > 0 -%}
+        {%- for media in shop_product.media limit: 5 -%}
+          {%- if media.media_type == 'image' -%}
+            {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200, 1400', alt: media.alt | default: shop_product.title }}
+          {%- else -%}
+            {{ media | media_tag: image_size: '1400x' }}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        <img src="{{ 'symfino-product.jpg' | asset_url }}" alt="Symfino One" width="1400" height="1400" loading="lazy">
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h2 class="h2">{% if shop_product != blank %}{{ shop_product.title | escape }}{% else %}Symfino One{% endif %}</h2>
+
+      {%- if shop_product != blank -%}
+        {%- assign current_variant = shop_product.selected_or_first_available_variant -%}
+        <div class="price product__price">
+          <span class="price__sale" data-product-price>{{ current_variant.price | money }}</span>
+          <s class="price__compare" data-product-compare{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{{ current_variant.compare_at_price | money }}</s>
+        </div>
+
+        {%- form 'product', shop_product, data-product-form: '', data-money-format: shop.money_format -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+          <div style="display:flex;flex-direction:column;gap:20px">
+            {%- unless shop_product.has_only_default_variant -%}
+              {%- for option in shop_product.options_with_values -%}
+                <fieldset class="variant-picker" data-option-position="{{ option.position }}">
+                  <legend>{{ option.name | escape }}</legend>
+                  <div class="variant-picker__options">
+                    {%- for value in option.values -%}
+                      <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index }}" name="{{ option.name | escape }}" value="{{ value | escape }}" data-option-index="{{ forloop.index0 }}"{% if option.selected_value == value %} checked{% endif %}>
+                      <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index }}">{{ value | escape }}</label>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            <div class="field">
+              <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+              <div class="quantity">
+                <button type="button" data-qty="minus" aria-label="{{ 'products.product.decrease' | t }}">−</button>
+                <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+                <button type="button" data-qty="plus" aria-label="{{ 'products.product.increase' | t }}">+</button>
+              </div>
+            </div>
+
+            <div class="product__buttons">
+              <button type="submit" name="add" class="button"
+                data-add="{{ 'products.product.add_to_cart' | t }}"
+                data-soldout="{{ 'products.product.sold_out' | t }}"
+                data-unavailable="{{ 'products.product.unavailable' | t }}"
+                {% unless current_variant.available %}disabled{% endunless %}>
+                {%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+              </button>
+              {%- if section.settings.show_dynamic_checkout -%}{{ form | payment_button }}{%- endif -%}
+              <a class="button button--secondary" href="{{ shop_product.url }}">View product</a>
+            </div>
+          </div>
+          <script type="application/json" data-variants>
+            [{%- for v in shop_product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price }},"compare_at_price":{{ v.compare_at_price | default: 0 }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+          </script>
+        {%- endform -%}
+      {%- else -%}
+        <p style="color:var(--color-muted)">Choose the Symfino One product in this section. Price, options, and checkout come from your Shopify catalog.</p>
+        <div class="product__buttons">
+          <a class="button" href="{{ routes.all_products_collection_url }}">Shop Symfino One</a>
+          <a class="button button--secondary" href="{{ routes.account_register_url }}">{{ 'customer.register.title' | t }}</a>
+          <a class="button button--secondary" href="{{ routes.account_login_url }}">{{ 'customer.login.title' | t }}</a>
+        </div>
+      {%- endif -%}
+
+      <div class="product__details">
+        <details>
+          <summary>{{ section.settings.shipping_heading | escape }}</summary>
+          <div class="rte">{{ section.settings.shipping_text }}</div>
+        </details>
+        <details>
+          <summary>{{ section.settings.returns_heading | escape }}</summary>
+          <div class="rte">{{ section.settings.returns_text }}</div>
+        </details>
+      </div>
+
+      {%- if shop_product != blank and shop_product.description != blank -%}
+        <div class="rte" style="color:var(--color-muted)">{{ shop_product.description }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Compra Symfino",
+  "tag": "section",
+  "class": "section-symfino-shop",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "product", "id": "product", "label": "Producto de Shopify" },
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta", "default": "Shop" },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Mostrar más opciones de pago", "default": true },
+    { "type": "text", "id": "shipping_heading", "label": "Título de envío", "default": "Shipping & delivery" },
+    { "type": "richtext", "id": "shipping_text", "label": "Texto de envío", "default": "<p>U.S. supplier shipping estimate: approximately 8 days. Actual delivery varies. 2.4GHz Wi-Fi is required for remote alerts.</p>" },
+    { "type": "text", "id": "returns_heading", "label": "Título de garantía", "default": "Warranty" },
+    { "type": "richtext", "id": "returns_text", "label": "Texto de garantía", "default": "<p>The device includes a 1-year limited hardware warranty. See the store's current return policy for applicable terms. Symfino One is not a medical device.</p>" }
+  ],
+  "presets": [{ "name": "Compra Symfino" }]
+}
+{% endschema %}
