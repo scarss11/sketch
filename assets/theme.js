@@ -1,4 +1,4 @@
-/* Hagane — interacciones básicas */
+/* Symfino — interacciones básicas */
 (function () {
   document.documentElement.classList.remove('no-js');
 

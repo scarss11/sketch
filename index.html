@@ -3,190 +3,188 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1a1a1a">
+    <meta name="theme-color" content="#111111">
     <title>Symfino One — Camera-Free Fall Monitoring</title>
-    <meta name="description" content="Symfino One uses 60GHz mmWave radar to monitor movement without recording images or requiring anything to be worn.">
+    <meta name="description" content="Camera-free fall monitoring that helps you stay informed and give your loved ones more peace of mind.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-      :root { --red: #1b2a4a; --teal: #1c9a8b; --ink: #1b2a4a; --muted: #5d6b7c; --bg: #f6f3ee; --line: #e7e1d8; }
+      :root { --ink: #141414; --muted: #5e656e; --bg: #f7f4ef; --line: #e7e2db; --teal: #14b8a6; --black: #111111; }
       * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, Helvetica, Arial, sans-serif; line-height: 1.6; }
+      html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+      body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, Helvetica, Arial, sans-serif; line-height: 1.55; }
       a { color: inherit; text-decoration: none; }
       img { max-width: 100%; display: block; }
-      .announce { margin: 0; background: var(--ink); color: var(--bg); text-align: center; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; padding: 12px 16px; }
-      .bar { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 72px; width: min(1280px, calc(100% - 48px)); margin: 0 auto; position: relative; }
-      .start { display: flex; align-items: center; gap: 8px; }
-      .site-header { position: fixed; top: 42px; left: 0; right: 0; z-index: 20; color: #fff; background: transparent; box-shadow: none; transition: color .45s ease, background-color .45s ease, box-shadow .45s ease, top .45s ease; }
-      .site-header a,
-      .site-header .logo,
-      .site-header .icon-btn { transition: color .45s ease; }
-      .site-header.is-solid { top: 0; color: var(--ink); background: #fff; box-shadow: 0 10px 28px rgba(27,42,74,.18); }
-      .logo { display: flex; align-items: center; color: inherit; }
-      .logo img { height: 36px; width: auto; }
-      .site-header:not(.is-solid) .logo img { filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 6px rgba(255,255,255,.85)); }
-      .icons { display: flex; justify-content: flex-end; align-items: center; gap: 4px; }
-      .text-link, .desk { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 8px 10px; color: inherit; }
-      .icon-link { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: inherit; }
-      .desk { display: none; }
-      @media (min-width: 800px) { .desk { display: inline; } .icon-link { width: auto; height: auto; } .icon-link svg { display: none; } }
-      .icon-btn { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; color: inherit; cursor: pointer; position: relative; }
+      button, input { font: inherit; }
+      .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 13px; font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #1c1c1c; }
+      .announce span { display: inline-flex; align-items: center; gap: 8px; }
+      .site-header { background: #fff; color: var(--ink); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #f0ece7; }
+      .bar { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 72px; width: min(1180px, calc(100% - 40px)); margin: 0 auto; position: relative; }
+      .start { display: flex; align-items: center; gap: 4px; position: relative; z-index: 2; pointer-events: none; }
+      .start > * { pointer-events: auto; }
+      .logo img { height: 34px; width: auto; }
+      .icons { display: flex; align-items: center; gap: 2px; position: relative; z-index: 2; pointer-events: none; }
+      .icons > * { pointer-events: auto; }
+      .icon-link, .icon-btn { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; color: inherit; cursor: pointer; position: relative; }
       .icon-btn svg { position: absolute; inset: 0; margin: auto; }
       .icon-btn .icon-close, .icon-btn[aria-expanded="true"] .icon-open { display: none; }
       .icon-btn[aria-expanded="true"] .icon-close { display: block; }
       .site-nav { display: none; }
-      .site-nav.is-open { display: block; position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); color: var(--ink); padding: 0 16px; }
-      .site-nav.is-open a { color: var(--ink); text-shadow: none; }
-      .site-nav ul { list-style: none; margin: 0; padding: 8px 0 28px; }
-      .site-nav a { display: block; font-size: 24px; font-weight: 700; letter-spacing: -.03em; padding: 12px 0; border-bottom: 1px solid #e6e6e6; }
-      .site-header:not(.is-solid) .site-nav a,
-      .site-header:not(.is-solid) .text-link,
-      .site-header:not(.is-solid) .desk { text-shadow: 0 1px 8px rgba(0,0,0,.55); }
+      .site-nav.is-open { display: block; position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--line); padding: 8px 20px 18px; }
+      .site-nav ul { list-style: none; margin: 0; padding: 0; }
+      .site-nav a { display: block; font-size: 18px; font-weight: 600; padding: 12px 0; border-bottom: 1px solid #f0ece7; }
       @media (min-width: 800px) {
         .icon-btn { display: none; }
-        .site-nav,
-        .site-nav.is-open { display: flex; position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); justify-content: center; align-items: center; width: auto; background: transparent; padding: 0; z-index: 2; }
-        .site-nav ul { display: flex; justify-content: center; align-items: center; gap: 2px; width: auto; margin: 0; padding: 0; }
-        .site-nav a { border: 0; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 8px 8px; color: inherit; white-space: nowrap; }
-        .site-nav .only-mobile { display: none; }
+        .site-nav, .site-nav.is-open { display: flex; position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); justify-content: center; background: transparent; border: 0; padding: 0; }
+        .site-nav ul { display: flex; gap: 8px; }
+        .site-nav a { border: 0; font-size: 15px; font-weight: 500; padding: 8px 14px; }
+        .only-mobile { display: none; }
       }
-      .hero { position: relative; min-height: 82vh; display: flex; align-items: center; color: #fff; background: #1a140f; overflow: hidden; padding: 120px 0 64px; }
-      .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% center; }
-      .hero::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 160px; pointer-events: none; background: linear-gradient(to bottom, rgba(8,6,4,.55), rgba(8,6,4,0)); }
-      .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,7,5,.82) 0%, rgba(10,7,5,.62) 28%, rgba(10,7,5,.28) 50%, rgba(10,7,5,0) 72%); }
-      .hero-copy { position: relative; z-index: 1; width: min(1280px, calc(100% - 64px)); margin: 0 auto; padding: 0; text-align: left; }
-      .hero .eyebrow, .hero h1, .hero .lede { text-shadow: 0 2px 10px rgba(0,0,0,.65), 0 12px 28px rgba(0,0,0,.45); }
-      .eyebrow { margin: 0 0 14px; letter-spacing: .28em; text-transform: uppercase; font-size: 12px; font-weight: 600; }
-      h1, h2 { font-weight: 500; letter-spacing: .08em; text-transform: uppercase; line-height: 1.15; }
-      .hero h1 { margin: 0 0 18px; max-width: 11ch; font-size: clamp(44px, 5.2vw, 68px); letter-spacing: -.035em; text-transform: none; font-weight: 600; line-height: 1.02; }
-      .hero .lede { margin: 0 0 26px; max-width: 34ch; color: rgba(255,255,255,.88); font-size: 18px; line-height: 1.5; }
-      .button { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 8px; background: var(--ink); color: var(--bg); letter-spacing: .12em; text-transform: uppercase; font-weight: 600; border: 0; cursor: pointer; }
-      .hero .button { background: #fff; color: var(--ink); border-radius: 999px; box-shadow: 0 12px 28px rgba(0,0,0,.35); }
-      .kicker { color: var(--teal); }
-      .slider-bar { display: flex; justify-content: space-between; align-items: end; margin-bottom: 16px; }
-      .slider-bar button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
-      .track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; }
-      .track figure { flex: 0 0 min(72vw, 520px); scroll-snap-align: start; margin: 0; }
-      .track img { width: 100%; height: 420px; object-fit: cover; border-radius: 24px; }
-      .policies { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-      .policies article, .review-empty { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
-      .review-empty { max-width: 640px; }
-      .stars { color: var(--teal); letter-spacing: .12em; }
-      .next { position: absolute; z-index: 1; left: 50%; bottom: 18px; transform: translateX(-50%); width: 46px; height: 46px; border-radius: 50%; background: #fff; color: var(--ink); display: flex; align-items: center; justify-content: center; }
-      .block { padding: 40px 0; }
-      .wrap { width: min(1280px, calc(100% - 32px)); margin: 0 auto; }
-      .kicker { margin: 0 0 8px; text-align: center; letter-spacing: .16em; text-transform: uppercase; font-size: 13px; }
-      .intro { margin: 0 0 36px; text-align: center; color: var(--muted); letter-spacing: 0; text-transform: none; }
-      .cols, .products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; margin: 0; padding: 0; list-style: none; }
-      .cols article, .products a { text-align: center; }
-      .cols img, .products img, .split img, .feature img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 32px; }
-      .cols h2, .products h2 { margin: 18px 0 10px; font-size: 18px; }
-      .cols p, .products p, .split p, .story p, .faq p { margin: 0; color: var(--muted); letter-spacing: 0; text-transform: none; }
-      .center { text-align: center; margin: 36px 0 0; }
-      .story { position: relative; min-height: 640px; display: flex; align-items: center; justify-content: center; }
-      .story > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .card { position: relative; width: min(560px, calc(100% - 32px)); background: var(--bg); padding: 48px 36px; text-align: center; }
-      .card h2 { margin: 0 0 16px; font-size: 26px; }
-      .card .button { margin-top: 22px; }
-      .feature { max-width: 360px; margin: 0 auto; text-align: center; }
-      .feature img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-      .feature .button { margin-top: 18px; }
-      .band { position: relative; min-height: 620px; display: flex; align-items: center; justify-content: center; }
-      .band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .band-card { position: relative; width: min(520px, calc(100% - 32px)); background: rgba(246,243,238,.95); padding: 42px 36px; text-align: center; }
-      .band-card h2 { margin: 0 0 14px; font-size: 26px; }
-      .band-card .button { margin-top: 20px; }
-      .feature { max-width: 360px; margin: 0 auto; text-align: center; }
-      .feature img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-      .feature .button { margin-top: 18px; }
-      .band { position: relative; min-height: 620px; display: flex; align-items: center; justify-content: center; }
-      .band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .band-card { position: relative; width: min(520px, calc(100% - 32px)); background: rgba(246,243,238,.95); padding: 42px 36px; text-align: center; }
-      .band-card h2 { margin: 0 0 14px; font-size: 26px; }
-      .band-card .button { margin-top: 20px; }
-      .split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-      .split h2 { margin: 0 0 14px; font-size: 22px; }
-      .split p { margin: 0 0 12px; }
-      .note { font-weight: 600; }
-      .faq { max-width: 760px; }
-      .faq h2 { text-align: center; margin: 0 0 18px; font-size: 22px; }
-      .faq details { border-bottom: 1px solid #ddd; }
-      .faq summary { cursor: pointer; padding: 16px 0; }
-      .account { max-width: 440px; margin: 0 auto; background: #fff; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; }
-      .account h2 { margin: 8px 0 0; font-size: 22px; }
-      .account label { font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; }
-      .account input { min-height: 48px; width: 100%; border: 1px solid #ddd; padding: 0 14px; font: inherit; }
-      .account .button { width: 100%; }
-      .fields { display: flex; flex-direction: column; gap: 10px; }
-      .perks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; background: #fff; border-radius: 28px; padding: 36px 20px; }
-      .perks article, .feats article { text-align: center; }
-      .mark { width: 48px; height: 48px; margin: 0 auto 10px; display: grid; place-items: center; color: var(--ink); }
-      .perks .mark { width: 76px; height: 76px; margin-bottom: 14px; }
-      .perks .mark svg { width: 48px; height: 48px; }
-      .perks h2, .feats h2, .steps h2 { margin: 0 0 4px; font-size: 16px; letter-spacing: 0; text-transform: none; }
-      .perks p, .feats p, .steps p, .problem p, .solution p, .living p, .action p, .ask p { color: var(--muted); letter-spacing: 0; text-transform: none; }
-      .problem, .solution, .action { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-      .problem img, .solution img, .action img, .living img, .rooms img { width: 100%; border-radius: 28px; object-fit: cover; }
-      .problem img, .action img { aspect-ratio: 4 / 3; }
-      .solution { background: #1b2a4a; color: #fff; border-radius: 32px; padding: 48px; }
-      .solution p, .solution .kicker { color: #d5deea; }
-      .solution h2, .living h2, .cta h2 { color: #fff; text-transform: none; letter-spacing: -.03em; }
-      .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; text-align: center; }
-      .steps img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; margin: 0 auto 16px; }
-      .num { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 700; margin-bottom: 12px; }
-      .living, .cta { position: relative; min-height: 360px; border-radius: 32px; overflow: hidden; display: flex; align-items: center; }
-      .living img, .cta img { position: absolute; inset: 0; height: 100%; border-radius: 0; }
-      .living::after, .cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to right, rgba(16,24,40,.78), rgba(16,24,40,.2)); }
-      .living div, .cta div { position: relative; z-index: 1; max-width: 460px; padding: 48px; }
-      .living p, .cta p { color: #f6f3ee; }
-      .action h2, .empty h2, .solution h2 { text-transform: none; letter-spacing: -.03em; font-size: clamp(28px, 3vw, 40px); }
-      .problem { position: relative; display: block; min-height: 460px; border-radius: 28px; overflow: hidden; }
-      .problem img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0; object-fit: cover; object-position: center 35%; }
-      .problem::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to right, #fff 0%, rgba(255,255,255,.94) 28%, rgba(255,255,255,.55) 46%, rgba(255,255,255,0) 68%); }
-      .problem div { position: relative; z-index: 1; max-width: 460px; padding: 72px 56px; }
-      .problem .kicker { margin: 0 0 16px; color: #6b7280; text-align: left; font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
-      .problem h2 { margin: 0 0 18px; color: #111318; text-align: left; font-weight: 800; font-size: clamp(40px, 4.2vw, 52px); line-height: 1.02; letter-spacing: -.04em; text-transform: none; }
-      .problem p { margin: 0; max-width: 38ch; color: #3f4654; text-align: left; font-size: 16px; font-weight: 400; line-height: 1.55; }
-      .solution .button { margin-top: 18px; }
-      .feats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
-      .rooms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-      .rooms figure { margin: 0; text-align: center; }
-      .rooms figcaption { margin-top: 12px; font-weight: 700; }
-      .empty { max-width: 520px; margin: 0 auto; background: #fff; border-radius: 24px; padding: 36px 28px; text-align: center; }
-      .ask { max-width: 760px; margin: 0 auto; }
-      .ask details { background: #fff; border-radius: 14px; margin-bottom: 10px; padding: 4px 18px; }
-      .ask summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
-      .note { background: #fff; border-radius: 16px; padding: 16px 18px; color: var(--muted); }
-      .cta .button, .solution .button { background: #fff; color: var(--ink); }
-      .site-footer { background: #1b2a4a; color: #d5deea; padding: 64px 0 28px; }
-      .site-footer h2, .site-footer a { color: #fff; }
-      .site-footer p, .site-footer li a { color: #d5deea; }
-      .foot { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 36px; }
-      .site-footer h2 { margin: 0 0 12px; color: #fff; font-size: 13px; letter-spacing: .16em; }
-      .site-footer p { color: #d5deea; letter-spacing: 0; text-transform: none; }
-      .site-footer li { list-style: none; }
-      .site-footer ul { margin: 0; padding: 0; }
-      .site-footer li a { display: inline-block; padding: 4px 0; }
-      .site-footer .fields input { min-height: 44px; width: 100%; border: 1px solid #fff; background: #fff; padding: 0 12px; font: inherit; color: var(--ink); }
-      .site-footer .button { width: 100%; background: transparent; color: #fff; border: 1px solid #fff; }
-      .copy { text-align: center; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; margin-top: 28px; }
+      .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+      .hero { position: relative; min-height: 320px; aspect-ratio: 1024 / 434; display: flex; align-items: center; overflow: hidden; background: #111; color: #fff; }
+      .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+      .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.28) 40%, rgba(0,0,0,0) 68%); }
+      .hero-copy { position: relative; z-index: 1; width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+      .eyebrow { margin: 0 0 14px; letter-spacing: .22em; text-transform: uppercase; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.78); }
+      .hero h1 { margin: 0 0 16px; max-width: 11ch; font-size: clamp(48px, 5.4vw, 68px); font-weight: 800; letter-spacing: -.045em; line-height: .98; color: #fff; }
+      .hero .lede { margin: 0 0 26px; max-width: 34ch; color: rgba(255,255,255,.88); font-size: 18px; line-height: 1.45; }
+      .hero .button { background: #161616; color: #fff; border-color: rgba(255,255,255,.18); }
+      .button { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--black); color: #fff; font-weight: 600; font-size: 15px; border: 1px solid var(--black); cursor: pointer; }
+      .button.light { background: #fff; color: var(--black); }
+      .perks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 36px 0; }
+      .perks article { text-align: center; padding: 8px 12px; }
+      .perks .mark { width: 42px; height: 42px; margin: 0 auto 10px; color: var(--ink); }
+      .perks h2 { margin: 0; font-size: 15px; font-weight: 700; }
+      .perks p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+      .problem { display: grid; grid-template-columns: .88fr 1.12fr; gap: 8px; align-items: center; padding: 28px 0 48px; }
+      .kicker { margin: 0 0 10px; letter-spacing: .18em; text-transform: uppercase; font-size: 12px; font-weight: 600; color: #8b919a; }
+      .problem h2, .solution h2, .living h2, .cta h2, .action h2 { margin: 0 0 14px; font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
+      .problem h2 { font-size: clamp(36px, 4vw, 52px); }
+      .problem p, .solution p, .living p, .cta p, .action p { margin: 0; color: #4b5563; font-size: 16px; line-height: 1.55; max-width: 46ch; }
+      .problem-photo { height: 500px; overflow: hidden; }
+      .problem-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 0%; transform: scale(1.45); transform-origin: 72% 12%; border-radius: 0; }
+      .solution { position: relative; min-height: 460px; display: flex; align-items: center; overflow: hidden; color: #fff; margin: 10px 0 56px; }
+      .solution img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 82% center; }
+      .solution::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,10,8,.82) 0%, rgba(12,10,8,.55) 42%, rgba(12,10,8,.12) 72%); }
+      .solution div, .living div, .cta div { position: relative; z-index: 1; max-width: 520px; padding: 48px; }
+      .solution .kicker, .solution p { color: rgba(255,255,255,.86); }
+      .solution h2 { color: #fff; font-size: clamp(34px, 3.6vw, 48px); }
+      .solution .button { margin-top: 22px; }
+      .more { display: none; }
+      .band { padding: 10px 0 56px; text-align: center; }
+      .band h2 { margin: 0 0 28px; font-size: clamp(32px, 4vw, 44px); font-weight: 800; letter-spacing: -.03em; }
+      .steps { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: start; gap: 8px; }
+      .steps article { text-align: center; }
+      .circle { position: relative; width: min(100%, 230px); margin: 0 auto 16px; }
+      .circle img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; }
+      .badge { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border-radius: 50%; background: var(--teal); color: #fff; display: grid; place-items: center; font-weight: 700; }
+      .arrow { align-self: center; color: #9aa1ab; font-size: 28px; margin-top: -36px; }
+      .steps h3 { margin: 0; font-size: 16px; font-weight: 700; }
+      .steps p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+      .living, .cta { position: relative; min-height: 340px; overflow: hidden; display: flex; align-items: center; color: #fff; margin-bottom: 56px; }
+      .living img, .cta img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .living img { object-position: 78% center; }
+      .cta { aspect-ratio: 1024 / 434; min-height: 300px; }
+      .cta img { object-position: center; }
+      .living::after, .cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(16,16,16,.72) 0%, rgba(16,16,16,.35) 48%, rgba(16,16,16,.12) 100%); }
+      @media (min-width: 801px) {
+        .living { aspect-ratio: 2.45 / 1; min-height: 280px; }
+        .living img { object-position: 64% 18%; }
+        .living::after { background: linear-gradient(90deg, rgba(8,8,8,.82) 0%, rgba(8,8,8,.5) 26%, rgba(8,8,8,.12) 48%, rgba(8,8,8,0) 62%); }
+        .living div { max-width: 460px; padding: 40px 48px; }
+        .solution div, .living div, .cta div { padding-left: max(48px, calc(50% - 590px)); }
+        .living, .cta { max-height: 640px; }
+        .living h2 { font-size: clamp(34px, 3.2vw, 46px); max-width: 11ch; }
+        .living p { max-width: 24ch; font-size: 16px; line-height: 1.45; }
+      }
+      .living h2, .cta h2, .living p, .cta p { color: #fff; }
+      .cta .button { margin-top: 18px; }
+      .section-title { margin: 0 0 28px; text-align: center; font-size: clamp(28px, 3vw, 36px); font-weight: 800; letter-spacing: -.03em; }
+      .feats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; padding-bottom: 48px; }
+      .feats article { text-align: center; }
+      .feats .mark { width: 36px; height: 36px; margin: 0 auto 8px; }
+      .feats h2 { margin: 0; font-size: 15px; font-weight: 700; }
+      .feats p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+      .action { display: grid; grid-template-columns: 1.1fr .9fr; gap: 36px; align-items: center; padding-bottom: 56px; }
+      .player { position: relative; overflow: hidden; }
+      .player img { width: 100%; height: 320px; object-fit: cover; }
+      .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.92); color: #111; display: grid; place-items: center; }
+      .time { position: absolute; right: 12px; bottom: 12px; background: rgba(0,0,0,.65); color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 12px; }
+      .action h2 { font-size: clamp(32px, 3vw, 44px); }
+      .rooms-head { text-align: center; }
+      .rooms-wrap { position: relative; padding-bottom: 56px; }
+      .rooms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .rooms figure { margin: 0; position: relative; overflow: hidden; }
+      .rooms img { width: 100%; height: 210px; object-fit: cover; }
+      .rooms figcaption { position: absolute; left: 10px; right: 10px; bottom: 10px; background: rgba(255,255,255,.92); border-radius: 10px; text-align: center; font-weight: 700; padding: 8px; }
+      #features { scroll-margin-top: 88px; }
+      .reviews { text-align: center; padding-bottom: 48px; }
+      .review-card { max-width: 640px; margin: 0 auto; background: #f3f0eb; border-radius: 16px; padding: 36px 24px; }
+      .review-icon { width: 48px; height: 48px; margin: 0 auto 10px; color: #111; }
+      .review-card p { margin: 8px 0 16px; font-weight: 600; }
+      .ask { max-width: 820px; margin: 0 auto 48px; }
+      .ask details { background: #fff; border: 1px solid #ece7e1; border-radius: 10px; margin-bottom: 10px; padding: 0 16px; }
+      .ask summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0; font-weight: 600; }
+      .ask summary::-webkit-details-marker { display: none; }
+      .ask summary::after { content: "+"; color: #6b7280; font-size: 20px; font-weight: 400; }
+      .ask details[open] summary::after { content: "–"; }
+      .ask p { margin: 0 0 14px; color: var(--muted); }
+      .note { max-width: 820px; margin: -28px auto 48px; color: var(--muted); font-size: 14px; }
+      .loop { text-align: center; padding: 10px 0 64px; }
+      .loop p { margin: 8px 0 16px; color: var(--muted); }
+      .loop form { display: flex; align-items: center; max-width: 420px; margin: 0 auto; background: #fff; border: 1.5px solid #909090; border-radius: 999px; padding: 4px 4px 4px 18px; }
+      .loop input { flex: 1; border: 0; background: transparent; min-height: 44px; outline: none; }
+      .loop button { width: 42px; height: 42px; border: 0; border-radius: 50%; background: transparent; cursor: pointer; font-size: 18px; }
+      .site-footer { background: #111; color: #d7d7d7; padding: 48px 0 24px; }
+      .foot { display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap: 24px; }
+      .site-footer h2 { margin: 0 0 12px; color: #fff; font-size: 14px; font-weight: 700; }
+      .site-footer ul { margin: 0; padding: 0; list-style: none; }
+      .site-footer li a { display: inline-block; padding: 4px 0; color: #c8c8c8; font-size: 14px; }
+      .site-footer .logo img { height: 30px; filter: brightness(0) invert(1); }
+      .copy { text-align: center; color: #9a9a9a; font-size: 13px; margin: 28px 0 0; }
       @media (max-width: 800px) {
-        .cols, .products, .split, .foot, .policies, .perks, .solution, .action, .steps, .feats, .rooms { grid-template-columns: 1fr; }
-        .block { padding: 28px 0; }
-        .problem div { padding: 36px 24px; }
-        .solution { padding: 28px; }
-        .announce { font-size: 10px; letter-spacing: .08em; padding: 12px 10px; white-space: nowrap; }
-        .hero { min-height: 72vh; padding: 108px 0 36px; }
-        .hero > img { object-position: center; }
-        .hero-copy { width: min(1280px, calc(100% - 32px)); }
-        .logo img { height: 28px; }
+        .hero { min-height: 0; aspect-ratio: 9 / 15; max-height: 760px; align-items: flex-end; }
+        .hero img { object-position: center 30%; }
+        .hero::after { background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.45) 68%, rgba(0,0,0,.82) 100%); }
+        .hero-copy { width: auto; max-width: none; margin: 0 20px 36px; padding: 0; }
+        .hero h1 { font-size: 34px; max-width: 12ch; line-height: 1.02; }
+        .hero .lede { display: none; }
+        .perks, .feats, .foot { grid-template-columns: 1fr 1fr; }
+        .problem, .action, .steps, .how-grid { grid-template-columns: 1fr; }
+        .arrow { display: none; }
+        .rooms { grid-template-columns: 1fr; }
+        .problem-photo { height: 280px; transform: none; }
+        .problem-photo img { transform: none; object-position: center 20%; }
+        .problem h2, .band h2, .section-title, .action h2 { font-size: 30px; }
+        .solution, .living, .cta { min-height: 480px; aspect-ratio: auto; align-items: flex-end; }
+        .solution img { object-position: 80% center; }
+        .living img { object-position: 72% 20%; }
+        .cta img { object-position: 88% 60%; }
+        .solution::after, .living::after, .cta::after { background: linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.76) 38%, rgba(0,0,0,.2) 58%, rgba(0,0,0,0) 72%), linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.45) 100%); }
+        .solution div, .living div, .cta div { min-width: 0; width: auto; max-width: 62%; padding: 24px 18px 28px; }
+        .solution h2, .living h2, .cta h2 { font-size: 28px; line-height: 1.05; max-width: 12ch; }
+        .solution p, .living p, .cta p, .action p, .problem p { max-width: none; font-size: 15px; }
+        .hero .button, .solution .button, .cta .button { white-space: nowrap; font-size: 14px; padding: 0 16px; }
+        .player, .rooms figure { margin-left: -20px; margin-right: -20px; }
+        .rooms { gap: 12px; }
+        .solution .more { display: inline-grid; place-items: center; width: 40px; height: 40px; margin: 2px 0 4px; padding: 0; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; background: rgba(0,0,0,.35); color: #fff; cursor: pointer; transition: transform .2s; }
+        .solution .is-open .more { transform: rotate(180deg); }
+        .solution #solution-text { display: none; }
+        .solution .is-open #solution-text { display: block; }
+      }
+      @media (max-width: 560px) {
+        .perks, .feats, .foot { grid-template-columns: 1fr; }
+        .announce { gap: 8px 16px; font-size: 12px; }
       }
     </style>
   </head>
   <body>
-      <p class="announce">Free U.S. shipping · 30-day returns · 1-year warranty</p>
+    <p class="announce">
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> 30-Day Returns</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
+    </p>
     <header class="site-header">
       <div class="bar">
         <div class="start">
@@ -198,184 +196,206 @@
         </div>
         <nav id="SiteNav" class="site-nav" aria-label="Page">
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="how.html">How it works</a></li>
-            <li><a href="care.html">Care</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="shop.html">Symfino One</a></li>
+            <li><a href="how.html">How It Works</a></li>
+            <li><a href="#features">Features</a></li>
             <li class="only-mobile"><a href="account.html">Account</a></li>
             <li class="only-mobile"><a href="cart.html">Cart</a></li>
           </ul>
         </nav>
         <div class="icons">
-          <a class="text-link desk" href="account.html">Account</a>
-          <a class="icon-link" href="shop.html" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="desk">Search</span></a>
-          <a class="icon-link" href="cart.html" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.5 13h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="desk">Cart</span></a>
+          <a class="icon-link" href="shop.html" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></a>
+          <a class="icon-link" href="account.html" aria-label="Account"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3 3.8-4.5 7-4.5S17.6 16 19 19"/></svg></a>
+          <a class="icon-link" href="cart.html" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="hero" id="product">
+      <section class="hero">
+        <picture>
+          <source media="(max-width: 800px)" srcset="preview/symfino/hero-mobile.jpg">
+          <img src="preview/symfino/hero-banner.jpg" alt="Symfino One on a table.">
+        </picture>
         <div class="hero-copy">
           <p class="eyebrow">Symfino One</p>
-          <h1>Care without compromise</h1>
+          <h1>Care Without Compromise</h1>
           <p class="lede">Camera-free fall monitoring that helps you stay informed and give your loved ones more peace of mind.</p>
-          <a class="button" href="shop.html">Shop Symfino One</a>
+          <a class="button" href="shop.html">Shop Symfino One <span aria-hidden="true">→</span></a>
         </div>
-        <img src="preview/symfino/product.jpg" alt="Symfino One on a table.">
       </section>
 
-      <section class="block" id="benefits">
-        <div class="wrap">
-          <div class="perks">
-            <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg></div><h2>Camera-free</h2><p>Privacy by design</p></article>
-            <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"/><path d="M12 8v4l2 2"/></svg></div><h2>No wearables</h2><p>Nothing to wear</p></article>
-            <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12a7 7 0 0 1 14 0"/><path d="M8 12a4 4 0 0 1 8 0"/><circle cx="12" cy="16" r="1"/></svg></div><h2>60GHz mmWave</h2><p>Senses movement</p></article>
-            <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></div><h2>Phone alerts</h2><p>Stay informed</p></article>
-          </div>
+      <section class="wrap">
+        <div class="perks">
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 5l15 15"/></svg></div><h2>Camera-Free</h2><p>Privacy by design</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"/><path d="M8 12h8"/><path d="M15 5l2 3M9 19l-2 2"/></svg></div><h2>No Wearables</h2><p>Nothing to wear</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 15a7 7 0 0 1 14 0"/><path d="M8 15a4 4 0 0 1 8 0"/><circle cx="12" cy="18" r="1"/></svg></div><h2>60GHz mmWave</h2><p>Advanced</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></div><h2>Phone Alerts</h2><p>Stay informed</p></article>
         </div>
       </section>
-      <section class="block">
-        <div class="wrap problem">
+
+      <section class="wrap problem">
+        <div>
+          <p class="kicker">The Problem</p>
+          <h2>Falls Are Common. Warnings Aren't.</h2>
+          <p>A fall at home can happen to anyone, often without warning. The consequences can be serious, but help doesn't always arrive in time.</p>
+        </div>
+        <div class="problem-photo"><img src="preview/symfino/lifestyle.jpg" alt="A person at home."></div>
+      </section>
+
+      <section class="bleed">
+        <div class="solution">
+          <img src="preview/symfino/device-wall.jpg" alt="Symfino One on the wall.">
           <div>
-            <p class="kicker">The problem</p>
-            <h2>Falls Are Common.<br>Warnings Aren't.</h2>
-            <p>A fall at home can happen to anyone, often without warning. The consequences can be serious, but help doesn't always arrive in time.</p>
+            <p class="kicker">The Solution</p>
+            <h2>A Smarter, Simpler Way to Stay Informed</h2>
+            <button class="more" type="button" aria-expanded="false" aria-controls="solution-text" aria-label="Show more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <p id="solution-text">Using 60GHz mmWave sensing, Symfino One detects unusual movement patterns, such as a possible fall, and sends an alert to your phone.</p>
+            <a class="button light" href="shop.html">Shop Symfino One <span aria-hidden="true">→</span></a>
           </div>
-          <img src="preview/symfino/lifestyle.jpg" alt="Quiet protection at home with Symfino One.">
         </div>
       </section>
-      <section class="block">
-        <div class="wrap solution">
+
+      <section class="wrap band" id="how">
+        <p class="kicker">How It Works</p>
+        <h2>Simple. Discreet. Effective.</h2>
+        <div class="steps">
+          <article>
+            <div class="circle"><img src="preview/symfino/step-monitor.jpg" alt="Symfino One sensing the room."><span class="badge">1</span></div>
+            <h3>1. Monitors the Room</h3>
+            <p>with 60GHz sensing</p>
+          </article>
+          <div class="arrow" aria-hidden="true">→</div>
+          <article>
+            <div class="circle"><img src="preview/symfino/step-fall.jpg" alt="A possible fall at home."><span class="badge">2</span></div>
+            <h3>2. Detects Unusual Movement</h3>
+          </article>
+          <div class="arrow" aria-hidden="true">→</div>
+          <article>
+            <div class="circle"><img src="preview/symfino/step-alert.jpg" alt="A phone alert from Symfino."><span class="badge">3</span></div>
+            <h3>3. Sends an Alert to Your Phone</h3>
+          </article>
+        </div>
+      </section>
+
+      <section class="bleed">
+        <div class="living">
+          <img src="preview/symfino/living-man.jpg" alt="Designed for independent living.">
           <div>
-            <p class="kicker" style="text-align:left">The solution</p>
-            <h2>A smarter, simpler way to stay informed</h2>
-            <p>Symfino One uses 60GHz mmWave radar to monitor movement in the room without recording images or requiring anything to be worn. It can identify movement patterns consistent with a potential fall and send a phone alert through Tuya or Smart Life when Wi-Fi is available.</p>
-            <a class="button" href="shop.html">Shop Symfino One</a>
-          </div>
-          <img src="preview/symfino/product.jpg" alt="Symfino One">
-        </div>
-      </section>
-      <section class="block">
-        <div class="wrap">
-          <p class="kicker">How it works</p>
-          <p class="intro">Simple. Discreet. Effective.</p>
-          <div class="steps">
-            <article><img src="preview/symfino/product.jpg" alt="Symfino One in the room."><div class="num">1</div><h2>Monitors the room</h2><p>60GHz mmWave radar monitors movement in the covered room.</p></article>
-            <article><img src="preview/symfino/lifestyle.jpg" alt="Movement in the room."><div class="num">2</div><h2>Identifies a potential fall</h2><p>The system can identify movement patterns consistent with a potential fall.</p></article>
-            <article><img src="preview/symfino/device-how.jpg" alt="Symfino One."><div class="num">3</div><h2>Sends a phone alert</h2><p>Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</p></article>
+            <h2>Designed for Independent Living</h2>
+            <p>Support safety and confidence at home — without changing daily routines.</p>
           </div>
         </div>
       </section>
-      <section class="block">
-        <div class="wrap living">
-          <img src="preview/symfino/lifestyle.jpg" alt="Designed for independent living.">
-          <div>
-            <h2>Designed for independent living</h2>
-            <p>She's living independently. You're still connected. Support that fits real life, without a camera in the room.</p>
-          </div>
+
+      <section class="wrap" id="features">
+        <h2 class="section-title">Key Features</h2>
+        <div class="feats">
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M8 22l4-8 4 8M12 9v5"/></svg></div><h2>Fall Detection</h2><p>Identifies potential falls in real time</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 18V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9"/><path d="M3 14h18"/></svg></div><h2>Sleep Activity</h2><p>Notifies unusual sleep patterns</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 20V8a2 2 0 0 1 2-2h3v14"/><path d="M11 10h5a2 2 0 0 1 2 2v8"/></svg></div><h2>Bathroom Use</h2><p>Tracks extended or frequent use</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l4 6M8 19l4-6"/></svg></div><h2>Activity Changes</h2><p>Alerts on significant routine changes</p></article>
         </div>
       </section>
-      <section class="block">
-        <div class="wrap">
-          <p class="kicker">Key features</p>
-          <div class="feats">
-            <article><div class="mark" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M12 7v6M9 20l3-7 3 7"/></svg></div><h2>Fall detection</h2><p>Movement patterns consistent with a potential fall.</p></article>
-            <article><div class="mark" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18V8M8 18v-5M12 18V9M16 18v-7M20 18V6"/></svg></div><h2>Activity in the room</h2><p>Designed primarily for one person in the covered room.</p></article>
-            <article><div class="mark" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v3M5 8h14v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/></svg></div><h2>Nothing to wear</h2><p>No wearable is required.</p></article>
-            <article><div class="mark" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></div><h2>Phone alerts</h2><p>Tuya or Smart Life, when 2.4GHz Wi-Fi is available.</p></article>
-          </div>
+
+      <section class="wrap action">
+        <a class="player" href="how.html" aria-label="Watch how Symfino One works">
+          <img src="preview/symfino/product-table.jpg" alt="Symfino One in the room.">
+          <span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7l10 5-10 5z"/></svg></span>
+          <span class="time">1:24</span>
+        </a>
+        <div>
+          <p class="kicker">See It in Action</p>
+          <h2>Watch How Symfino One Works</h2>
+          <p>A quick look at how it fits into your home and daily life.</p>
         </div>
       </section>
-      <section class="block">
-        <div class="wrap action">
-          <img src="preview/symfino/product.jpg" alt="See Symfino One in the room.">
-          <div>
-            <p class="kicker" style="text-align:left">See it in action</p>
-            <h2>Watch how Symfino One works</h2>
-            <p>It senses movement. It doesn't watch people. No images or video.</p>
-            <a class="button" href="how.html">How it works</a>
-          </div>
+
+      <section class="wrap rooms-wrap">
+        <h2 class="section-title">Fits Seamlessly Into Your Home</h2>
+        <div class="rooms">
+          <figure><img src="preview/symfino/room-bedroom.jpg" alt="A bedroom."><figcaption>Bedroom</figcaption></figure>
+          <figure><img src="preview/symfino/room-living.jpg" alt="A living room."><figcaption>Living Room</figcaption></figure>
+          <figure><img src="preview/symfino/room-bathroom.jpg" alt="A bathroom."><figcaption>Bathroom</figcaption></figure>
         </div>
       </section>
-      <section class="block">
-        <div class="wrap">
-          <p class="kicker">Fits into the home</p>
-          <div class="rooms">
-            <figure><img src="preview/symfino/lifestyle.jpg" alt="Symfino One at home."><figcaption>The room</figcaption></figure>
-            <figure><img src="preview/symfino/device-peace.jpg" alt="Symfino One on a table."><figcaption>Daily life</figcaption></figure>
-            <figure><img src="preview/symfino/device-care.jpg" alt="Symfino One without a camera."><figcaption>Privacy</figcaption></figure>
-          </div>
+
+      <section class="wrap reviews">
+        <h2 class="section-title">Customer Reviews</h2>
+        <div class="review-card">
+          <div class="review-icon" aria-hidden="true"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M15 13.5h18a7.5 7.5 0 0 1 7.5 7.5v7a7.5 7.5 0 0 1-7.5 7.5H23l-6.5 5.5V35.5h-1.5A7.5 7.5 0 0 1 7.5 28v-7A7.5 7.5 0 0 1 15 13.5z" stroke="#141414" stroke-width="2.1" stroke-linejoin="round"/><circle cx="19.5" cy="24" r="1.7" fill="#141414"/><circle cx="24" cy="24" r="1.7" fill="#141414"/><circle cx="28.5" cy="24" r="1.7" fill="#141414"/></svg></div>
+          <p>Be the first to review Symfino One.</p>
+          <a class="button" href="contact.html">Write a Review</a>
         </div>
       </section>
-      <section class="block">
-        <div class="wrap">
-          <p class="kicker">Customer reviews</p>
-          <div class="empty">
-            <h2>Be the first to review Symfino One.</h2>
-            <p>Reviews from verified orders will appear here once Symfino One is available.</p>
-            <a class="button" href="contact.html">Write a review</a>
-          </div>
-        </div>
-      </section>
-      <section class="block">
-        <div class="wrap ask">
-          <p class="kicker">Frequently asked questions</p>
+
+      <section class="wrap">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="ask">
           <details><summary>Does it use a camera?</summary><p>No. Symfino One uses 60GHz mmWave radar. It does not record images or video.</p></details>
           <details><summary>Is there anything to wear?</summary><p>No. Nothing to wear.</p></details>
           <details><summary>What Wi-Fi do I need?</summary><p>2.4GHz Wi-Fi is required for remote alerts.</p></details>
           <details><summary>How are alerts sent?</summary><p>Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</p></details>
           <details><summary>Is it a medical device?</summary><p>No. It is not a medical device or a substitute for emergency assistance.</p></details>
-          <p class="note">Important: alerts can be missed. Positioning, obstructions, room conditions, pets, multiple people, and slow or unusual falls can affect detection.</p>
         </div>
+        <p class="note">Alerts can be missed. Positioning, obstructions, room conditions, pets, multiple people, and slow or unusual falls can affect detection.</p>
       </section>
-      <section class="block">
-        <div class="wrap cta">
-          <img src="preview/symfino/product.jpg" alt="Symfino One">
+
+      <section class="bleed">
+        <div class="cta">
+          <img src="preview/symfino/hero-banner.jpg" alt="Symfino One">
           <div>
-            <h2>Get Symfino One today</h2>
-            <p>A simple, private way to stay informed at home. U.S. supplier shipping estimate: approximately 8 days. 1-year limited hardware warranty.</p>
-            <a class="button" href="shop.html">Shop Symfino One</a>
+            <h2>Get Symfino One Today</h2>
+            <p>A simple, private way to stay informed at home.</p>
+            <a class="button light" href="shop.html">Shop Symfino One <span aria-hidden="true">→</span></a>
           </div>
         </div>
+      </section>
+
+      <section class="wrap loop">
+        <h2 class="section-title">Stay in the Loop</h2>
+        <p>Get product updates, tips, and more.</p>
+        <form action="#newsletter">
+          <input type="email" placeholder="Enter your email" aria-label="Email" required>
+          <button type="submit" aria-label="Subscribe">→</button>
+        </form>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="wrap foot">
-        <div>
-          <h2>Symfino</h2>
-          <p>Symfino One gives families a discreet way to stay informed while helping preserve independence, privacy, and dignity. It is not a medical device or a substitute for emergency assistance.</p>
-        </div>
+        <a class="logo" href="index.html"><img src="preview/symfino/logo.png" alt="Symfino"></a>
         <div>
           <h2>Shop</h2>
           <ul>
             <li><a href="shop.html">Symfino One</a></li>
-            <li><a href="how.html">How it works</a></li>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="#features">Features</a></li>
           </ul>
         </div>
         <div>
           <h2>Support</h2>
           <ul>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="care.html">Care</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
           </ul>
         </div>
         <div>
-          <h2>Newsletter</h2>
-          <p>Product news for your family. Wi-Fi is required for remote alerts.</p>
-          <form class="fields" action="#account">
-            <label for="NewsEmail">E-mail</label>
-            <input id="NewsEmail" type="email" placeholder="E-mail" required>
-            <button class="button" type="submit">Subscribe</button>
-          </form>
+          <h2>Company</h2>
+          <ul>
+            <li><a href="care.html">About Symfino</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="shop.html">Shipping &amp; Returns</a></li>
+            <li><a href="faq.html">Warranty</a></li>
+            <li><a href="contact.html">Privacy Policy</a></li>
+            <li><a href="contact.html">Terms of Service</a></li>
+          </ul>
         </div>
       </div>
-      <p class="copy">© 2026 — Symfino</p>
+      <p class="copy">© 2026 Symfino. All rights reserved.</p>
     </footer>
     <script>
       (function () {
@@ -386,26 +406,14 @@
           button.setAttribute('aria-label', open ? button.dataset.labelClose : button.dataset.labelOpen);
           nav.classList.toggle('is-open', open);
         }
-        var header = document.querySelector('.site-header');
-        var announce = document.querySelector('.announce');
-        function placeHeader() {
-          var bar = announce ? announce.offsetHeight : 42;
-          var solid = window.scrollY > bar;
-          header.classList.toggle('is-solid', solid);
-          header.style.top = solid ? '0px' : bar + 'px';
-        }
-        window.addEventListener('scroll', placeHeader, { passive: true });
-        window.addEventListener('resize', placeHeader);
-        placeHeader();
         button.addEventListener('click', function () { setOpen(button.getAttribute('aria-expanded') !== 'true'); });
         nav.addEventListener('click', function (event) { if (event.target.closest('a')) setOpen(false); });
-        document.querySelectorAll('[data-slider]').forEach(function (slider) {
-          var track = slider.querySelector('[data-slider-track]');
-          slider.querySelectorAll('[data-slider-dir]').forEach(function (control) {
-            control.addEventListener('click', function () {
-              var amount = track.clientWidth * 0.8;
-              track.scrollBy({ left: control.getAttribute('data-slider-dir') === 'next' ? amount : -amount, behavior: 'smooth' });
-            });
+        document.querySelectorAll('button.more').forEach(function (more) {
+          more.addEventListener('click', function () {
+            var open = more.getAttribute('aria-expanded') !== 'true';
+            more.setAttribute('aria-expanded', String(open));
+            more.setAttribute('aria-label', open ? 'Show less' : 'Show more');
+            more.parentElement.classList.toggle('is-open', open);
           });
         });
       })();

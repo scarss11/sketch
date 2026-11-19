@@ -8,50 +8,54 @@
   <style>
     :root { --ink:#1b2a4a; --muted:#5d6b7c; --teal:#1c9a8b; --bg:#f6f3ee; --line:#e7e1d8; }
     * { box-sizing:border-box; }
+    .sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
     body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,Helvetica,Arial,sans-serif; line-height:1.6; }
     a { color:inherit; text-decoration:none; }
     img { max-width:100%; display:block; }
-    .announce { background:var(--ink); color:var(--bg); text-align:center; letter-spacing:.14em; text-transform:uppercase; font-size:12px; padding:10px 16px; }
-    .wrap { width:min(1100px, calc(100% - 32px)); margin:0 auto; }
-    .site-header { background:#fff; position:relative; }
-    .start { display:flex; align-items:center; gap:8px; } .bar { display:grid; grid-template-columns:1fr auto; align-items:center; min-height:74px; width:min(1100px, calc(100% - 32px)); margin:0 auto; }
-    .logo { display:flex; align-items:center; } .logo img { height:34px; width:auto; }
-    .icons { display:flex; justify-content:flex-end; align-items:center; gap:4px; }
-    .desk { display:none; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:8px 10px; }
-    .icon-link { width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; }
-    .icon-btn { width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; border:0; background:transparent; color:inherit; cursor:pointer; position:relative; }
-    .icon-btn svg { position:absolute; inset:0; margin:auto; }
-    .icon-btn .icon-close, .icon-btn[aria-expanded="true"] .icon-open { display:none; }
-    .icon-btn[aria-expanded="true"] .icon-close { display:block; }
-    .site-nav { display:none; }
-    .site-nav.is-open { display:block; }
-    .site-nav ul { list-style:none; width:min(1100px, calc(100% - 32px)); margin:0 auto; padding:8px 0 20px; }
-    .site-nav a { display:block; font-size:22px; font-weight:700; padding:12px 0; border-bottom:1px solid var(--line); }
-    @media (min-width:800px) {
-      .desk { display:inline; }
-      .icon-link svg { display:none; }
-      .icon-link::after { content:attr(aria-label); letter-spacing:.14em; font-size:12px; font-weight:600; text-transform:uppercase; }
-      .icon-link { width:auto; height:auto; padding:8px 10px; } .icon-btn { display:none; }
-      .site-nav { display:block; }
-      .site-nav ul { display:flex; justify-content:center; gap:4px; padding:0 0 14px; }
-      .site-nav a { border:0; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:8px 10px; }
-      .site-nav .only-mobile { display:none; }
+    .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 13px; font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #1c1c1c; }
+    .announce span { display: inline-flex; align-items: center; gap: 8px; }
+    .site-header { background: #fff; color: var(--ink); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #f0ece7; }
+    .bar { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 72px; width: min(1180px, calc(100% - 40px)); margin: 0 auto; position: relative; }
+    .start { display: flex; align-items: center; gap: 4px; position: relative; z-index: 2; pointer-events: none; }
+    .start > * { pointer-events: auto; }
+    .logo img { height: 34px; width: auto; }
+    .icons { display: flex; align-items: center; gap: 2px; position: relative; z-index: 2; pointer-events: none; }
+    .icons > * { pointer-events: auto; }
+    .icon-link, .icon-btn { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; color: inherit; cursor: pointer; position: relative; }
+    .icon-btn svg { position: absolute; inset: 0; margin: auto; }
+    .icon-btn .icon-close, .icon-btn[aria-expanded="true"] .icon-open { display: none; }
+    .icon-btn[aria-expanded="true"] .icon-close { display: block; }
+    .site-nav { display: none; }
+    .site-nav.is-open { display: block; position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--line); padding: 8px 20px 18px; }
+    .site-nav ul { list-style: none; margin: 0; padding: 0; }
+    .site-nav a { display: block; font-size: 18px; font-weight: 600; padding: 12px 0; border-bottom: 1px solid #f0ece7; text-transform: none; letter-spacing: 0; }
+    @media (min-width: 800px) {
+      .icon-btn { display: none; }
+      .site-nav, .site-nav.is-open { display: flex; position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); justify-content: center; background: transparent; border: 0; padding: 0; }
+      .site-nav ul { display: flex; gap: 8px; width: auto; margin: 0; padding: 0; }
+      .site-nav a { border: 0; font-size: 15px; font-weight: 500; padding: 8px 14px; text-transform: none; letter-spacing: 0; }
+      .only-mobile { display: none; }
     }
-    .page { padding:88px 0 120px; }
-    .page h1 { margin:0 0 24px; text-align:center; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
-    .copy { max-width:720px; margin:0 auto; }
-    .copy h2 { margin:28px 0 8px; font-size:20px; letter-spacing:.06em; text-transform:uppercase; }
-    .copy p { color:var(--muted); margin:0 0 12px; }
-    .copy img { width:100%; border-radius:32px; margin-bottom:20px; }
+    .wrap { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
+
+    .page { padding:56px 0 80px; }
+    .how-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; }
+    .how-grid img { width:100%; border-radius:28px; }
+    .how-copy h2 { margin:0 0 6px; font-size:15px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#1b2a4a; }
+    .how-copy p { margin:0 0 26px; color:#5d6b7c; font-size:15px; font-weight:400; line-height:1.55; letter-spacing:0; text-transform:none; }
+    .how-copy .button { margin-top:4px; border-radius:8px; background:#1b2a4a; color:#fff; letter-spacing:.08em; text-transform:uppercase; font-size:13px; font-weight:700; }
+    @media (max-width:800px) { .how-grid { grid-template-columns:1fr; } }
     .product { max-width:360px; }
     .product img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:32px; background:#fff; }
 
-    .site-footer { background:#fff; color:var(--muted); padding:48px 0 28px; margin-top:24px; }
-    .foot { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:28px; }
-    .site-footer h2 { margin:0 0 10px; color:var(--ink); font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
+    .site-footer { background:#111; color:#d7d7d7; padding:48px 0 24px; }
+    .foot { display:grid; grid-template-columns:1.3fr repeat(4, 1fr); gap:24px; }
+    .site-footer h2 { margin:0 0 12px; color:#fff; font-size:14px; font-weight:700; letter-spacing:0; text-transform:none; }
     .site-footer ul { margin:0; padding:0; list-style:none; }
-    .site-footer li a { display:inline-block; padding:4px 0; }
-    .legal { text-align:center; letter-spacing:.12em; text-transform:uppercase; font-size:12px; margin-top:28px; }
+    .site-footer li a { display:inline-block; padding:4px 0; color:#c8c8c8; font-size:14px; }
+    .site-footer .logo img { height:30px; filter:brightness(0) invert(1); }
+    .legal { text-align:center; color:#9a9a9a; font-size:13px; letter-spacing:0; text-transform:none; margin:28px 0 0; }
+    @media (max-width:800px) { .foot { grid-template-columns:1fr 1fr; } }
     @media (max-width:700px) { .foot { grid-template-columns:1fr; } }
     .button { display:inline-flex; min-height:48px; align-items:center; padding:0 22px; border-radius:8px; background:var(--ink); color:var(--bg); letter-spacing:.12em; text-transform:uppercase; font-weight:600; border:0; }
     details { border-bottom:1px solid var(--line); }
@@ -66,7 +70,11 @@
   </style>
 </head>
 <body>
-  <p class="announce">Camera-free fall monitoring · Nothing to wear</p>
+  <p class="announce">
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> 30-Day Returns</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
+  </p>
   <header class="site-header">
     <div class="bar">
       <div class="start">
@@ -76,66 +84,73 @@
         </button>
         <a class="logo" href="index.html"><img src="preview/symfino/logo.png" alt="Symfino"></a>
       </div>
+      <nav id="SiteNav" class="site-nav" aria-label="Page">
+        <ul>
+          <li><a href="shop.html">Symfino One</a></li>
+          <li><a href="how.html">How It Works</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li class="only-mobile"><a href="account.html">Account</a></li>
+          <li class="only-mobile"><a href="cart.html">Cart</a></li>
+        </ul>
+      </nav>
       <div class="icons">
-        <a class="desk" href="account.html">Account</a>
         <a class="icon-link" href="shop.html" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></a>
-        <a class="icon-link" href="cart.html" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.5 13h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
+        <a class="icon-link" href="account.html" aria-label="Account"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3 3.8-4.5 7-4.5S17.6 16 19 19"/></svg></a>
+        <a class="icon-link" href="cart.html" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
       </div>
     </div>
-    <nav id="SiteNav" class="site-nav" aria-label="Page">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="how.html">How it works</a></li>
-        <li><a href="care.html">Care</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li class="only-mobile"><a href="account.html">Account</a></li>
-        <li class="only-mobile"><a href="cart.html">Cart</a></li>
-      </ul>
-    </nav>
   </header>
-  <main class="page"><div class="wrap copy">
-    
-<h1>How it works</h1>
-<img src="preview/symfino/how-it-works.jpg" alt="How Symfino One works">
-<h2>Monitors the room</h2>
-<p>60GHz mmWave radar monitors movement in the covered room.</p>
-<h2>Identifies a potential fall</h2>
-<p>The system can identify movement patterns consistent with a potential fall.</p>
-<h2>Sends a phone alert</h2>
-<p>Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</p>
-<a class="button" href="shop.html">Shop Symfino One</a>
 
-  </div></main>
-  <footer class="site-footer">
-  <div class="wrap foot">
-    <div>
-      <h2>Our promise</h2>
-      <p>Symfino One gives families a discreet way to stay informed while helping preserve independence, privacy, and dignity. It is not a medical device or a substitute for emergency assistance.</p>
-    </div>
-    <div>
-      <h2>Footer menu</h2>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="how.html">How it works</a></li>
-        <li><a href="care.html">Care</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Newsletter</h2>
-      <p>Product news for your family. Wi-Fi is required for remote alerts.</p>
-      <form action="#newsletter">
-        <input type="email" placeholder="E-mail" aria-label="E-mail" required>
-        <button class="button" type="submit">Subscribe</button>
-      </form>
+  <main class="page">
+  <h1 class="sr">How it works</h1>
+  <div class="wrap how-grid">
+    <img src="preview/symfino/how-it-works.jpg" alt="How Symfino One works">
+    <div class="how-copy">
+      <h2>Monitors the room</h2>
+      <p>60GHz mmWave radar monitors movement in the covered room.</p>
+      <h2>Identifies a potential fall</h2>
+      <p>The system can identify movement patterns consistent with a potential fall.</p>
+      <h2>Sends a phone alert</h2>
+      <p>Remote notifications can be sent through Tuya or Smart Life when Wi-Fi and internet are available.</p>
+      <a class="button" href="shop.html">Shop Symfino One</a>
     </div>
   </div>
-  <p class="legal">© 2026 — Symfino</p>
-</footer>
+</main>
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <a class="logo" href="index.html"><img src="preview/symfino/logo.png" alt="Symfino"></a>
+      <div>
+        <h2>Shop</h2>
+        <ul>
+          <li><a href="shop.html">Symfino One</a></li>
+          <li><a href="index.html#features">Features</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Support</h2>
+        <ul>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="care.html">About Symfino</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="shop.html">Shipping &amp; Returns</a></li>
+          <li><a href="faq.html">Warranty</a></li>
+          <li><a href="contact.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">© 2026 Symfino. All rights reserved.</p>
+  </footer>
   <script>
     (function () {
       var button = document.querySelector('button.icon-btn');

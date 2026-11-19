@@ -1,4 +1,5 @@
 {
+  "window.title": "Symfino",
   "files.associations": {
     "*.liquid": "liquid"
   },

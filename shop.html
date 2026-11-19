@@ -3,181 +3,206 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shop — Symfino</title>
+  <title>Symfino One — Shop</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --ink:#1b2a4a; --muted:#5d6b7c; --teal:#1c9a8b; --bg:#f6f3ee; --line:#e7e1d8; }
+    :root { --ink:#141414; --muted:#5e656e; --bg:#f7f4ef; --line:#e7e2db; --teal:#14b8a6; --black:#111; }
     * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,Helvetica,Arial,sans-serif; line-height:1.6; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,Helvetica,Arial,sans-serif; line-height:1.55; }
     a { color:inherit; text-decoration:none; }
     img { max-width:100%; display:block; }
-    .announce { background:var(--ink); color:var(--bg); text-align:center; letter-spacing:.14em; text-transform:uppercase; font-size:12px; padding:10px 16px; }
-    .wrap { width:min(1100px, calc(100% - 32px)); margin:0 auto; }
-    .site-header { background:#fff; position:relative; }
-    .start { display:flex; align-items:center; gap:8px; } .bar { display:grid; grid-template-columns:1fr auto; align-items:center; min-height:74px; width:min(1100px, calc(100% - 32px)); margin:0 auto; }
-    .logo { display:flex; align-items:center; } .logo img { height:34px; width:auto; }
-    .icons { display:flex; justify-content:flex-end; align-items:center; gap:4px; }
-    .desk { display:none; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:8px 10px; }
-    .icon-link { width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; }
-    .icon-btn { width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; border:0; background:transparent; color:inherit; cursor:pointer; position:relative; }
+    button, input { font:inherit; }
+    .announce { margin:0; background:#111; color:#e8e8e8; display:flex; justify-content:center; gap:28px; flex-wrap:wrap; font-size:13px; font-weight:500; padding:10px 16px; border-bottom:1px solid #1c1c1c; }
+    .announce span { display:inline-flex; align-items:center; gap:8px; }
+    .site-header { background:#fff; position:sticky; top:0; z-index:20; border-bottom:1px solid #f0ece7; }
+    .bar { display:grid; grid-template-columns:1fr auto; align-items:center; min-height:72px; width:min(1180px, calc(100% - 40px)); margin:0 auto; position:relative; }
+    .start { display:flex; align-items:center; gap:4px; position:relative; z-index:2; pointer-events:none; }
+    .start > * { pointer-events:auto; }
+    .logo img { height:34px; width:auto; }
+    .icons { display:flex; align-items:center; position:relative; z-index:2; pointer-events:none; }
+    .icons > * { pointer-events:auto; }
+    .icon-link, .icon-btn { width:42px; height:42px; display:inline-flex; align-items:center; justify-content:center; border:0; background:transparent; color:inherit; cursor:pointer; position:relative; }
     .icon-btn svg { position:absolute; inset:0; margin:auto; }
     .icon-btn .icon-close, .icon-btn[aria-expanded="true"] .icon-open { display:none; }
     .icon-btn[aria-expanded="true"] .icon-close { display:block; }
     .site-nav { display:none; }
-    .site-nav.is-open { display:block; }
-    .site-nav ul { list-style:none; width:min(1100px, calc(100% - 32px)); margin:0 auto; padding:8px 0 20px; }
-    .site-nav a { display:block; font-size:22px; font-weight:700; padding:12px 0; border-bottom:1px solid var(--line); }
+    .site-nav.is-open { display:block; position:absolute; left:0; right:0; top:100%; background:#fff; border-bottom:1px solid var(--line); padding:8px 20px 18px; }
+    .site-nav ul { list-style:none; margin:0; padding:0; }
+    .site-nav a { display:block; font-size:18px; font-weight:600; padding:12px 0; border-bottom:1px solid #f0ece7; }
     @media (min-width:800px) {
-      .desk { display:inline; }
-      .icon-link svg { display:none; }
-      .icon-link::after { content:attr(aria-label); letter-spacing:.14em; font-size:12px; font-weight:600; text-transform:uppercase; }
-      .icon-link { width:auto; height:auto; padding:8px 10px; } .icon-btn { display:none; }
-      .site-nav { display:block; }
-      .site-nav ul { display:flex; justify-content:center; gap:4px; padding:0 0 14px; }
-      .site-nav a { border:0; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:8px 10px; }
-      .site-nav .only-mobile { display:none; }
+      .icon-btn { display:none; }
+      .site-nav, .site-nav.is-open { display:flex; position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); justify-content:center; background:transparent; border:0; padding:0; }
+      .site-nav ul { display:flex; gap:8px; }
+      .site-nav a { border:0; font-size:15px; font-weight:500; padding:8px 14px; }
+      .only-mobile { display:none; }
     }
-    .page { padding:88px 0 120px; }
-    .page h1 { margin:0 0 24px; text-align:center; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
-    .copy { max-width:720px; margin:0 auto; }
-    .copy h2 { margin:28px 0 8px; font-size:20px; letter-spacing:.06em; text-transform:uppercase; }
-    .copy p { color:var(--muted); margin:0 0 12px; }
-    .copy img { width:100%; border-radius:32px; margin-bottom:20px; }
-    .buy { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; max-width:960px; }
-    .buy img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:32px; }
-    .buy h2 { margin:0 0 8px; font-size:40px; letter-spacing:-.03em; text-transform:none; }
-    .price { margin:8px 0 16px; font-size:32px; font-weight:700; color:var(--ink); }
-    .checks { list-style:none; padding:0; margin:0 0 18px; }
-    .checks li { padding:6px 0 6px 28px; position:relative; color:var(--ink); }
+    .wrap { width:min(1180px, calc(100% - 40px)); margin:0 auto; }
+    .page { padding:28px 0 72px; }
+    .buy { display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; }
+    .gallery { display:grid; grid-template-columns:72px 1fr; gap:12px; align-items:center; }
+    .thumbs { display:flex; flex-direction:column; gap:8px; }
+    .thumbs button { border:1px solid transparent; padding:0; background:#fff; border-radius:8px; overflow:hidden; cursor:pointer; }
+    .thumbs button.is-on { border-color:#111; }
+    .thumbs img { width:72px; height:72px; object-fit:cover; }
+    .stage { position:relative; background:#fff; border-radius:16px; overflow:hidden; }
+    .stage img, .thumbs img { object-position: 78% center; }
+    .stage img { width:100%; aspect-ratio:1; object-fit:cover; }
+    .stage .nav { position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border:0; border-radius:50%; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,.12); cursor:pointer; }
+    .stage .prev { left:12px; }
+    .stage .next { right:12px; }
+    .buy h1 { margin:0 0 6px; font-size:40px; font-weight:800; letter-spacing:-.03em; }
+    .sub { margin:0 0 12px; color:#374151; }
+    .price { margin:0 0 16px; font-size:32px; font-weight:700; }
+    .checks { list-style:none; padding:0; margin:0 0 20px; }
+    .checks li { padding:5px 0 5px 26px; position:relative; }
     .checks li::before { content:"✓"; position:absolute; left:0; color:var(--teal); font-weight:700; }
-    .buy-actions { display:flex; flex-direction:column; gap:10px; max-width:320px; }
-    .buy-actions .button { justify-content:center; }
-    .button-line { background:#fff; color:var(--ink); border:1px solid var(--ink); }
-    .trust-row { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:28px; color:var(--muted); font-size:13px; font-weight:600; }
+    .buy-actions { display:flex; flex-direction:column; gap:10px; max-width:420px; }
+    .btn { display:flex; align-items:center; justify-content:center; min-height:48px; border-radius:8px; font-weight:700; border:1px solid #111; }
+    .btn.fill { background:#111; color:#fff; }
+    .btn.line { background:#fff; color:#111; }
+    .trust-row { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:28px; color:#374151; font-size:14px; font-weight:600; }
+    .trust-row span { display:flex; align-items:center; gap:8px; }
     .trust { color:var(--muted); font-size:14px; margin-top:16px; }
-    @media (max-width:800px) { .buy { grid-template-columns:1fr; } }
-    .product { max-width:360px; }
-    .product img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:32px; background:#fff; }
-
-    .site-footer { background:#fff; color:var(--muted); padding:48px 0 28px; margin-top:24px; }
-    .foot { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:28px; }
-    .site-footer h2 { margin:0 0 10px; color:var(--ink); font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
+    .site-footer { background:#111; color:#d7d7d7; padding:48px 0 24px; }
+    .foot { display:grid; grid-template-columns:1.3fr repeat(4, 1fr); gap:24px; }
+    .site-footer h2 { margin:0 0 12px; color:#fff; font-size:14px; }
     .site-footer ul { margin:0; padding:0; list-style:none; }
-    .site-footer li a { display:inline-block; padding:4px 0; }
-    .legal { text-align:center; letter-spacing:.12em; text-transform:uppercase; font-size:12px; margin-top:28px; }
-    @media (max-width:700px) { .foot { grid-template-columns:1fr; } }
-    .button { display:inline-flex; min-height:48px; align-items:center; padding:0 22px; border-radius:8px; background:var(--ink); color:var(--bg); letter-spacing:.12em; text-transform:uppercase; font-weight:600; border:0; }
-    details { border-bottom:1px solid var(--line); }
-    summary { cursor:pointer; padding:16px 0; font-weight:700; }
-    .cart { display:grid; grid-template-columns:96px 1fr auto; gap:16px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:32px; padding:16px; max-width:720px; }
-    .cart img { width:96px; height:96px; object-fit:cover; border-radius:8px; }
-    form { display:flex; flex-direction:column; gap:12px; max-width:640px; margin:0 auto; }
-    .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    input, textarea { min-height:48px; border:1px solid var(--line); border-radius:8px; padding:10px 12px; font:inherit; width:100%; }
-    textarea { min-height:140px; }
-    @media (max-width:700px) { .row, .cart { grid-template-columns:1fr; } }
+    .site-footer a { color:#c8c8c8; font-size:14px; display:inline-block; padding:4px 0; }
+    .site-footer .logo img { height:30px; filter:brightness(0) invert(1); }
+    .copy { text-align:center; color:#9a9a9a; font-size:13px; margin:28px 0 0; }
+    @media (max-width:800px) {
+      .buy, .gallery, .foot { grid-template-columns:1fr; }
+      .thumbs { flex-direction:row; }
+      .trust-row { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
-  <p class="announce">Camera-free fall monitoring · Nothing to wear</p>
+  <p class="announce">
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> 30-Day Returns</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
+  </p>
   <header class="site-header">
     <div class="bar">
       <div class="start">
         <button class="icon-btn" type="button" aria-expanded="false" aria-controls="SiteNav" aria-label="Open menu" data-label-open="Open menu" data-label-close="Close menu">
-          <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
-          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
         <a class="logo" href="index.html"><img src="preview/symfino/logo.png" alt="Symfino"></a>
       </div>
+      <nav id="SiteNav" class="site-nav" aria-label="Page">
+        <ul>
+          <li><a href="shop.html">Symfino One</a></li>
+          <li><a href="how.html">How It Works</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li class="only-mobile"><a href="account.html">Account</a></li>
+          <li class="only-mobile"><a href="cart.html">Cart</a></li>
+        </ul>
+      </nav>
       <div class="icons">
-        <a class="desk" href="account.html">Account</a>
         <a class="icon-link" href="shop.html" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></a>
-        <a class="icon-link" href="cart.html" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.5 13h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
+        <a class="icon-link" href="account.html" aria-label="Account"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3 3.8-4.5 7-4.5S17.6 16 19 19"/></svg></a>
+        <a class="icon-link" href="cart.html" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
       </div>
     </div>
-    <nav id="SiteNav" class="site-nav" aria-label="Page">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="how.html">How it works</a></li>
-        <li><a href="care.html">Care</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li class="only-mobile"><a href="account.html">Account</a></li>
-        <li class="only-mobile"><a href="cart.html">Cart</a></li>
-      </ul>
-    </nav>
   </header>
-  <main class="page"><div class="wrap copy">
-    
-<h1>Shop</h1>
-<div class="buy">
-  <img src="preview/symfino/product.jpg" alt="Symfino One">
-  <div>
-    <h2>Symfino One</h2>
-    <p>Camera-free fall monitoring for the home.</p>
-    <p class="price">$299</p>
-    <ul class="checks">
-      <li>Camera-free and privacy-first</li>
-      <li>No wearable required</li>
-      <li>60GHz mmWave sensing</li>
-      <li>Phone alerts through the app</li>
-      <li>Quick and simple setup</li>
-    </ul>
-    <div class="buy-actions">
-      <a class="button" href="cart.html">Add to cart</a>
-      <a class="button button-line" href="cart.html">Buy now</a>
+  <main class="page">
+    <div class="wrap">
+      <div class="buy">
+        <div class="gallery">
+          <div class="thumbs" id="thumbs">
+            <button type="button" class="is-on" data-src="preview/symfino/product-table.jpg"><img src="preview/symfino/product-table.jpg" alt="Symfino One"></button>
+            <button type="button" data-src="preview/symfino/device-wall.jpg"><img src="preview/symfino/device-wall.jpg" alt="Symfino One on the wall"></button>
+            <button type="button" data-src="preview/symfino/room-living.jpg"><img src="preview/symfino/room-living.jpg" alt="A living room"></button>
+            <button type="button" data-src="preview/symfino/room-bedroom.jpg"><img src="preview/symfino/room-bedroom.jpg" alt="A bedroom"></button>
+          </div>
+          <div class="stage">
+            <img id="mainPhoto" src="preview/symfino/product-table.jpg" alt="Symfino One">
+            <button class="nav prev" type="button" id="prevPhoto" aria-label="Previous photo">‹</button>
+            <button class="nav next" type="button" id="nextPhoto" aria-label="Next photo">›</button>
+          </div>
+        </div>
+        <div>
+          <h1>Symfino One</h1>
+          <p class="sub">Camera-Free Fall Monitoring for the Home</p>
+          <p class="price">$299</p>
+          <ul class="checks">
+            <li>Camera-free and privacy-first</li>
+            <li>No wearable required</li>
+            <li>60GHz mmWave sensing</li>
+            <li>Phone alerts through the app</li>
+            <li>Quick and simple setup</li>
+          </ul>
+          <div class="buy-actions">
+            <a class="btn fill" href="cart.html">Add to Cart</a>
+            <a class="btn line" href="cart.html">Buy Now</a>
+          </div>
+          <div class="trust-row">
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> 30-Day Returns</span>
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
+          </div>
+          <p class="trust">Not a medical device or a substitute for emergency assistance. 2.4GHz Wi-Fi is required for remote alerts.</p>
+        </div>
+      </div>
     </div>
-    <div class="trust-row">
-      <span>U.S. shipping</span>
-      <span>30-day returns</span>
-      <span>1-year warranty</span>
-    </div>
-    <p class="trust">Not a medical device or a substitute for emergency assistance. 2.4GHz Wi-Fi is required for remote alerts.</p>
-  </div>
-</div>
-
-  </div></main>
+  </main>
   <footer class="site-footer">
-  <div class="wrap foot">
-    <div>
-      <h2>Our promise</h2>
-      <p>Symfino One gives families a discreet way to stay informed while helping preserve independence, privacy, and dignity. It is not a medical device or a substitute for emergency assistance.</p>
+    <div class="wrap foot">
+      <a class="logo" href="index.html"><img src="preview/symfino/logo.png" alt="Symfino"></a>
+      <div>
+        <h2>Shop</h2>
+        <ul>
+          <li><a href="shop.html">Symfino One</a></li>
+          <li><a href="index.html#features">Features</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Support</h2>
+        <ul>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <ul><li><a href="care.html">About Symfino</a></li></ul>
+      </div>
+      <div>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="shop.html">Shipping &amp; Returns</a></li>
+          <li><a href="faq.html">Warranty</a></li>
+          <li><a href="contact.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Terms of Service</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h2>Footer menu</h2>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="how.html">How it works</a></li>
-        <li><a href="care.html">Care</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Newsletter</h2>
-      <p>Product news for your family. Wi-Fi is required for remote alerts.</p>
-      <form action="#newsletter">
-        <input type="email" placeholder="E-mail" aria-label="E-mail" required>
-        <button class="button" type="submit">Subscribe</button>
-      </form>
-    </div>
-  </div>
-  <p class="legal">© 2026 — Symfino</p>
-</footer>
+    <p class="copy">© 2026 Symfino. All rights reserved.</p>
+  </footer>
   <script>
     (function () {
       var button = document.querySelector('button.icon-btn');
       var nav = document.getElementById('SiteNav');
-      if (!button || !nav) return;
       button.addEventListener('click', function () {
         var open = button.getAttribute('aria-expanded') !== 'true';
         button.setAttribute('aria-expanded', String(open));
         button.setAttribute('aria-label', open ? button.dataset.labelClose : button.dataset.labelOpen);
         nav.classList.toggle('is-open', open);
       });
-      nav.addEventListener('click', function (event) { if (event.target.closest('a')) nav.classList.remove('is-open'); });
+      var main = document.getElementById('mainPhoto');
+      var thumbs = Array.prototype.slice.call(document.querySelectorAll('#thumbs button'));
+      var index = 0;
+      function show(i) {
+        index = (i + thumbs.length) % thumbs.length;
+        main.src = thumbs[index].getAttribute('data-src');
+        thumbs.forEach(function (thumb, n) { thumb.classList.toggle('is-on', n === index); });
+      }
+      thumbs.forEach(function (thumb, n) { thumb.addEventListener('click', function () { show(n); }); });
+      document.getElementById('prevPhoto').addEventListener('click', function () { show(index - 1); });
+      document.getElementById('nextPhoto').addEventListener('click', function () { show(index + 1); });
     })();
   </script>
 </body>

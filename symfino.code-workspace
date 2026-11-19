@@ -1,0 +1,5 @@
+{
+  "folders": [{ "path": ".", "name": "Symfino" }],
+  "settings": { "window.title": "Symfino" },
+  "extensions": { "recommendations": ["Shopify.theme-check-vscode"] }
+}
