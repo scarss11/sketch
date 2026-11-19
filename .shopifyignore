@@ -8,4 +8,5 @@ index.html
 *.html
 _*.py
 .nojekyll
+favicon.ico
 preview/
