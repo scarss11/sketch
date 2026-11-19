@@ -45,9 +45,16 @@
     .copy img { width:100%; border-radius:32px; margin-bottom:20px; }
     .buy { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; max-width:960px; }
     .buy img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:32px; }
-    .buy h2 { margin:0 0 8px; font-size:36px; letter-spacing:-.03em; text-transform:none; }
-    .buy ul { padding-left:18px; color:var(--muted); }
-    .trust { color:var(--muted); font-size:14px; }
+    .buy h2 { margin:0 0 8px; font-size:40px; letter-spacing:-.03em; text-transform:none; }
+    .price { margin:8px 0 16px; font-size:32px; font-weight:700; color:var(--ink); }
+    .checks { list-style:none; padding:0; margin:0 0 18px; }
+    .checks li { padding:6px 0 6px 28px; position:relative; color:var(--ink); }
+    .checks li::before { content:"✓"; position:absolute; left:0; color:var(--teal); font-weight:700; }
+    .buy-actions { display:flex; flex-direction:column; gap:10px; max-width:320px; }
+    .buy-actions .button { justify-content:center; }
+    .button-line { background:#fff; color:var(--ink); border:1px solid var(--ink); }
+    .trust-row { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:28px; color:var(--muted); font-size:13px; font-weight:600; }
+    .trust { color:var(--muted); font-size:14px; margin-top:16px; }
     @media (max-width:800px) { .buy { grid-template-columns:1fr; } }
     .product { max-width:360px; }
     .product img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:32px; background:#fff; }
@@ -109,15 +116,24 @@
   <div>
     <h2>Symfino One</h2>
     <p>Camera-free fall monitoring for the home.</p>
-    <ul>
+    <p class="price">$299</p>
+    <ul class="checks">
       <li>Camera-free and privacy-first</li>
       <li>No wearable required</li>
       <li>60GHz mmWave sensing</li>
-      <li>Phone alerts through Tuya or Smart Life</li>
-      <li>2.4GHz Wi-Fi required for remote alerts</li>
+      <li>Phone alerts through the app</li>
+      <li>Quick and simple setup</li>
     </ul>
-    <a class="button" href="cart.html">Add to cart</a>
-    <p class="trust">U.S. supplier shipping estimate: about 8 days. 1-year limited hardware warranty. Not a medical device.</p>
+    <div class="buy-actions">
+      <a class="button" href="cart.html">Add to cart</a>
+      <a class="button button-line" href="cart.html">Buy now</a>
+    </div>
+    <div class="trust-row">
+      <span>U.S. shipping</span>
+      <span>30-day returns</span>
+      <span>1-year warranty</span>
+    </div>
+    <p class="trust">Not a medical device or a substitute for emergency assistance. 2.4GHz Wi-Fi is required for remote alerts.</p>
   </div>
 </div>
 
