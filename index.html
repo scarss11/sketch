@@ -144,10 +144,10 @@
       .site-footer .logo img { height: 30px; filter: brightness(0) invert(1); }
       .copy { text-align: center; color: #9a9a9a; font-size: 13px; margin: 28px 0 0; }
       @media (max-width: 800px) {
-        .hero { min-height: 0; aspect-ratio: 9 / 15; max-height: 760px; align-items: flex-end; }
-        .hero img { object-position: center 30%; }
+        .hero { min-height: 420px; aspect-ratio: auto; height: min(600px, calc(100vh - 220px)); height: min(600px, calc(100svh - 200px)); align-items: flex-end; }
+        .hero img { object-position: center 6%; }
         .hero::after { background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.45) 68%, rgba(0,0,0,.82) 100%); }
-        .hero-copy { width: auto; max-width: none; margin: 0 20px 36px; padding: 0; }
+        .hero-copy { width: auto; max-width: none; margin: 0 20px 48px; padding: 0; }
         .hero h1 { font-size: 34px; max-width: 12ch; line-height: 1.02; }
         .hero .lede { display: none; }
         .perks, .feats, .foot { grid-template-columns: 1fr 1fr; }
