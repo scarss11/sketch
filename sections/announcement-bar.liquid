@@ -1,20 +1,25 @@
-{%- if section.settings.text != blank -%}
-  <div class="announcement" role="region" aria-label="{{ 'sections.announcement.label' | t }}">
-    {%- if section.settings.link != blank -%}
-      <a href="{{ section.settings.link }}">{{ section.settings.text | escape }}</a>
-    {%- else -%}
-      {{ section.settings.text | escape }}
+<div class="sy">
+  <p class="announce">
+    {%- if section.settings.text_shipping != blank -%}
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> {{ section.settings.text_shipping | escape }}</span>
     {%- endif -%}
-  </div>
-{%- endif -%}
+    {%- if section.settings.text_returns != blank -%}
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> {{ section.settings.text_returns | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.text_warranty != blank -%}
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> {{ section.settings.text_warranty | escape }}</span>
+    {%- endif -%}
+  </p>
+</div>
 
 {% schema %}
 {
   "name": "Barra de anuncio",
   "class": "section-announcement",
   "settings": [
-    { "type": "text", "id": "text", "label": "Texto", "default": "Camera-free fall monitoring · Nothing to wear" },
-    { "type": "url", "id": "link", "label": "Enlace" }
+    { "type": "text", "id": "text_shipping", "label": "Envío", "default": "Free U.S. Shipping" },
+    { "type": "text", "id": "text_returns", "label": "Devoluciones", "default": "30-Day Returns" },
+    { "type": "text", "id": "text_warranty", "label": "Garantía", "default": "1-Year Warranty" }
   ],
   "presets": [{ "name": "Barra de anuncio" }]
 }

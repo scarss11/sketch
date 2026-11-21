@@ -4,9 +4,9 @@
   "sections": {
     "announcement": {
       "type": "announcement-bar",
-      "settings": { "text": "Camera-free fall monitoring · Nothing to wear" }
+      "settings": { "text_shipping": "Free U.S. Shipping", "text_returns": "30-Day Returns", "text_warranty": "1-Year Warranty" }
     },
-    "header": { "type": "header", "settings": { "menu": "main-menu", "hide_on_scroll": false, "show_language_selector": false, "logo_width": 140 } }
+    "header": { "type": "header", "settings": {} }
   },
   "order": ["announcement", "header"]
 }

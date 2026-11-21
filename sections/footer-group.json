@@ -2,17 +2,7 @@
   "type": "footer",
   "name": "Grupo de pie de página",
   "sections": {
-    "footer": {
-      "type": "footer",
-      "settings": {
-        "about": "<p>Symfino One gives families a discreet way to stay informed while helping preserve independence, privacy, and dignity. It is not a medical device or a substitute for emergency assistance.</p>",
-        "menu": "footer",
-        "show_newsletter": true,
-        "newsletter_heading": "Newsletter",
-        "newsletter_text": "Product news for your family. Wi-Fi is required for remote alerts.",
-        "show_payment_icons": true
-      }
-    }
+    "footer": { "type": "footer", "settings": {} }
   },
   "order": ["footer"]
 }

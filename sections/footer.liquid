@@ -1,80 +1,59 @@
-<footer class="footer">
-  <div class="page-width footer__top">
-    <div class="footer__block">
-      <span class="footer__heading">Our promise</span>
-      {%- if section.settings.about != blank -%}<div class="rte" style="font-size:14px;opacity:.85">{{ section.settings.about }}</div>{%- endif -%}
-    </div>
-
-    <nav class="footer__block" aria-label="Footer">
-      <h2 class="footer__heading">Footer menu</h2>
-      <ul>
-        {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
-          {%- for link in section.settings.menu.links -%}
-            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-          {%- endfor -%}
-        {%- else -%}
-          {%- liquid
-            assign how_url = pages['how-it-works'].url | default: '/pages/how-it-works'
-            assign care_url = pages['care'].url | default: '/pages/care'
-            assign faq_url = pages['faq'].url | default: '/pages/faq'
-            assign contact_url = pages['contact'].url | default: '/pages/contact'
-          -%}
-          <li><a href="{{ routes.root_url }}">Home</a></li>
-          <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
-          <li><a href="{{ how_url }}">How it works</a></li>
-          <li><a href="{{ care_url }}">Care</a></li>
-          <li><a href="{{ faq_url }}">FAQ</a></li>
-          <li><a href="{{ contact_url }}">Contact</a></li>
-        {%- endif -%}
-      </ul>
-    </nav>
-
-    {%- if section.settings.show_newsletter -%}
-      <div class="footer__block footer__block--newsletter">
-        <h2 class="footer__heading">{{ section.settings.newsletter_heading | escape }}</h2>
-        {%- if section.settings.newsletter_text != blank -%}<p style="margin:0;font-size:15px;opacity:.85">{{ section.settings.newsletter_text | escape }}</p>{%- endif -%}
-        {%- form 'customer', id: 'FooterNewsletter' -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <div class="newsletter-row">
-            <div class="field">
-              <label for="NewsletterEmail-{{ section.id }}">{{ 'newsletter.label' | t }}</label>
-              <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required{% if form.errors %} aria-invalid="true" aria-describedby="NewsletterError-{{ section.id }}"{% endif %}>
-            </div>
-            <button type="submit" class="button" style="align-self:flex-end">{{ 'newsletter.button' | t }}</button>
-          </div>
-          {%- if form.errors -%}
-            <p id="NewsletterError-{{ section.id }}" class="form-message form-message--error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
-          {%- elsif form.posted_successfully? -%}
-            <p class="form-message" role="status">{{ 'newsletter.success' | t }}</p>
-          {%- endif -%}
-        {%- endform -%}
+{%- liquid
+  assign faq_url = pages['faq'].url | default: '/pages/faq'
+  assign care_url = pages['care'].url | default: '/pages/care'
+  assign contact_url = pages['contact'].url | default: '/pages/contact'
+  assign shop_url = routes.all_products_collection_url
+  assign first_product = collections.all.products.first
+  if first_product
+    assign shop_url = first_product.url
+  endif
+  assign shipping_url = pages['care'].url | default: '/pages/care' | append: '#shipping'
+  assign warranty_url = pages['care'].url | default: '/pages/care' | append: '#warranty'
+  assign privacy_url = shop.privacy_policy.url | default: pages['contact'].url | default: '/pages/contact' | append: '#privacy'
+  assign terms_url = shop.terms_of_service.url | default: pages['contact'].url | default: '/pages/contact' | append: '#terms'
+-%}
+<div class="sy">
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <a class="logo" href="{{ routes.root_url }}"><img src="{{ 'symfino-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="1100" height="246" loading="lazy"></a>
+      <div>
+        <h2>Shop</h2>
+        <ul>
+          <li><a href="{{ shop_url }}">Symfino One</a></li>
+          <li><a href="{{ routes.root_url }}#features">Features</a></li>
+        </ul>
       </div>
-    {%- endif -%}
-  </div>
-
-  <div class="page-width footer__bottom">
-    <span>&copy; {{ 'now' | date: '%Y' }} <a href="{{ routes.root_url }}">{{ settings.brand_name | default: shop.name | escape }}</a> · {{ powered_by_link }}</span>
-    {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
-      <ul class="payment-icons" role="list">
-        {%- for type in shop.enabled_payment_types -%}
-          <li>{{ type | payment_type_svg_tag }}</li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-  </div>
-</footer>
+      <div>
+        <h2>Support</h2>
+        <ul>
+          <li><a href="{{ faq_url }}">FAQ</a></li>
+          <li><a href="{{ contact_url }}">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="{{ care_url }}">About Symfino</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="{{ shipping_url }}">Shipping &amp; Returns</a></li>
+          <li><a href="{{ warranty_url }}">Warranty</a></li>
+          <li><a href="{{ privacy_url }}">Privacy Policy</a></li>
+          <li><a href="{{ terms_url }}">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">&copy; {{ 'now' | date: '%Y' }} {{ settings.brand_name | default: shop.name | escape }}. All rights reserved.</p>
+  </footer>
+</div>
 
 {% schema %}
 {
   "name": "Pie de página",
   "class": "section-footer",
-  "settings": [
-    { "type": "richtext", "id": "about", "label": "Texto sobre la marca", "default": "<p>Privacy-first fall monitoring without cameras or wearables. Not a medical device and not for emergency response.</p>" },
-    { "type": "link_list", "id": "menu", "label": "Menú", "default": "footer" },
-    { "type": "checkbox", "id": "show_newsletter", "label": "Mostrar boletín", "default": true },
-    { "type": "text", "id": "newsletter_heading", "label": "Título del boletín", "default": "Newsletter" },
-    { "type": "text", "id": "newsletter_text", "label": "Texto del boletín", "default": "Product news for your family. Wi-Fi is required for remote alerts." },
-    { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar medios de pago", "default": true }
-  ]
+  "settings": []
 }
 {% endschema %}

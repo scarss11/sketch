@@ -1,75 +1,56 @@
-<header class="header" data-header{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}>
-  {%- liquid
-    assign how_url = pages['how-it-works'].url | default: '/pages/how-it-works'
-    assign care_url = pages['care'].url | default: '/pages/care'
-    assign faq_url = pages['faq'].url | default: '/pages/faq'
-    assign contact_url = pages['contact'].url | default: '/pages/contact'
-  -%}
-  <div class="page-width header__inner">
-    <button type="button" class="icon-button header__menu-toggle" data-menu-toggle aria-controls="HeaderNav" aria-expanded="false"
-      aria-label="{{ 'sections.header.menu' | t }}"
-      data-label-open="{{ 'sections.header.menu' | t }}"
-      data-label-close="{{ 'sections.header.close_menu' | t }}">
-      <span class="header__icon-open">{% render 'icon', icon: 'menu' %}</span>
-      <span class="header__icon-close">{% render 'icon', icon: 'close' %}</span>
-    </button>
-
-    <a href="{{ routes.root_url }}" class="header__logo">
-      {%- if section.settings.logo != blank -%}
-        {%- assign logo_h = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round -%}
-        {{ section.settings.logo | image_url: width: 400 | image_tag: width: section.settings.logo_width, height: logo_h, alt: shop.name, loading: 'eager' }}
-      {%- else -%}
-        Symf<span class="header__logo-mark">i</span>no
-      {%- endif -%}
-    </a>
-
-    <div class="header__icons">
-      <a class="header__textlink header__desktop-only" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">Account</a>
-      <a class="header__tool" href="{{ routes.search_url }}" aria-label="{{ 'general.search.title' | t }}">
-        {% render 'icon', icon: 'search' %}
-        <span class="header__desktop-only">Search</span>
-      </a>
-      <a class="header__tool" href="{{ routes.cart_url }}" aria-label="{{ 'templates.cart.title' | t }} ({{ cart.item_count }})">
-        {% render 'icon', icon: 'cart' %}
-        <span class="header__desktop-only">Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</span>
-        {%- if cart.item_count > 0 -%}<span class="cart-count header__mobile-only">{{ cart.item_count }}</span>{%- endif -%}
-      </a>
+{%- liquid
+  assign how_url = pages['how-it-works'].url | default: '/pages/how-it-works'
+  assign shop_url = routes.all_products_collection_url
+  assign first_product = collections.all.products.first
+  if first_product
+    assign shop_url = first_product.url
+  endif
+  if customer
+    assign account_url = routes.account_url
+  else
+    assign account_url = routes.account_login_url
+  endif
+-%}
+<div class="sy">
+  <header class="site-header">
+    <div class="bar">
+      <div class="start">
+        <button class="icon-btn" type="button" aria-expanded="false" aria-controls="SiteNav" aria-label="Open menu" data-label-open="Open menu" data-label-close="Close menu">
+          <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <a class="logo" href="{{ routes.root_url }}">
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, loading: 'eager' }}
+          {%- else -%}
+            <img src="{{ 'symfino-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="1100" height="246">
+          {%- endif -%}
+        </a>
+      </div>
+      <nav id="SiteNav" class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="{{ shop_url }}">Symfino One</a></li>
+          <li><a href="{{ how_url }}">How It Works</a></li>
+          <li><a href="{{ routes.root_url }}#features">Features</a></li>
+          <li class="only-mobile"><a href="{{ account_url }}">Account</a></li>
+          <li class="only-mobile"><a href="{{ routes.cart_url }}">Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</a></li>
+        </ul>
+      </nav>
+      <div class="icons">
+        <a class="icon-link" href="{{ routes.search_url }}" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></a>
+        <a class="icon-link" href="{{ account_url }}" aria-label="Account"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3 3.8-4.5 7-4.5S17.6 16 19 19"/></svg></a>
+        <a class="icon-link" href="{{ routes.cart_url }}" aria-label="Cart ({{ cart.item_count }})"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>{% if cart.item_count > 0 %}<span class="cart-count">{{ cart.item_count }}</span>{% endif %}</a>
+      </div>
     </div>
-  </div>
-
-  <nav class="header__links page-width" aria-label="{{ 'sections.header.nav_label' | t }}">
-    <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>Home</a>
-    <a href="{{ routes.all_products_collection_url }}"{% if request.page_type == 'collection' or request.page_type == 'product' %} aria-current="page"{% endif %}>Shop</a>
-    <a href="{{ how_url }}"{% if page.handle == 'how-it-works' %} aria-current="page"{% endif %}>How it works</a>
-    <a href="{{ care_url }}"{% if page.handle == 'care' %} aria-current="page"{% endif %}>Care</a>
-    <a href="{{ faq_url }}"{% if page.handle == 'faq' %} aria-current="page"{% endif %}>FAQ</a>
-    <a href="{{ contact_url }}"{% if page.handle == 'contact' %} aria-current="page"{% endif %}>Contact</a>
-  </nav>
-
-  <nav id="HeaderNav" class="header__nav" aria-label="{{ 'sections.header.nav_label' | t }}">
-    <ul class="page-width">
-        <li><a href="{{ routes.root_url }}">Home</a></li>
-        <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
-        <li><a href="{{ how_url }}">How it works</a></li>
-        <li><a href="{{ care_url }}">Care</a></li>
-        <li><a href="{{ faq_url }}">FAQ</a></li>
-        <li><a href="{{ contact_url }}">Contact</a></li>
-        <li><a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">Account</a></li>
-        <li><a href="{{ routes.cart_url }}">Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</a></li>
-    </ul>
-  </nav>
-</header>
+  </header>
+</div>
 
 {% schema %}
 {
   "name": "Encabezado",
   "class": "section-header",
   "settings": [
-    { "type": "image_picker", "id": "logo", "label": "Logo" },
-    { "type": "range", "id": "logo_width", "label": "Ancho del logo", "min": 60, "max": 300, "step": 10, "unit": "px", "default": 140 },
-    { "type": "link_list", "id": "menu", "label": "Menú", "default": "main-menu" },
-    { "type": "checkbox", "id": "hide_on_scroll", "label": "Ocultar al bajar y mostrar al subir", "default": true },
-    { "type": "checkbox", "id": "show_language_selector", "label": "Mostrar selector de idioma (ES/EN)", "info": "Agrega idiomas en Configuración › Idiomas.", "default": true }
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Si lo dejas vacío se usa el logo de Symfino." }
   ]
 }
 {% endschema %}

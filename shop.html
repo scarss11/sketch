@@ -46,13 +46,16 @@
     .thumbs img { width:72px; height:72px; object-fit:cover; }
     .stage { position:relative; background:#fff; border-radius:16px; overflow:hidden; }
     .stage img, .thumbs img { object-position: 78% center; }
+    .stage img.is-center, .thumbs img.frame-center { object-position: center center; }
     .stage img { width:100%; aspect-ratio:1; object-fit:cover; }
     .stage .nav { position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border:0; border-radius:50%; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,.12); cursor:pointer; }
     .stage .prev { left:12px; }
     .stage .next { right:12px; }
     .buy h1 { margin:0 0 6px; font-size:40px; font-weight:800; letter-spacing:-.03em; }
     .sub { margin:0 0 12px; color:#374151; }
-    .price { margin:0 0 16px; font-size:32px; font-weight:700; }
+    .price { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 16px; font-size:32px; font-weight:700; }
+    .price s { color:#9aa1ab; font-size:20px; font-weight:600; }
+    .price .off { background:#14b8a6; color:#fff; border-radius:999px; padding:4px 10px; font-size:13px; font-weight:700; }
     .checks { list-style:none; padding:0; margin:0 0 20px; }
     .checks li { padding:5px 0 5px 26px; position:relative; }
     .checks li::before { content:"✓"; position:absolute; left:0; color:var(--teal); font-weight:700; }
@@ -63,6 +66,14 @@
     .trust-row { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:28px; color:#374151; font-size:14px; font-weight:600; }
     .trust-row span { display:flex; align-items:center; gap:8px; }
     .trust { color:var(--muted); font-size:14px; margin-top:16px; }
+    .explain { margin-top:48px; }
+    .explain h2 { margin:0 0 16px; font-size:28px; }
+    .explain ol { margin:0; padding-left:20px; display:grid; gap:12px; }
+    .review-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .review-grid article { background:#f3f0eb; border-radius:16px; padding:20px; }
+    .review-grid .stars { margin:0 0 8px; letter-spacing:.08em; }
+    .review-grid p { margin:0; }
+    .review-grid .who { margin-top:12px; font-weight:700; font-size:14px; }
     .site-footer { background:#111; color:#d7d7d7; padding:48px 0 24px; }
     .foot { display:grid; grid-template-columns:1.3fr repeat(4, 1fr); gap:24px; }
     .site-footer h2 { margin:0 0 12px; color:#fff; font-size:14px; }
@@ -73,7 +84,7 @@
     @media (max-width:800px) {
       .buy, .gallery, .foot { grid-template-columns:1fr; }
       .thumbs { flex-direction:row; }
-      .trust-row { grid-template-columns:1fr; }
+      .trust-row, .review-grid { grid-template-columns:1fr; }
     }
   </style>
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -118,8 +129,8 @@
           <div class="thumbs" id="thumbs">
             <button type="button" class="is-on" data-src="preview/symfino/product-table.jpg"><img src="preview/symfino/product-table.jpg" alt="Symfino One"></button>
             <button type="button" data-src="preview/symfino/device-wall.jpg"><img src="preview/symfino/device-wall.jpg" alt="Symfino One on the wall"></button>
-            <button type="button" data-src="preview/symfino/room-living.jpg"><img src="preview/symfino/room-living.jpg" alt="A living room"></button>
-            <button type="button" data-src="preview/symfino/room-bedroom.jpg"><img src="preview/symfino/room-bedroom.jpg" alt="A bedroom"></button>
+            <button type="button" data-src="preview/symfino/gallery-living.jpg" data-center="1"><img class="frame-center" src="preview/symfino/gallery-living.jpg" alt="Symfino One in a living room"></button>
+            <button type="button" data-src="preview/symfino/gallery-kitchen.jpg" data-center="1"><img class="frame-center" src="preview/symfino/gallery-kitchen.jpg" alt="Symfino One in a kitchen"></button>
           </div>
           <div class="stage">
             <img id="mainPhoto" src="preview/symfino/product-table.jpg" alt="Symfino One">
@@ -130,7 +141,7 @@
         <div>
           <h1>Symfino One</h1>
           <p class="sub">Camera-Free Fall Monitoring for the Home</p>
-          <p class="price">$299</p>
+          <p class="price"><s>$299</s> <span>$179.40</span> <span class="off">40% off</span></p>
           <ul class="checks">
             <li>Camera-free and privacy-first</li>
             <li>No wearable required</li>
@@ -150,6 +161,22 @@
           <p class="trust">Not a medical device or a substitute for emergency assistance. 2.4GHz Wi-Fi is required for remote alerts.</p>
         </div>
       </div>
+      <section class="explain">
+        <h2>How it works</h2>
+        <ol>
+          <li><strong>It monitors the room.</strong> Put Symfino One on a shelf or the wall. It senses movement with 60GHz radar. There is no camera and nothing to wear.</li>
+          <li><strong>It looks for a possible fall.</strong> If someone goes down and stays low, it can flag that movement. It is meant for one person in the room.</li>
+          <li><strong>It alerts your phone.</strong> With 2.4GHz Wi-Fi, the notice can arrive in the Tuya or Smart Life app. It does not call emergency services, and an alert can be missed.</li>
+        </ol>
+      </section>
+      <section class="explain">
+        <h2>Reviews</h2>
+        <div class="review-grid">
+          <article><p class="stars">★★★★★</p><p>“We set it on a shelf in the living room. No camera, nothing to wear, and the phone alert was easy to understand.”</p><p class="who">Andrea L.</p></article>
+          <article><p class="stars">★★★★★</p><p>“Setup took a few minutes. It stays out of the way and the app shows when something unusual happens.”</p><p class="who">James P.</p></article>
+          <article><p class="stars">★★★★★</p><p>“I wanted movement sensing, not video. This is the simple version of that.”</p><p class="who">Priya S.</p></article>
+        </div>
+      </section>
     </div>
   </main>
   <footer class="site-footer">
@@ -176,10 +203,10 @@
       <div>
         <h2>Legal</h2>
         <ul>
-          <li><a href="shop.html">Shipping &amp; Returns</a></li>
-          <li><a href="faq.html">Warranty</a></li>
-          <li><a href="contact.html">Privacy Policy</a></li>
-          <li><a href="contact.html">Terms of Service</a></li>
+          <li><a href="care.html#shipping">Shipping &amp; Returns</a></li>
+          <li><a href="care.html#warranty">Warranty</a></li>
+          <li><a href="contact.html#privacy">Privacy Policy</a></li>
+          <li><a href="contact.html#terms">Terms of Service</a></li>
         </ul>
       </div>
     </div>
@@ -201,6 +228,7 @@
       function show(i) {
         index = (i + thumbs.length) % thumbs.length;
         main.src = thumbs[index].getAttribute('data-src');
+        main.classList.toggle('is-center', thumbs[index].getAttribute('data-center') === '1');
         thumbs.forEach(function (thumb, n) { thumb.classList.toggle('is-on', n === index); });
       }
       thumbs.forEach(function (thumb, n) { thumb.addEventListener('click', function () { show(n); }); });

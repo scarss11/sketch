@@ -20,16 +20,16 @@
           {%- endfor -%}
         {%- elsif section.settings.video == blank -%}
           <div class="product-gallery__panel is-active" data-gallery-panel="stock-product">
-            <img src="{{ 'symfino-product.jpg' | asset_url }}" alt="Symfino One">
+            <img src="{{ 'symfino-table.jpg' | asset_url }}" width="1024" height="681" alt="Symfino One">
           </div>
-          <div class="product-gallery__panel" data-gallery-panel="stock-life">
-            <img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt="Symfino One at home">
+          <div class="product-gallery__panel" data-gallery-panel="stock-wall">
+            <img src="{{ 'symfino-wall.jpg' | asset_url }}" width="1024" height="571" alt="Symfino One on the wall">
           </div>
-          <div class="product-gallery__panel" data-gallery-panel="stock-care">
-            <img src="{{ 'symfino-care.jpg' | asset_url }}" alt="Care without compromise">
+          <div class="product-gallery__panel" data-gallery-panel="stock-living">
+            <img class="frame-center" src="{{ 'symfino-gallery-living.jpg' | asset_url }}" width="1024" height="681" alt="Symfino One in a living room">
           </div>
-          <div class="product-gallery__panel" data-gallery-panel="stock-peace">
-            <img src="{{ 'symfino-peace.jpg' | asset_url }}" alt="Peace of mind">
+          <div class="product-gallery__panel" data-gallery-panel="stock-kitchen">
+            <img class="frame-center" src="{{ 'symfino-gallery-kitchen.jpg' | asset_url }}" width="1024" height="571" alt="Symfino One in a kitchen">
           </div>
         {%- endif -%}
       </div>
@@ -48,10 +48,10 @@
             </button>
           {%- endfor -%}
         {%- elsif section.settings.video == blank -%}
-          <button type="button" class="is-active" data-gallery-thumb="stock-product"><img src="{{ 'symfino-product.jpg' | asset_url }}" alt=""></button>
-          <button type="button" data-gallery-thumb="stock-life"><img src="{{ 'symfino-lifestyle.jpg' | asset_url }}" alt=""></button>
-          <button type="button" data-gallery-thumb="stock-care"><img src="{{ 'symfino-care.jpg' | asset_url }}" alt=""></button>
-          <button type="button" data-gallery-thumb="stock-peace"><img src="{{ 'symfino-peace.jpg' | asset_url }}" alt=""></button>
+          <button type="button" class="is-active" data-gallery-thumb="stock-product"><img src="{{ 'symfino-table.jpg' | asset_url }}" width="1024" height="681" alt=""></button>
+          <button type="button" data-gallery-thumb="stock-wall"><img src="{{ 'symfino-wall.jpg' | asset_url }}" width="1024" height="571" alt=""></button>
+          <button type="button" data-gallery-thumb="stock-living"><img class="frame-center" src="{{ 'symfino-gallery-living.jpg' | asset_url }}" width="1024" height="681" alt=""></button>
+          <button type="button" data-gallery-thumb="stock-kitchen"><img class="frame-center" src="{{ 'symfino-gallery-kitchen.jpg' | asset_url }}" width="1024" height="571" alt=""></button>
         {%- endif -%}
       </div>
     </div>
