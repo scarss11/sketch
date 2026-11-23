@@ -4,7 +4,7 @@
   "sections": {
     "announcement": {
       "type": "announcement-bar",
-      "settings": { "text_shipping": "Free U.S. Shipping", "text_returns": "30-Day Returns", "text_warranty": "1-Year Warranty" }
+      "settings": { "text_shipping": "Free U.S. Shipping", "text_returns": "Estimated Shipping: Approximately 10 Business Days", "text_warranty": "1-Year Limited Warranty" }
     },
     "header": { "type": "header", "settings": {} }
   },

@@ -13,7 +13,8 @@
     img { max-width:100%; display:block; }
     button, input { font:inherit; }
     .announce { margin:0; background:#111; color:#e8e8e8; display:flex; justify-content:center; gap:28px; flex-wrap:wrap; font-size:13px; font-weight:500; padding:10px 16px; border-bottom:1px solid #1c1c1c; }
-    .announce span { display:inline-flex; align-items:center; gap:8px; }
+    .announce span { display:inline-flex; align-items:flex-start; justify-content:center; gap:8px; max-width:100%; }
+    .announce svg { flex:none; margin-top:1px; }
     .site-header { background:#fff; position:sticky; top:0; z-index:20; border-bottom:1px solid #f0ece7; }
     .bar { display:grid; grid-template-columns:1fr auto; align-items:center; min-height:72px; width:min(1180px, calc(100% - 40px)); margin:0 auto; position:relative; }
     .start { display:flex; align-items:center; gap:4px; position:relative; z-index:2; pointer-events:none; }
@@ -63,8 +64,13 @@
     .btn { display:flex; align-items:center; justify-content:center; min-height:48px; border-radius:8px; font-weight:700; border:1px solid #111; }
     .btn.fill { background:#111; color:#fff; }
     .btn.line { background:#fff; color:#111; }
-    .trust-row { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:28px; color:#374151; font-size:14px; font-weight:600; }
-    .trust-row span { display:flex; align-items:center; gap:8px; }
+    .trust-row { display:grid; grid-template-columns:1fr; gap:10px; margin-top:28px; color:#374151; font-size:14px; font-weight:600; }
+    .trust-row span { display:flex; align-items:flex-start; gap:8px; }
+    .trust-row svg { flex:none; margin-top:2px; }
+    .specs { margin:28px 0 0; display:grid; gap:16px; }
+    .specs h2 { margin:0; font-size:22px; }
+    .specs p { margin:0; }
+    .specs strong { display:block; }
     .trust { color:var(--muted); font-size:14px; margin-top:16px; }
     .explain { margin-top:48px; }
     .explain h2 { margin:0 0 16px; font-size:28px; }
@@ -82,6 +88,8 @@
     .site-footer .logo img { height:30px; filter:brightness(0) invert(1); }
     .copy { text-align:center; color:#9a9a9a; font-size:13px; margin:28px 0 0; }
     @media (max-width:800px) {
+      .announce { flex-direction:column; align-items:center; gap:6px; text-align:center; }
+      .announce span { width:min(100%, 280px); }
       .buy, .gallery, .foot { grid-template-columns:1fr; }
       .thumbs { flex-direction:row; }
       .trust-row, .review-grid { grid-template-columns:1fr; }
@@ -94,8 +102,8 @@
 <body>
   <p class="announce">
     <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
-    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> 30-Day Returns</span>
-    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> Estimated Shipping: Approximately 10 Business Days</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Limited Warranty</span>
   </p>
   <header class="site-header">
     <div class="bar">
@@ -155,8 +163,15 @@
           </div>
           <div class="trust-row">
             <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
-            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> 30-Day Returns</span>
-            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> Estimated Shipping: Approximately 10 Business Days</span>
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Limited Warranty</span>
+          </div>
+          <p class="trust">This shipping time is an estimate for the United States, not a guaranteed delivery date. Symfino One includes a 1-year limited warranty covering manufacturing defects. If your device experiences a qualifying defect during the warranty period, we will provide a replacement at no additional cost.</p>
+          <div class="specs">
+            <h2>App &amp; Connectivity</h2>
+            <p><strong>App Compatibility</strong> Works with the Tuya Smart app.</p>
+            <p><strong>Fall Detection Alerts</strong> Receive fall detection push notifications directly on your smartphone without a mandatory subscription.</p>
+            <p><strong>Optional Alerts</strong> SMS and phone-call notifications may require additional fees.</p>
           </div>
           <p class="trust">Not a medical device or a substitute for emergency assistance. 2.4GHz Wi-Fi is required for remote alerts.</p>
         </div>
@@ -166,7 +181,7 @@
         <ol>
           <li><strong>It monitors the room.</strong> Put Symfino One on a shelf or the wall. It senses movement with 60GHz radar. There is no camera and nothing to wear.</li>
           <li><strong>It looks for a possible fall.</strong> If someone goes down and stays low, it can flag that movement. It is meant for one person in the room.</li>
-          <li><strong>It alerts your phone.</strong> With 2.4GHz Wi-Fi, the notice can arrive in the Tuya or Smart Life app. It does not call emergency services, and an alert can be missed.</li>
+          <li><strong>It alerts your phone.</strong> With 2.4GHz Wi-Fi, a fall detection push notification can arrive in the Tuya Smart app. There is no mandatory subscription. Optional SMS and phone-call alerts may require additional fees. It does not call emergency services, and an alert can be missed.</li>
         </ol>
       </section>
       <section class="explain">
