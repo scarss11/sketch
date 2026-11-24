@@ -12,9 +12,10 @@
     a { color:inherit; text-decoration:none; }
     img { max-width:100%; display:block; }
     button, input { font:inherit; }
-    .announce { margin:0; background:#111; color:#e8e8e8; display:flex; justify-content:center; gap:28px; flex-wrap:wrap; font-size:13px; font-weight:500; padding:10px 16px; border-bottom:1px solid #1c1c1c; }
-    .announce span { display:inline-flex; align-items:flex-start; justify-content:center; gap:8px; max-width:100%; }
-    .announce svg { flex:none; margin-top:1px; }
+    .announce { margin:0; background:#111; color:#e8e8e8; display:flex; justify-content:center; align-items:center; gap:clamp(6px, 1.6vw, 22px); flex-wrap:nowrap; overflow:hidden; font-size:clamp(10px, 2.55vw, 13px); font-weight:500; padding:8px 8px; border-bottom:1px solid #1c1c1c; white-space:nowrap; scrollbar-width:none; }
+    .announce::-webkit-scrollbar { display:none; }
+    .announce span { display:inline-flex; align-items:center; gap:8px; flex:none; }
+    .announce svg { flex:none; }
     .site-header { background:#fff; position:sticky; top:0; z-index:20; border-bottom:1px solid #f0ece7; }
     .bar { display:grid; grid-template-columns:1fr auto; align-items:center; min-height:72px; width:min(1180px, calc(100% - 40px)); margin:0 auto; position:relative; }
     .start { display:flex; align-items:center; gap:4px; position:relative; z-index:2; pointer-events:none; }
@@ -75,7 +76,31 @@
     .explain { margin-top:48px; }
     .explain h2 { margin:0 0 16px; font-size:28px; }
     .explain ol { margin:0; padding-left:20px; display:grid; gap:12px; }
-    .review-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .feats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .feats article { text-align:center; padding:22px 14px; border:1px solid rgba(20,20,20,.1); border-radius:16px; background:#fff; }
+    .feats .mark { width:36px; height:36px; margin:0 auto 8px; }
+    .feats h3 { margin:0; font-size:15px; }
+    .feats p { margin:4px 0 0; color:var(--muted); font-size:14px; }
+    .player { overflow:hidden; }
+    .player video { width:100%; height:320px; object-fit:cover; background:#111; }
+    .rooms { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .rooms figure { margin:0; position:relative; overflow:hidden; }
+    .rooms img { width:100%; height:210px; object-fit:cover; }
+    .rooms figcaption { position:absolute; left:10px; right:10px; bottom:10px; background:rgba(255,255,255,.92); border-radius:10px; text-align:center; font-weight:700; padding:8px; }
+    .ask details { background:#fff; border:1px solid #ece7e1; border-radius:10px; margin-bottom:10px; padding:0 16px; }
+    .ask summary { cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:14px 0; font-weight:600; }
+    .ask summary::-webkit-details-marker { display:none; }
+    .ask summary::after { content:"+"; color:#6b7280; font-size:20px; font-weight:400; }
+    .ask details[open] summary::after { content:"–"; }
+    .ask p { margin:0 0 14px; color:var(--muted); }
+    .note { color:var(--muted); font-size:14px; }
+    .review-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .review-form { display:grid; gap:10px; max-width:520px; margin-top:20px; }
+    .review-form label { font-weight:700; font-size:14px; }
+    .review-form input, .review-form select, .review-form textarea { width:100%; border:1px solid var(--line); border-radius:10px; background:#fff; padding:12px 14px; }
+    .review-form textarea { min-height:110px; resize:vertical; }
+    .review-form .btn { width:fit-content; padding:0 22px; cursor:pointer; }
+    .review-status { margin:8px 0 0; color:var(--muted); font-size:14px; }
     .review-grid article { background:#f3f0eb; border-radius:16px; padding:20px; }
     .review-grid .stars { margin:0 0 8px; letter-spacing:.08em; }
     .review-grid p { margin:0; }
@@ -88,11 +113,10 @@
     .site-footer .logo img { height:30px; filter:brightness(0) invert(1); }
     .copy { text-align:center; color:#9a9a9a; font-size:13px; margin:28px 0 0; }
     @media (max-width:800px) {
-      .announce { flex-direction:column; align-items:center; gap:6px; text-align:center; }
-      .announce span { width:min(100%, 280px); }
       .buy, .gallery, .foot { grid-template-columns:1fr; }
       .thumbs { flex-direction:row; }
-      .trust-row, .review-grid { grid-template-columns:1fr; }
+      .trust-row, .review-grid, .feats, .rooms { grid-template-columns:1fr; }
+      .player { margin-left:-20px; margin-right:-20px; }
     }
   </style>
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -102,8 +126,8 @@
 <body>
   <p class="announce">
     <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
-    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> Estimated Shipping: Approximately 10 Business Days</span>
-    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Limited Warranty</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> 10 Business Days</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
   </p>
   <header class="site-header">
     <div class="bar">
@@ -148,7 +172,6 @@
         </div>
         <div>
           <h1>Symfino One</h1>
-          <p class="sub">Camera-Free Fall Monitoring for the Home</p>
           <p class="price"><span>$299</span> <span class="off">40% off</span></p>
           <ul class="checks">
             <li>Camera-free and privacy-first</li>
@@ -185,12 +208,61 @@
         </ol>
       </section>
       <section class="explain">
+        <h2>Key Features</h2>
+        <div class="feats">
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M8 22l4-8 4 8M12 9v5"/></svg></div><h3>Fall Detection</h3><p>Identifies potential falls in real time</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 20V8a2 2 0 0 1 2-2h3v14"/><path d="M11 10h5a2 2 0 0 1 2 2v8"/></svg></div><h3>Bathroom Use</h3><p>Tracks extended or frequent use</p></article>
+          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l4 6M8 19l4-6"/></svg></div><h3>Activity Changes</h3><p>Alerts on significant routine changes</p></article>
+        </div>
+      </section>
+      <section class="explain">
+        <h2>Watch How Symfino One Works</h2>
+        <div class="player">
+          <video src="preview/symfino/symfino-home.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Symfino One in the home"></video>
+        </div>
+      </section>
+      <section class="explain">
+        <h2>Fits Seamlessly Into Your Home</h2>
+        <div class="rooms">
+          <figure><img src="preview/symfino/room-bedroom.jpg" alt="A bedroom."><figcaption>Bedroom</figcaption></figure>
+          <figure><img src="preview/symfino/room-living.jpg" alt="A living room."><figcaption>Living Room</figcaption></figure>
+          <figure><img src="preview/symfino/room-bathroom.jpg" alt="A bathroom."><figcaption>Bathroom</figcaption></figure>
+        </div>
+      </section>
+      <section class="explain">
+        <h2>Frequently Asked Questions</h2>
+        <div class="ask">
+          <details><summary>Does it use a camera?</summary><p>No. Symfino One uses 60GHz mmWave radar. It does not record images or video.</p></details>
+          <details><summary>Is there anything to wear?</summary><p>No. Nothing to wear.</p></details>
+          <details><summary>What Wi-Fi do I need?</summary><p>2.4GHz Wi-Fi is required for remote alerts.</p></details>
+          <details><summary>How are alerts sent?</summary><p>Fall detection push notifications are sent through the Tuya Smart app when Wi-Fi and internet are available.</p></details>
+          <details><summary>Do I need a subscription to receive fall alerts?</summary><p>No. Symfino One sends fall detection push notifications through the Tuya Smart app without a mandatory subscription. Optional SMS and phone-call alerts may incur additional charges.</p></details>
+          <details><summary>Is it a medical device?</summary><p>No. It is not a medical device or a substitute for emergency assistance.</p></details>
+        </div>
+        <p class="note">Alerts can be missed. Positioning, obstructions, room conditions, pets, multiple people, and slow or unusual falls can affect detection.</p>
+      </section>
+      <section class="explain">
         <h2>Reviews</h2>
         <div class="review-grid">
           <article><p class="stars">★★★★★</p><p>“We set it on a shelf in the living room. No camera, nothing to wear, and the phone alert was easy to understand.”</p><p class="who">Andrea L.</p></article>
           <article><p class="stars">★★★★★</p><p>“Setup took a few minutes. It stays out of the way and the app shows when something unusual happens.”</p><p class="who">James P.</p></article>
-          <article><p class="stars">★★★★★</p><p>“I wanted movement sensing, not video. This is the simple version of that.”</p><p class="who">Priya S.</p></article>
         </div>
+        <form class="review-form" id="ReviewForm">
+          <label for="ReviewName">Name</label>
+          <input id="ReviewName" name="name" type="text" required maxlength="80">
+          <label for="ReviewStars">Rating</label>
+          <select id="ReviewStars" name="rating" required>
+            <option value="5">5 stars</option>
+            <option value="4">4 stars</option>
+            <option value="3">3 stars</option>
+            <option value="2">2 stars</option>
+            <option value="1">1 star</option>
+          </select>
+          <label for="ReviewText">Review</label>
+          <textarea id="ReviewText" name="review" required maxlength="600"></textarea>
+          <button class="btn fill" type="submit">Post review</button>
+          <p class="review-status" id="ReviewStatus" role="status"></p>
+        </form>
       </section>
     </div>
   </main>
@@ -249,6 +321,42 @@
       thumbs.forEach(function (thumb, n) { thumb.addEventListener('click', function () { show(n); }); });
       document.getElementById('prevPhoto').addEventListener('click', function () { show(index - 1); });
       document.getElementById('nextPhoto').addEventListener('click', function () { show(index + 1); });
+      var reviewForm = document.getElementById('ReviewForm');
+      var reviewGrid = document.querySelector('.review-grid');
+      var reviewStatus = document.getElementById('ReviewStatus');
+      function stars(n) { return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); }
+      function addReview(entry) {
+        var article = document.createElement('article');
+        var star = document.createElement('p');
+        star.className = 'stars';
+        star.textContent = stars(entry.rating);
+        var quote = document.createElement('p');
+        quote.textContent = '“' + entry.text + '”';
+        var who = document.createElement('p');
+        who.className = 'who';
+        who.textContent = entry.name;
+        article.appendChild(star);
+        article.appendChild(quote);
+        article.appendChild(who);
+        reviewGrid.appendChild(article);
+      }
+      var saved = [];
+      try { saved = JSON.parse(localStorage.getItem('symfino-reviews') || '[]'); } catch (err) { saved = []; }
+      saved.forEach(addReview);
+      reviewForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var entry = {
+          name: reviewForm.name.value.trim(),
+          rating: Number(reviewForm.rating.value),
+          text: reviewForm.review.value.trim()
+        };
+        if (!entry.name || !entry.text) return;
+        addReview(entry);
+        saved.push(entry);
+        localStorage.setItem('symfino-reviews', JSON.stringify(saved));
+        reviewForm.reset();
+        reviewStatus.textContent = 'Thanks. Your review was added on this browser.';
+      });
     })();
   </script>
 </body>

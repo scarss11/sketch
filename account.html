@@ -11,10 +11,10 @@
     body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,Helvetica,Arial,sans-serif; line-height:1.6; }
     a { color:inherit; text-decoration:none; }
     img { max-width:100%; display:block; }
-    .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 13px; font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #1c1c1c; }
-    .announce span { display: inline-flex; align-items: flex-start; justify-content: center; gap: 8px; max-width: 100%; }
-    .announce svg { flex: none; margin-top: 1px; }
-    @media (max-width: 800px) { .announce { flex-direction: column; align-items: center; gap: 6px; text-align: center; } .announce span { width: min(100%, 280px); } }
+    .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; align-items: center; gap: clamp(6px, 1.6vw, 22px); flex-wrap: nowrap; overflow: hidden; font-size: clamp(10px, 2.55vw, 13px); font-weight: 500; padding: 8px 8px; border-bottom: 1px solid #1c1c1c; white-space: nowrap; scrollbar-width: none; }
+    .announce::-webkit-scrollbar { display: none; }
+    .announce span { display: inline-flex; align-items: center; gap: 8px; flex: none; }
+    .announce svg { flex: none; }
     .site-header { background: #fff; color: var(--ink); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #f0ece7; }
     .bar { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 72px; width: min(1180px, calc(100% - 40px)); margin: 0 auto; position: relative; }
     .start { display: flex; align-items: center; gap: 4px; position: relative; z-index: 2; pointer-events: none; }
@@ -75,8 +75,8 @@
 <body>
   <p class="announce">
     <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
-    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> Estimated Shipping: Approximately 10 Business Days</span>
-    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Limited Warranty</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> 10 Business Days</span>
+    <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
   </p>
   <header class="site-header">
     <div class="bar">

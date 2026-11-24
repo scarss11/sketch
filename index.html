@@ -17,8 +17,9 @@
       a { color: inherit; text-decoration: none; }
       img { max-width: 100%; display: block; }
       button, input { font: inherit; }
-      .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 13px; font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #1c1c1c; }
-      .announce span { display: inline-flex; align-items: flex-start; justify-content: center; gap: 8px; max-width: 100%; }
+      .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; align-items: center; gap: clamp(6px, 1.6vw, 22px); flex-wrap: nowrap; overflow: hidden; font-size: clamp(10px, 2.55vw, 13px); font-weight: 500; padding: 8px 8px; border-bottom: 1px solid #1c1c1c; white-space: nowrap; scrollbar-width: none; }
+      .announce::-webkit-scrollbar { display: none; }
+      .announce span { display: inline-flex; align-items: center; gap: 8px; flex: none; }
       .announce svg { flex: none; margin-top: 1px; }
       .site-header { background: #fff; color: var(--ink); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #f0ece7; }
       .bar { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 72px; width: min(1180px, calc(100% - 40px)); margin: 0 auto; position: relative; }
@@ -102,7 +103,7 @@
       .living h2, .cta h2, .living p, .cta p { color: #fff; }
       .cta .button { margin-top: 18px; }
       .section-title { margin: 0 0 28px; text-align: center; font-size: clamp(28px, 3vw, 36px); font-weight: 800; letter-spacing: -.03em; }
-      .feats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding-bottom: 48px; }
+      .feats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding-bottom: 48px; }
       .feats article { text-align: center; padding: 22px 14px; border: 1px solid rgba(20, 20, 20, .1); border-radius: 16px; background: #fff; }
       .feats .mark { width: 36px; height: 36px; margin: 0 auto 8px; }
       .feats h2 { margin: 0; font-size: 15px; font-weight: 700; }
@@ -122,7 +123,7 @@
       #features { scroll-margin-top: 88px; }
       .reviews { text-align: center; padding-bottom: 48px; }
       .review-card { max-width: 640px; margin: 0 auto; background: #f3f0eb; border-radius: 16px; padding: 36px 24px; }
-      .review-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; text-align: left; }
+      .review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; text-align: left; }
       .review-grid article { background: #f3f0eb; border-radius: 16px; padding: 24px 20px; }
       .review-grid .stars { margin: 0 0 10px; letter-spacing: .08em; }
       .review-grid p { margin: 0; }
@@ -150,8 +151,6 @@
       .site-footer .logo img { height: 30px; filter: brightness(0) invert(1); }
       .copy { text-align: center; color: #9a9a9a; font-size: 13px; margin: 28px 0 0; }
       @media (max-width: 800px) {
-        .announce { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-        .announce span { width: min(100%, 280px); }
         .hero { min-height: 420px; aspect-ratio: auto; height: min(600px, calc(100vh - 220px)); height: min(600px, calc(100svh - 200px)); align-items: flex-end; }
         .hero img { object-position: center 6%; }
         .hero::after { background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.45) 68%, rgba(0,0,0,.82) 100%); }
@@ -183,7 +182,6 @@
       }
       @media (max-width: 560px) {
         .perks, .feats, .foot { grid-template-columns: 1fr; }
-        .announce { gap: 8px 16px; font-size: 12px; }
       }
     </style>
     <link rel="icon" href="favicon.ico" sizes="any">
@@ -193,8 +191,8 @@
   <body>
     <p class="announce">
       <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Free U.S. Shipping</span>
-      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> Estimated Shipping: Approximately 10 Business Days</span>
-      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Limited Warranty</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> 10 Business Days</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> 1-Year Warranty</span>
     </p>
     <header class="site-header">
       <div class="bar">
@@ -231,7 +229,6 @@
         <div class="hero-copy">
           <p class="eyebrow">Symfino One</p>
           <h1>Care Without Compromise</h1>
-          <p class="lede">Camera-free fall monitoring that helps you stay informed and give your loved ones more peace of mind.</p>
           <a class="button" href="shop.html">Shop Symfino One <span aria-hidden="true">→</span></a>
         </div>
       </section>
@@ -305,7 +302,6 @@
         <h2 class="section-title">Key Features</h2>
         <div class="feats">
           <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M8 22l4-8 4 8M12 9v5"/></svg></div><h2>Fall Detection</h2><p>Identifies potential falls in real time</p></article>
-          <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 18V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9"/><path d="M3 14h18"/></svg></div><h2>Sleep Activity</h2><p>Notifies unusual sleep patterns</p></article>
           <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 20V8a2 2 0 0 1 2-2h3v14"/><path d="M11 10h5a2 2 0 0 1 2 2v8"/></svg></div><h2>Bathroom Use</h2><p>Tracks extended or frequent use</p></article>
           <article><div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l4 6M8 19l4-6"/></svg></div><h2>Activity Changes</h2><p>Alerts on significant routine changes</p></article>
         </div>
@@ -336,7 +332,6 @@
         <div class="review-grid">
           <article><p class="stars" aria-label="5 stars">★★★★★</p><p>“We set it on a shelf in the living room. No camera, nothing to wear, and the phone alert was easy to understand.”</p><p class="who">Andrea L.</p></article>
           <article><p class="stars" aria-label="5 stars">★★★★★</p><p>“Setup took a few minutes. It stays out of the way and the app shows when something unusual happens.”</p><p class="who">James P.</p></article>
-          <article><p class="stars" aria-label="5 stars">★★★★★</p><p>“I wanted movement sensing, not video. This is the simple version of that.”</p><p class="who">Priya S.</p></article>
         </div>
       </section>
 

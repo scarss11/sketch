@@ -14,26 +14,51 @@
           </article>
         {%- endfor -%}
       </div>
-    {%- else -%}
-      <div class="sf-reviews__empty">
-        <p class="sf-reviews__stars" aria-hidden="true">☆☆☆☆☆</p>
-        <p>Reviews from verified orders will appear here once Symfino One is available.</p>
-      </div>
     {%- endif -%}
-    <p class="sf-reviews__cta"><a class="button" href="{% if request.page_type == 'product' %}#ProductBuy{% else %}{{ routes.root_url }}#shop{% endif %}">Shop Symfino One</a></p>
+
+    {%- form 'contact', id: 'ProductReview' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="sf-reviews__note">Thanks. Your review was sent.</p>
+      {%- else -%}
+        {{ form.errors | default_errors }}
+        <div class="sf-reviews__form">
+          <input type="hidden" name="contact[Product]" value="{% if product %}{{ product.title | escape }}{% else %}Symfino One{% endif %}">
+          <label for="ReviewName-{{ section.id }}">Name</label>
+          <input id="ReviewName-{{ section.id }}" type="text" name="contact[name]" required maxlength="80">
+          <label for="ReviewEmail-{{ section.id }}">Email</label>
+          <input id="ReviewEmail-{{ section.id }}" type="email" name="contact[email]" required autocomplete="email">
+          <label for="ReviewStars-{{ section.id }}">Rating</label>
+          <select id="ReviewStars-{{ section.id }}" name="contact[Rating]">
+            <option value="5">5 stars</option>
+            <option value="4">4 stars</option>
+            <option value="3">3 stars</option>
+            <option value="2">2 stars</option>
+            <option value="1">1 star</option>
+          </select>
+          <label for="ReviewBody-{{ section.id }}">Review</label>
+          <textarea id="ReviewBody-{{ section.id }}" name="contact[body]" required maxlength="600"></textarea>
+          <button class="button" type="submit">Post review</button>
+        </div>
+      {%- endif -%}
+    {%- endform -%}
   </div>
 </section>
 
 {% stylesheet %}
   .sf-reviews .eyebrow { color: var(--color-accent); }
-  .sf-reviews__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+  .sf-reviews__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
   .sf-reviews__grid article, .sf-reviews__empty {
     background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 20px; padding: 24px;
   }
   .sf-reviews__empty { margin-top: 28px; max-width: 640px; }
   .sf-reviews__stars { margin: 0 0 10px; color: var(--color-accent); letter-spacing: .12em; }
   .sf-reviews__author { margin: 14px 0 0; font-weight: 700; }
-  .sf-reviews__cta { margin: 28px 0 0; }
+  .sf-reviews__form { display: grid; gap: 10px; max-width: 520px; margin-top: 28px; }
+  .sf-reviews__form label { font-weight: 700; }
+  .sf-reviews__form input, .sf-reviews__form select, .sf-reviews__form textarea { width: 100%; border: 1px solid var(--color-border); border-radius: 10px; padding: 12px 14px; background: #fff; }
+  .sf-reviews__form textarea { min-height: 110px; }
+  .sf-reviews__form .button { width: fit-content; }
+  .sf-reviews__note { margin-top: 28px; font-weight: 700; }
   @media (max-width: 800px) { .sf-reviews__grid { grid-template-columns: 1fr; } }
 {% endstylesheet %}
 

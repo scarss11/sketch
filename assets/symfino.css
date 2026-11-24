@@ -1,5 +1,6 @@
-      .sy .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 13px; font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #1c1c1c; }
-      .sy .announce span { display: inline-flex; align-items: flex-start; justify-content: center; gap: 8px; max-width: 100%; }
+      .sy .announce { margin: 0; background: #111; color: #e8e8e8; display: flex; justify-content: center; align-items: center; gap: clamp(6px, 1.6vw, 22px); flex-wrap: nowrap; overflow: hidden; font-size: clamp(10px, 2.55vw, 13px); font-weight: 500; padding: 8px 8px; border-bottom: 1px solid #1c1c1c; white-space: nowrap; scrollbar-width: none; }
+      .sy .announce::-webkit-scrollbar { display: none; }
+      .sy .announce span { display: inline-flex; align-items: center; gap: 8px; flex: none; }
       .sy .announce svg { flex: none; margin-top: 1px; }
       .sy .site-header { background: #fff; color: var(--ink); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #f0ece7; }
       .sy .bar { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 72px; width: min(1180px, calc(100% - 40px)); margin: 0 auto; position: relative; }
@@ -83,7 +84,7 @@
       .sy .living h2, .sy .cta h2, .sy .living p, .sy .cta p { color: #fff; }
       .sy .cta .button { margin-top: 18px; }
       .sy .section-title { margin: 0 0 28px; text-align: center; font-size: clamp(28px, 3vw, 36px); font-weight: 800; letter-spacing: -.03em; }
-      .sy .feats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding-bottom: 48px; }
+      .sy .feats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding-bottom: 48px; }
       .sy .feats article { text-align: center; padding: 22px 14px; border: 1px solid rgba(20, 20, 20, .1); border-radius: 16px; background: #fff; }
       .sy .feats .mark { width: 36px; height: 36px; margin: 0 auto 8px; }
       .sy .feats h2 { margin: 0; font-size: 15px; font-weight: 700; }
@@ -126,8 +127,6 @@
       .sy .site-footer .logo img { height: 30px; filter: brightness(0) invert(1); }
       .sy .copy { text-align: center; color: #9a9a9a; font-size: 13px; margin: 28px 0 0; }
       @media (max-width: 800px) {
-        .sy .announce { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-        .sy .announce span { width: min(100%, 280px); }
         .sy .hero { min-height: 420px; aspect-ratio: auto; height: min(600px, calc(100vh - 220px)); height: min(600px, calc(100svh - 200px)); align-items: flex-end; }
         .sy .hero img { object-position: center 6%; }
         .sy .hero::after { background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.45) 68%, rgba(0,0,0,.82) 100%); }
@@ -159,7 +158,6 @@
       }
       @media (max-width: 560px) {
         .sy .perks, .sy .feats, .sy .foot { grid-template-columns: 1fr; }
-        .sy .announce { gap: 8px 16px; font-size: 12px; }
       }
 /* Symfino — diseño de la tienda (header, footer e inicio) */
 :root { --ink: #141414; --muted: #5e656e; --bg: #f7f4ef; --line: #e7e2db; --teal: #14b8a6; --black: #111111; }
@@ -179,7 +177,7 @@ body { background: var(--bg); }
 .sy .loop label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .sy .loop form { position: relative; }
 .sy .loop .form-message { position: absolute; left: 0; right: 0; top: calc(100% + 10px); margin: 0; text-align: center; color: var(--muted); }
-.sy .review-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; text-align: left; }
+.sy .review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; text-align: left; }
 .sy .review-grid article { background: #f3f0eb; border-radius: 16px; padding: 24px 20px; }
 .sy .review-grid .stars { margin: 0 0 10px; letter-spacing: .08em; }
 .sy .review-grid p { margin: 0; }

@@ -33,6 +33,23 @@
     </div>
   </div>
 
+  <div class="page-width sf-pdp__extra">
+    <h2>Key Features</h2>
+    <div class="sf-pdp__feats">
+      <article><h3>Fall Detection</h3><p>Identifies potential falls in real time</p></article>
+      <article><h3>Bathroom Use</h3><p>Tracks extended or frequent use</p></article>
+      <article><h3>Activity Changes</h3><p>Alerts on significant routine changes</p></article>
+    </div>
+    <h2>Watch How Symfino One Works</h2>
+    <video src="{{ 'symfino-home.mp4' | asset_url }}" width="1024" height="576" autoplay muted loop playsinline preload="metadata" aria-label="Symfino One in the home"></video>
+    <h2>Fits Seamlessly Into Your Home</h2>
+    <div class="sf-pdp__rooms">
+      <figure><img src="{{ 'symfino-room-bedroom.jpg' | asset_url }}" width="1024" height="571" alt="A bedroom."><figcaption>Bedroom</figcaption></figure>
+      <figure><img src="{{ 'symfino-room-living.jpg' | asset_url }}" width="1024" height="571" alt="A living room."><figcaption>Living Room</figcaption></figure>
+      <figure><img src="{{ 'symfino-room-bathroom.jpg' | asset_url }}" width="1024" height="571" alt="A bathroom."><figcaption>Bathroom</figcaption></figure>
+    </div>
+  </div>
+
   <div class="sf-pdp__fit">
     <div class="page-width sf-pdp__split">
       <div>
@@ -68,12 +85,21 @@
   .sf-pdp__three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
   .sf-pdp__three h2 { font-size: 22px; }
   .sf-note { font-weight: 600; }
+  .sf-pdp__extra { padding-top: 8px; }
+  .sf-pdp__extra h2 { margin-top: 36px; }
+  .sf-pdp__feats, .sf-pdp__rooms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .sf-pdp__feats article { text-align: center; padding: 22px 14px; border: 1px solid var(--color-border); border-radius: 16px; background: #fff; }
+  .sf-pdp__feats h3 { margin: 0 0 6px; font-size: 15px; color: var(--color-text); }
+  .sf-pdp__extra video { width: 100%; height: 320px; object-fit: cover; background: #111; }
+  .sf-pdp__rooms figure { margin: 0; position: relative; }
+  .sf-pdp__rooms img { height: 210px; object-fit: cover; border-radius: 0; }
+  .sf-pdp__rooms figcaption { position: absolute; left: 10px; right: 10px; bottom: 10px; background: rgba(255,255,255,.92); border-radius: 10px; text-align: center; font-weight: 700; padding: 8px; color: var(--color-text); }
   .sf-pdp__fit { background: var(--color-dark); color: var(--color-dark-text); }
   .sf-pdp__fit p, .sf-pdp__fit li { color: var(--color-dark-text); }
   .sf-pdp__fit h2 { color: #fff; }
   .sf-pdp__fit .button { background: #fff; color: var(--color-text); border-color: #fff; }
   @media (max-width: 800px) {
-    .sf-pdp__split, .sf-pdp__three { grid-template-columns: 1fr; }
+    .sf-pdp__split, .sf-pdp__three, .sf-pdp__feats, .sf-pdp__rooms { grid-template-columns: 1fr; }
   }
 {% endstylesheet %}
 

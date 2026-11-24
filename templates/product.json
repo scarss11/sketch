@@ -2,7 +2,14 @@
   "sections": {
     "main": { "type": "main-product", "settings": {} },
     "story": { "type": "symfino-pdp", "settings": {} },
-    "reviews": { "type": "symfino-reviews", "blocks": {}, "block_order": [] },
+    "reviews": {
+      "type": "symfino-reviews",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "rating": 5, "author": "Andrea L.", "quote": "We set it on a shelf in the living room. No camera, nothing to wear, and the phone alert was easy to understand." } },
+        "r2": { "type": "review", "settings": { "rating": 5, "author": "James P.", "quote": "Setup took a few minutes. It stays out of the way and the app shows when something unusual happens." } }
+      },
+      "block_order": ["r1", "r2"]
+    },
     "faq": {
       "type": "symfino-faq",
       "blocks": {
